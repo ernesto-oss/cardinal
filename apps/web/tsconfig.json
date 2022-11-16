@@ -1,0 +1,11 @@
+{
+  "extends": "@acme/config/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@/utils/*": ["utils/*"]
+    }    
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../../codegen.ts"],
+  "exclude": ["node_modules"]
+}
