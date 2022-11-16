@@ -1,0 +1,29 @@
+{
+  "name": "cardinal",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen.ts",
+    "codegen:watch": "graphql-codegen --config codegen.ts --watch" ,
+    "db-generate": "turbo db-generate",
+    "db-push": "turbo db-push",
+    "build": "turbo build",
+    "dev": "turbo dev --parallel & pnpm codegen:watch",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.13.3",
+    "@graphql-codegen/client-preset": "^1.0.2",
+    "@types/node": "^17.0.12",
+    "rimraf": "latest",
+    "prettier": "latest",
+    "turbo": "latest"
+  },
+  "dependencies": {},
+  "packageManager": "pnpm@7.13.6"
+}
