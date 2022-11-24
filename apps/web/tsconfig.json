@@ -1,11 +1,19 @@
 {
-  "extends": "@acme/config/tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@/utils/*": ["utils/*"]
-    }    
+      "@/utils/*": ["utils/*"],
+      "@/styles/*": ["styles/*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../../codegen.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "../../codegen.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.cjs",
+    "**/*.mjs"
+  ],
+  "exclude": []
 }

@@ -22,8 +22,12 @@
     "@graphql-codegen/cli": "^2.13.3",
     "@graphql-codegen/client-preset": "^1.0.2",
     "@types/node": "latest",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
     "concurrently": "^7.5.0",
+    "eslint": "7.32.0",
     "prettier": "latest",
+    "prettier-plugin-tailwindcss": "^0.1.13",
     "rimraf": "latest",
     "turbo": "latest"
   },

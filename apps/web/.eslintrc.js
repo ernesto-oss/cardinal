@@ -1,4 +1,6 @@
+/** @type {import("eslint").Linter.Config} */
 module.exports = {
-  root: true,
-  extends: ["custom"],
+  extends: ["../../.eslintrc.cjs", "next"],
+  /* Ignore artifacts from codegen */
+  ignorePatterns: ["fragment-masking.ts"]
 };
