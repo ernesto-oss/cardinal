@@ -3,9 +3,9 @@
 
 
 type Post {
-  content: String
-  id: ID
-  title: String
+  content: String!
+  id: ID!
+  title: String!
 }
 
 type Query {
