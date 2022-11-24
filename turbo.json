@@ -7,6 +7,9 @@
     "db-generate": {
       "cache": false
     },
+    "db-seed": {
+      "cache": false
+    },
     "dev": {
       "dependsOn": ["^db-generate"],
       "cache": false
