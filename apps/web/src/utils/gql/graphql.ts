@@ -16,20 +16,20 @@ export type Scalars = {
 
 export type Post = {
   __typename?: 'Post';
-  content?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['ID']>;
-  title?: Maybe<Scalars['String']>;
+  content: Scalars['String'];
+  id: Scalars['ID'];
+  title: Scalars['String'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  posts?: Maybe<Array<Maybe<Post>>>;
+  posts: Array<Maybe<Post>>;
 };
 
 export type AllPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllPostsQuery = { __typename?: 'Query', posts?: Array<{ __typename?: 'Post', id?: string | null, title?: string | null, content?: string | null } | null> | null };
+export type AllPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, title: string, content: string } | null> };
 
 
 export const AllPostsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"allPosts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"posts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}}]} as unknown as DocumentNode<AllPostsQuery, AllPostsQueryVariables>;

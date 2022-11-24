@@ -12,7 +12,7 @@ export const postType = objectType({
 export const postQuery = extendType({
   type: "Query",
   definition(t) {
-    t.list.field("posts", {
+    t.nonNull.list.field("posts", {
       type: postType,
       resolve: async (_source, _args, ctx) => {
         const posts = await ctx.prisma.post.findMany();
