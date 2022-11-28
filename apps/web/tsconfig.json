@@ -4,7 +4,8 @@
     "baseUrl": "./src",
     "paths": {
       "@/utils/*": ["utils/*"],
-      "@/styles/*": ["styles/*"]
+      "@/styles/*": ["styles/*"],
+      "@/layouts/*": ["layouts/*"]
     }
   },
   "include": [
@@ -12,8 +13,6 @@
     "../../codegen.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.cjs",
-    "**/*.mjs"
   ],
   "exclude": []
 }
