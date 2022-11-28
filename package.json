@@ -7,16 +7,17 @@
     "packages/*"
   ],
   "scripts": {
+    "clean": "rimraf node_modules pnpm-lock.yaml",
     "codegen": "graphql-codegen --config codegen.ts",
     "codegen:watch": "graphql-codegen -e --config codegen.ts",
     "db-generate": "turbo db-generate",
     "db-push": "turbo db-push",
     "db-seed": "turbo db-seed",
     "build": "turbo build",
-    "dev": "turbo dev --parallel & pnpm codegen:watch",
-    "start": "concurrently --names turbo,codegen \"turbo dev --parallel\" \"pnpm codegen:watch\"",
+    "dev": "turbo dev --parallel",
+    "dev:codegen": "concurrently --names TURBOREPO,CODEGEN -c \"bgMagenta,bgCyan\" \"turbo dev --parallel\" \"pnpm codegen:watch\"",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{js,mjs,cjs,jsx,ts,tsx,md}\""
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.13.3",
