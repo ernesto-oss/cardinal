@@ -1,0 +1,11 @@
+# Dependencies
+node_modules
+
+# Next.js
+.next
+
+# TurboRepo
+.turbo
+
+# Build artifacts
+dist
