@@ -14,17 +14,18 @@ const allPostsQueryDocument = graphql(`
   }
 `);
 
-const ApiTest: NextPage= () => {
+const ApiTest: NextPage = () => {
   const {
     data: postsQuery,
     isLoading,
     isError,
-  } = useQuery(["posts"], async () =>
-    request(getGraphqlUrl(), allPostsQueryDocument),
+  } = useQuery(
+    ["posts"],
+    async () => request(getGraphqlUrl(), allPostsQueryDocument),
     {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
-    }    
+    },
   );
 
   if (isLoading) {

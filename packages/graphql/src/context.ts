@@ -6,5 +6,5 @@ export type Context = {
 };
 
 export const context = {
-  prisma
-}
+  prisma,
+};

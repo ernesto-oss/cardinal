@@ -85,5 +85,3 @@ Sure. The community over at [t3-oss](https://github.com/t3-oss) has some really 
 Built with ❤ by Ernesto Resende.
 
 Licensed under the [MIT license](https://github.com/ernestoresende/cardinal/blob/main/LICENSE.md).
-
-

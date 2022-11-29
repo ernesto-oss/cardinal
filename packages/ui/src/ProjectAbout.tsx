@@ -3,13 +3,13 @@ import { ProjectDirectoryIllustration } from "./assets/ProjectDirectory";
 
 export const ProjectAbout: React.FC = () => {
   return (
-    <section className="font-default px-8 flex items-center justify-center">
-      <div className="max-w-2xl w-full flex gap-2 justify-center items-center">
+    <section className="font-default flex items-center justify-center px-8">
+      <div className="flex w-full max-w-2xl items-center justify-center gap-2">
         <div className="w-full">
-          <h1 className="pb-8 tracking-tight font-extrabold text-4xl text-slate-900">
+          <h1 className="pb-8 text-4xl font-extrabold tracking-tight text-slate-900">
             What's going on here?
           </h1>
-          <p className="text-base leading-7 pb-8 text-gray-600">
+          <p className="pb-8 text-base leading-7 text-gray-600">
             This is a relatively opinionated template for a monorepo project
             structure that uses a Next.js in conjunction with TurboRepo as a
             build tool. The GraphQL endpoint is served from your main

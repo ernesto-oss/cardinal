@@ -3,10 +3,10 @@ import { IoLogoGithub } from "react-icons/io";
 
 export const HomeHero: React.FC = () => {
   return (
-    <main className="font-default px-8 pb-48 flex justify-center items-center">
-      <div className="max-w-2xl w-full">
+    <main className="font-default flex items-center justify-center px-8 pb-48">
+      <div className="w-full max-w-2xl">
         <div className="pb-10">
-          <h1 className="tracking-tight font-extrabold text-center text-6xl text-slate-900">
+          <h1 className="text-center text-6xl font-extrabold tracking-tight text-slate-900">
             A monorepo template for full-stack applications with{" "}
             <span className="text-purple-600">Next.js</span> and{" "}
             <span className="text-eletric-pink">GraphQL</span>
@@ -23,7 +23,7 @@ export const HomeHero: React.FC = () => {
         <div className="flex items-center justify-center">
           <a
             href="https://github.com/ernestoresende/cardinal"
-            className="flex justify-center gap-2 cursor-pointer py-2 px-5 rounded-md bg-slate-800/10 hover:bg-slate-800/20 text-slate-900 bold font-semibold transition duration-100"
+            className="bold flex cursor-pointer justify-center gap-2 rounded-md bg-slate-800/10 py-2 px-5 font-semibold text-slate-900 transition duration-100 hover:bg-slate-800/20"
           >
             <IoLogoGithub className="h-6 w-6" />
             See on GitHub

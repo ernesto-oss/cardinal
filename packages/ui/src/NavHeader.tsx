@@ -13,14 +13,14 @@ export const NavHeader: React.FC = () => {
       })}
     >
       {/* Backdrop blur layer */}
-      <div className="relative flex items-center justify-center px-8 h-14 backdrop-blur-xl">
+      <div className="relative flex h-14 items-center justify-center px-8 backdrop-blur-xl">
         {/* Container layer for the navigation */}
-        <div className="max-w-2xl w-full h-full border-light-slate/10 border-b flex justify-between items-center">
+        <div className="border-light-slate/10 flex h-full w-full max-w-2xl items-center justify-between border-b">
           {/* Left align portion of the NavBar */}
           <div className="flex items-center justify-center gap-16">
             {/* Navigation links */}
             <CardinalLogo className="h-4" />
-            <ul className="flex gap-8 text-slate-800 text-sm font-default font-semibold">
+            <ul className="font-default flex gap-8 text-sm font-semibold text-slate-800">
               <li>
                 <a href="#">Features</a>
               </li>
@@ -33,7 +33,7 @@ export const NavHeader: React.FC = () => {
           <div>
             <a
               href="https://github.com/ernestoresende/cardinal"
-              className="cursor-pointer py-2 px-4 rounded-md bg-slate-800/10 hover:bg-slate-800/20 text-slate-900 text-sm font-semibold transition duration-100"
+              className="cursor-pointer rounded-md bg-slate-800/10 py-2 px-4 text-sm font-semibold text-slate-900 transition duration-100 hover:bg-slate-800/20"
             >
               Login
             </a>
