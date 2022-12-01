@@ -1,4 +1,6 @@
 import { ApolloServer } from "@apollo/server";
+import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
+import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { NextApiResponse, NextApiRequest } from "next";
 import { schema, context } from "@acme/graphql";
@@ -6,6 +8,11 @@ import { schema, context } from "@acme/graphql";
 const isDevelopment = process.env.NODE_ENV === "development";
 
 export const apolloServer = new ApolloServer({
+  plugins: [
+    isDevelopment
+      ? ApolloServerPluginLandingPageLocalDefault()
+      : ApolloServerPluginLandingPageDisabled(),
+  ],
   introspection: isDevelopment ? true : false,
   csrfPrevention: isDevelopment ? true : false,
   schema,
