@@ -3,7 +3,7 @@ import { ProjectDirectoryIllustration } from "./assets/ProjectDirectory";
 
 export const ProjectAbout: React.FC = () => {
   return (
-    <section className="font-default flex items-center justify-center px-8">
+    <section className="font-default flex items-center justify-center px-8 pb-48">
       <div className="flex w-full max-w-2xl items-center justify-center gap-2">
         <div className="w-full">
           <h1 className="pb-8 text-4xl font-extrabold tracking-tight text-slate-900">
