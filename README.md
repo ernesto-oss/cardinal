@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ernestoresende/cardinal/main/apps/web/public/assets/cardinal_logo.png" alt="Logo for Cardinal" width="300" />
+  <img src="https://raw.githubusercontent.com/ernestoresende/cardinal/main/apps/web/public/assets/cardinal_logo.svg" alt="Logo for Cardinal" width="300" />
 </p>
 
 <p align="center">
