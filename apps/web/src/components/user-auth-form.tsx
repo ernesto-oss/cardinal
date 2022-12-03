@@ -7,7 +7,7 @@ import {
   IoLogoGoogle as Google,
 } from "react-icons/io5";
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>
 
 // TODO: Implement correct input field validation
 export const UserAuthForm: React.FC<UserAuthFormProps> = ({
