@@ -3,7 +3,7 @@ const config = {
   reactStrictMode: true,
   experimental: {
     swcMinify: true,
-    transpilePackages: ["@acme/database"],
+    transpilePackages: ["@acme/database", "@acme/auth"],
   },
 };
 
