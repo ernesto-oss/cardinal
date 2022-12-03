@@ -5,14 +5,10 @@
     "paths": {
       "@/utils/*": ["utils/*"],
       "@/styles/*": ["styles/*"],
-      "@/layouts/*": ["layouts/*"]
+      "@/layouts/*": ["layouts/*"],
+      "@/components/*": ["components/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "../../codegen.ts",
-    "**/*.ts",
-    "**/*.tsx",
-  ],
+  "include": ["next-env.d.ts", "../../codegen.ts", "**/*.ts", "**/*.tsx"],
   "exclude": []
 }
