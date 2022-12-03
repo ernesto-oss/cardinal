@@ -19,8 +19,17 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     }),
     EmailProvider({
-      server: process.env.EMAIL_SERVER as string,
+      // server: process.env.EMAIL_SERVER as string,
+      // from: process.env.EMAIL_FROM as string,
       from: process.env.EMAIL_FROM as string,
+      server: {
+        host: process.env.EMAIL_SMTP_HOST as string,
+        port: process.env.EMAIL_SMTP_PORT as string,
+        auth: {
+          user: process.env.EMAIL_SMTP_USER as string,
+          pass: process.env.EMAIL_SMTP_PASSWORD as string,
+        },
+      },
     }),
     // ...add more providers here
   ],
