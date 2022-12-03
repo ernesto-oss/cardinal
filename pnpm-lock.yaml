@@ -44,15 +44,19 @@ importers:
       '@types/react': ^18.0.22
       '@types/react-dom': ^18.0.7
       autoprefixer: ^10.4.13
+      clsx: ^1.2.1
       eslint: 7.32.0
       eslint-config-next: ^13.0.5
       graphql-request: ^5.0.0
+      lodash.merge: ^4.6.2
       next: ^13.0.5
       next-auth: ^4.17.0
       nexus: ^1.3.0
+      nodemailer: ^6.8.0
       postcss: ^8.4.19
       react: ^18.2.0
       react-dom: ^18.2.0
+      react-icons: ^4.6.0
       tailwindcss: ^3.2.4
       typescript: ^4.9.3
     dependencies:
@@ -65,7 +69,7 @@ importers:
       '@tanstack/react-query': 4.18.0_biqbaboplfbrettd7655fr4n2y
       graphql-request: 5.0.0_graphql@16.6.0
       next: 13.0.5_672uxklweod7ene3nqtsh262ca
-      next-auth: 4.17.0_7iuvftg57tblwyxclfkwku5xo4
+      next-auth: 4.17.0_2xoejpawkzgot77rbv5mbik6ve
       nexus: 1.3.0_graphql@16.6.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -77,9 +81,13 @@ importers:
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9
       autoprefixer: 10.4.13_postcss@8.4.19
+      clsx: 1.2.1
       eslint: 7.32.0
       eslint-config-next: 13.0.5_77fvizpdb3y4icyeo2mf4eo7em
+      lodash.merge: 4.6.2
+      nodemailer: 6.8.0
       postcss: 8.4.19
+      react-icons: 4.7.1_react@18.2.0
       tailwindcss: 3.2.4_postcss@8.4.19
       typescript: 4.9.3
 
@@ -5140,6 +5148,33 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /next-auth/4.17.0_2xoejpawkzgot77rbv5mbik6ve:
+    resolution: {integrity: sha512-aN2tdnjS0MDeUpB2tBDOaWnegkgeMWrsccujbXRGMJ607b+EwRcy63MFGSr0OAboDJEe0902piXQkt94GqF8Qw==}
+    engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.12.0}
+    peerDependencies:
+      next: ^12.2.5 || ^13
+      nodemailer: ^6.6.5
+      react: ^17.0.2 || ^18
+      react-dom: ^17.0.2 || ^18
+    peerDependenciesMeta:
+      nodemailer:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.20.6
+      '@panva/hkdf': 1.0.2
+      cookie: 0.5.0
+      jose: 4.11.1
+      next: 13.0.5_672uxklweod7ene3nqtsh262ca
+      nodemailer: 6.8.0
+      oauth: 0.9.15
+      openid-client: 5.3.1
+      preact: 10.11.3
+      preact-render-to-string: 5.2.6_preact@10.11.3
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      uuid: 8.3.2
+    dev: false
+
   /next-auth/4.17.0_7iuvftg57tblwyxclfkwku5xo4:
     resolution: {integrity: sha512-aN2tdnjS0MDeUpB2tBDOaWnegkgeMWrsccujbXRGMJ607b+EwRcy63MFGSr0OAboDJEe0902piXQkt94GqF8Qw==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.12.0}
@@ -5298,6 +5333,10 @@ packages:
 
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
+
+  /nodemailer/6.8.0:
+    resolution: {integrity: sha512-EjYvSmHzekz6VNkNd12aUqAco+bOkRe3Of5jVhltqKhEsjw/y0PYPJfp83+s9Wzh1dspYAkUW/YNQ350NATbSQ==}
+    engines: {node: '>=6.0.0'}
 
   /normalize-path/2.1.1:
     resolution: {integrity: sha512-3pKJwH184Xo/lnH6oyP1q2pMd7HcypqqmRs91/6/i2CGtWwIKGCkOOMTm/zXbgTEWHw1uNpNi/igc3ePOYHb6w==}
