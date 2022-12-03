@@ -22,8 +22,10 @@ export const HomeHero: React.FC = () => {
         </div>
         <div className="flex items-center justify-center">
           <a
+            target="_blank"
+            rel="noopener noreferrer"
             href="https://github.com/ernestoresende/cardinal"
-            className="bold flex cursor-pointer justify-center gap-2 rounded-md bg-slate-800/10 py-2 px-5 font-semibold text-slate-900 transition duration-100 hover:bg-slate-800/20"
+            className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-slate-800/10 py-2 px-4 text-sm font-semibold text-slate-900 transition duration-100 hover:bg-slate-800/20 focus:outline-none focus:ring-2 focus:ring-slate-300"
           >
             <IoLogoGithub className="h-6 w-6" />
             See on GitHub
