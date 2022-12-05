@@ -17,17 +17,9 @@ export const LoginLayout: React.FC<{
       <div className="mx-auto flex w-full flex-col items-center justify-center space-y-6">
         <div className="flex w-96 flex-col rounded-md border border-gray-200 py-5 px-6 shadow-lg shadow-slate-200/50">
           <div className="pb-4">
-            <h1 className="pb-1 text-2xl font-bold tracking-tight">Sign in</h1>
-            <p className="text-sm text-gray-600">
-              New to Cardinal?{" "}
-              <Link
-                href="/signup"
-                className="text-sm font-medium text-eletric-pink"
-              >
-                Sign up for a new account
-              </Link>
-              .
-            </p>
+            <h1 className="pb-1 text-2xl font-bold tracking-tight">
+              Welcome to Cardinal
+            </h1>
           </div>
           {children}
           <span className="text-xs text-slate-500">
