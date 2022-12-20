@@ -22,10 +22,16 @@ export const NavHeader: React.FC = () => {
             <CardinalLogo className="h-4" />
             <ul className="font-default flex gap-8 text-sm font-semibold text-slate-800">
               <li>
-                <a href="#">Features</a>
+                <a href="#features">Features</a>
               </li>
               <li>
-                <a href="#">Docs</a>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://github.com/ernestoresende/cardinal"
+                >
+                  Docs
+                </a>
               </li>
             </ul>
           </div>
