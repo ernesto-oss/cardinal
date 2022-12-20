@@ -9,7 +9,7 @@ export type TitleAndMetaTagProps = {
 };
 
 export function TitleAndMetaTags({
-  title = "Cardinal | Open-source template for Next.js + GraphQL",
+  title = "Cardinal",
   description = "An open-source template for full-stack application projects built with TurboRepo, Next.js and GraphQL configured with built-in sane defaults for database, auth and typesafety for GraphQL queries.",
   pathName,
 }: TitleAndMetaTagProps) {
