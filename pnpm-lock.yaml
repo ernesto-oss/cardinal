@@ -61,6 +61,7 @@ importers:
       typescript: ^4.9.3
       zod: ^3.19.1
       zod-form-data: ^1.2.4
+      zustand: ^4.1.5
     dependencies:
       '@acme/auth': link:../../packages/auth
       '@acme/graphql': link:../../packages/graphql
@@ -94,6 +95,7 @@ importers:
       typescript: 4.9.3
       zod: 3.19.1
       zod-form-data: 1.2.4_zod@3.19.1
+      zustand: 4.1.5_react@18.2.0
 
   packages/auth:
     specifiers:
@@ -6912,7 +6914,6 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
-    dev: false
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -7156,4 +7157,20 @@ packages:
 
   /zod/3.19.1:
     resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
+    dev: true
+
+  /zustand/4.1.5_react@18.2.0:
+    resolution: {integrity: sha512-PsdRT8Bvq22Yyh1tvpgdHNE7OAeFKqJXUxtJvj1Ixw2B9O2YZ1M34ImQ+xyZah4wZrR4lENMoDUutKPpyXCQ/Q==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
     dev: true
