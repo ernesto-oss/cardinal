@@ -3,11 +3,30 @@ import { signIn } from "next-auth/react";
 import { clsx } from "clsx";
 import { z } from "zod";
 import { zfd } from "zod-form-data";
-
+import create from "zustand";
+import { persist } from "zustand/middleware";
 import {
   IoLogoGithub as Github,
   IoLogoGoogle as Google,
 } from "react-icons/io5";
+
+interface EmailState {
+  email: string;
+  addEmail: (email: string) => void;
+}
+
+export const useEmailStore = create<EmailState>()(
+  persist(
+    (set) => ({
+      email: "",
+      addEmail: (email: string) => set({ email }),
+      removeEmail: () => set({ email: "" }),
+    }),
+    {
+      name: "email-login-persist",
+    },
+  ),
+);
 
 const checkAuthEmail = zfd.formData({
   email: zfd.text(z.string().email()),
@@ -22,6 +41,7 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({
 }) => {
   const [errors, setErrors] = React.useState<ValidationErrors>();
   const [disableForm, setDisableForm] = React.useState<boolean>(false);
+  const addEmailState = useEmailStore((state) => state.addEmail);
 
   const handleEmailSignIn = (data: FormData) => {
     const result = checkAuthEmail.safeParse(data);
@@ -31,8 +51,12 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({
     } else {
       setErrors(undefined);
       setDisableForm(true);
-      const email = data.get("email");
-      signIn("email", { email, callbackUrl: "/dashboard" });
+      const email = data.get("email") as string;
+
+      if (email) {
+        addEmailState(email);
+        signIn("email", { email, callbackUrl: "/dashboard" });
+      }
     }
   };
 
@@ -80,7 +104,7 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({
           <button
             disabled={disableForm}
             type="submit"
-            className="w-full cursor-pointer rounded-md bg-slate-800/10 py-2 px-4 text-sm font-semibold text-slate-900 transition duration-100 hover:bg-slate-800/20 focus:outline-none focus:ring-2 focus:ring-slate-300 disabled:cursor-not-allowed disabled:hover:bg-slate-800/10 disabled:opacity-80"
+            className="w-full cursor-pointer rounded-md bg-slate-800/10 py-2 px-4 text-sm font-semibold text-slate-900 transition duration-100 hover:bg-slate-800/20 focus:outline-none focus:ring-2 focus:ring-slate-300 disabled:cursor-not-allowed disabled:opacity-80 disabled:hover:bg-slate-800/10"
           >
             Sign In
           </button>
@@ -100,7 +124,7 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({
         <button
           disabled={disableForm}
           type="button"
-          className="inline-flex w-full items-center justify-center gap-1 rounded-lg border bg-white px-5 py-2.5 text-center text-sm font-medium text-slate-900 transition duration-100 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300 disabled:cursor-not-allowed disabled:hover:bg-white disabled:opacity-80"
+          className="inline-flex w-full items-center justify-center gap-1 rounded-lg border bg-white px-5 py-2.5 text-center text-sm font-medium text-slate-900 transition duration-100 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300 disabled:cursor-not-allowed disabled:opacity-80 disabled:hover:bg-white"
           onClick={() => handleOAuthSignIn("google")}
         >
           <Google className="h-5 w-5" />
@@ -109,7 +133,7 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({
         <button
           disabled={disableForm}
           type="button"
-          className="inline-flex w-full items-center justify-center gap-1 rounded-lg border bg-white px-5 py-2.5 text-center text-sm font-medium text-slate-900 transition duration-100 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300 disabled:cursor-not-allowed disabled:hover:bg-white disabled:opacity-80"
+          className="inline-flex w-full items-center justify-center gap-1 rounded-lg border bg-white px-5 py-2.5 text-center text-sm font-medium text-slate-900 transition duration-100 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300 disabled:cursor-not-allowed disabled:opacity-80 disabled:hover:bg-white"
           onClick={() => handleOAuthSignIn("github")}
         >
           <Github className="h-5 w-5" />

@@ -9,6 +9,10 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
+  pages: {
+    signIn: "auth/signin",
+    verifyRequest: "/auth/verify-request",
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -19,8 +23,6 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     }),
     EmailProvider({
-      // server: process.env.EMAIL_SERVER as string,
-      // from: process.env.EMAIL_FROM as string,
       from: process.env.EMAIL_FROM as string,
       server: {
         host: process.env.EMAIL_SMTP_HOST as string,
