@@ -5,7 +5,7 @@ export const config = {
   runtime: "experimental-edge",
 };
 
-export default async function handler(req: NextRequest) {
+export default async function handler() {
   const interRegular = fetch(
     new URL("../../assets/fonts/Inter-Regular.ttf", import.meta.url),
   ).then((res) => res.arrayBuffer());
