@@ -18,7 +18,7 @@ export const ProjectFeatures: React.FC = () => {
           ecosystem.
         </p>
 
-        <div className="grid grid-cols-2 gap-5">
+        <div className="flex flex-col sm:grid grid-cols-2 gap-5">
           <ProjectCard
             title="Next.js 13"
             description="Updated to the latest Next version and leveraging API routes for the GraphQL endpoint"
