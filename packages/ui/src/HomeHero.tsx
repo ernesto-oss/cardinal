@@ -1,4 +1,5 @@
 import * as React from "react";
+import Balancer from "react-wrap-balancer";
 import { IoLogoGithub } from "react-icons/io";
 
 export const HomeHero: React.FC = () => {
@@ -6,18 +7,22 @@ export const HomeHero: React.FC = () => {
     <main className="font-default flex items-center justify-center px-8 pb-48">
       <div className="w-full max-w-2xl">
         <div className="pb-10">
-          <h1 className="text-center text-6xl font-extrabold tracking-tight text-slate-900">
-            A monorepo template for full-stack applications with{" "}
-            <span className="text-purple-600">Next.js</span> and{" "}
-            <span className="text-eletric-pink">GraphQL</span>
+          <h1 className="sm:text-6xl text-center text-4xl font-extrabold tracking-tight text-slate-900">
+            <Balancer>
+              A monorepo template for full-stack applications with{" "}
+              <span className="text-purple-600">Next.js</span> and{" "}
+              <span className="text-eletric-pink">GraphQL</span>
+            </Balancer>
           </h1>
         </div>
         <div className="pb-16">
           <p className="text-center text-base leading-8 text-gray-600">
-            Cardinal is an open-source template for full-stack application
-            projects built with <b>TurboRepo</b>, <b>Next.js</b> and{" "}
-            <b>GraphQL</b> configured with built-in sane defaults for database,
-            auth and typesafety for GraphQL queries.
+            <Balancer>
+              Cardinal is an open-source template for full-stack application
+              projects built with <b>TurboRepo</b>, <b>Next.js</b> and{" "}
+              <b>GraphQL</b> configured with built-in sane defaults for
+              database, auth and typesafety for GraphQL queries.
+            </Balancer>
           </p>
         </div>
         <div className="flex items-center justify-center">
