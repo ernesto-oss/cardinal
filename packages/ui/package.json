@@ -14,9 +14,10 @@
     "clean": "rimraf dist"
   },
   "devDependencies": {
-    "@acme/tailwind-config": "workspace:*",
     "@acme/auth": "workspace:*",
+    "@acme/tailwind-config": "workspace:*",
     "@radix-ui/react-avatar": "^1.0.1",
+    "@radix-ui/react-dropdown-menu": "^2.0.1",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "clsx": "^1.2.1",
@@ -25,6 +26,7 @@
     "next": "^13.0.5",
     "react": "^18.2.0",
     "react-icons": "^4.6.0",
+    "react-wrap-balancer": "^0.2.3",
     "tailwindcss": "^3.2.4",
     "tsup": "^6.5.0"
   }
