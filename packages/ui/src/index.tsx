@@ -4,4 +4,5 @@ export * from "./ProjectAbout";
 export * from "./ProjectCard";
 export * from "./ProjectFeatures";
 export * from "./LoginLayout";
-export * from './Avatar';
+export * from "./Avatar";
+export * from "./DropdownMenu";

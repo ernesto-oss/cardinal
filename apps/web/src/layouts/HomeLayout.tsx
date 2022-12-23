@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { NavHeader } from "@acme/ui";
 import BackgroundGradient from "@/assets/images/BackgroundGradient.png";
 
@@ -12,7 +12,11 @@ export const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
 
   return (
     <>
-      <NavHeader session={session} status={status} />
+      <NavHeader
+        session={session}
+        status={status}
+        handleSignOut={() => signOut({ callbackUrl: "/" })}
+      />
       <Image
         className="absolute top-0 -z-10"
         src={BackgroundGradient}

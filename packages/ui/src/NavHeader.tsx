@@ -1,15 +1,22 @@
 import * as React from "react";
-import { clsx } from "clsx";
-import { type Session } from "@acme/auth";
-import { CardinalLogo } from "./assets/CardinalLogo";
+import Link from "next/link";
+import { IoMenu } from "react-icons/io5";
 import { Avatar } from "./Avatar";
+import { DropdownMenu, DropdownItem, DropdownSeparator } from "./DropdownMenu";
+import { CardinalLogo } from "./assets/CardinalLogo";
+import { type Session } from "@acme/auth";
 
 type NavHeaderProps = {
   session?: Session | null;
   status: "loading" | "unauthenticated" | "authenticated" | undefined;
+  handleSignOut: () => Promise<undefined>;
 };
 
-export const NavHeader: React.FC<NavHeaderProps> = ({ session, status }) => {
+export const NavHeader: React.FC<NavHeaderProps> = ({
+  session,
+  status,
+  handleSignOut,
+}) => {
   const getAvatarFallback = (name?: string | null) => {
     if (name) {
       const splitName = name.split(" ");
@@ -19,24 +26,13 @@ export const NavHeader: React.FC<NavHeaderProps> = ({ session, status }) => {
     return "";
   };
 
-  const showBackgroundColor = false;
   return (
-    <nav
-      className={clsx({
-        "fixed z-50 w-full transition duration-500": true,
-        "bg-chinese-black/75": showBackgroundColor,
-        "bg-transparent": !showBackgroundColor,
-      })}
-    >
-      {/* Backdrop blur layer */}
+    <nav className="fixed z-50 w-full bg-transparent transition duration-500">
       <div className="relative flex h-14 items-center justify-center px-8 backdrop-blur-xl">
-        {/* Container layer for the navigation */}
         <div className="border-light-slate/10 flex h-full w-full max-w-2xl items-center justify-between border-b">
-          {/* Left align portion of the NavBar */}
           <div className="flex items-center justify-center gap-16">
-            {/* Navigation links */}
             <CardinalLogo className="h-4" />
-            <ul className="font-default flex gap-8 text-sm font-semibold text-slate-800">
+            <ul className="font-default hidden gap-8 text-sm font-semibold text-slate-800 sm:flex">
               <li>
                 <a href="#features">Features</a>
               </li>
@@ -52,7 +48,7 @@ export const NavHeader: React.FC<NavHeaderProps> = ({ session, status }) => {
             </ul>
           </div>
           {/* Right align portion of the navbar */}
-          <div>
+          <div className="flex gap-4 justify-center items-center">
             {status === "loading" && null}
             {status === "unauthenticated" && !session && (
               <a
@@ -63,12 +59,74 @@ export const NavHeader: React.FC<NavHeaderProps> = ({ session, status }) => {
               </a>
             )}
             {status === "authenticated" && session && (
-              <Avatar
-                image={session.user?.image}
-                imageAlt={`Avatar for ${session.user?.name}`}
-                fallback={`${getAvatarFallback(session.user?.name)}`}
-              />
+              <DropdownMenu
+                trigger={
+                  <button className="rounded-full">
+                    <Avatar
+                      image={session.user?.image}
+                      imageAlt={`Avatar for ${session.user?.name}`}
+                      fallback={`${getAvatarFallback(session.user?.name)}`}
+                    />
+                  </button>
+                }
+                modal={false}
+              >
+                <div className="py-3 px-4">
+                  <p className="text-base font-bold">{session.user?.name}</p>
+                  <p className="text-sm">{session.user?.email}</p>
+                </div>
+                <DropdownSeparator
+                  style={{ height: 1 }}
+                  className="w-full bg-slate-300/50"
+                />
+                <div className="h-full w-full">
+                  <DropdownItem
+                    asChild
+                    className="transition duration-100 hover:bg-slate-100 focus:bg-slate-100 focus:outline-none"
+                  >
+                    <Link
+                      href="/dashboard"
+                      className="block h-full w-full bg-transparent py-2 px-4 text-left text-sm text-slate-900"
+                    >
+                      Dashboard
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem
+                    asChild
+                    className="transition duration-100 hover:bg-slate-100 focus:bg-slate-100 focus:outline-none"
+                  >
+                    <Link
+                      href="/dashboard/settings"
+                      className="block h-full w-full bg-transparent py-2 px-4 text-left text-sm text-slate-900"
+                    >
+                      Settings
+                    </Link>
+                  </DropdownItem>
+                  <DropdownSeparator
+                    style={{ height: 1 }}
+                    className="w-full bg-slate-300/50"
+                  />
+                  <DropdownItem
+                    asChild
+                    className="transition duration-100 hover:bg-slate-100 focus:bg-slate-100 focus:outline-none"
+                  >
+                    <button
+                      className="w-full cursor-pointer bg-transparent py-2 px-4 text-left text-sm text-slate-900 transition duration-100 hover:bg-slate-100 focus:outline-none"
+                      onClick={handleSignOut}
+                    >
+                      Sign out
+                    </button>
+                  </DropdownItem>
+                </div>
+              </DropdownMenu>
             )}
+
+            {/* Mobile only view */}
+            <div className="block sm:hidden">
+              <button className="w-full h-full flex items-center justify-center">
+                <IoMenu className="h-7 w-7" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
