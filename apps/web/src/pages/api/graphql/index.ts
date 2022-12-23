@@ -4,6 +4,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { NextApiResponse, NextApiRequest } from "next";
 import { schema, context } from "@acme/graphql";
+import { getServerSession } from "@acme/auth";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
@@ -22,6 +23,7 @@ export default startServerAndCreateNextHandler(apolloServer, {
   context: async (req: NextApiRequest, res: NextApiResponse) => ({
     req,
     res,
+    session: await getServerSession(req, res),
     prisma: context.prisma,
   }),
 });
