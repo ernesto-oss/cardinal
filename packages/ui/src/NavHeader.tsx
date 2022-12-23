@@ -1,8 +1,24 @@
 import * as React from "react";
 import { clsx } from "clsx";
+import { type Session } from "@acme/auth";
 import { CardinalLogo } from "./assets/CardinalLogo";
+import { Avatar } from "./Avatar";
 
-export const NavHeader: React.FC = () => {
+type NavHeaderProps = {
+  session?: Session | null;
+  status: "loading" | "unauthenticated" | "authenticated" | undefined;
+};
+
+export const NavHeader: React.FC<NavHeaderProps> = ({ session, status }) => {
+  const getAvatarFallback = (name?: string | null) => {
+    if (name) {
+      const splitName = name.split(" ");
+      const stripedCharacters = splitName.map((word) => word.charAt(0));
+      return stripedCharacters.join("");
+    }
+    return "";
+  };
+
   const showBackgroundColor = false;
   return (
     <nav
@@ -37,12 +53,22 @@ export const NavHeader: React.FC = () => {
           </div>
           {/* Right align portion of the navbar */}
           <div>
-            <a
-              href="auth/signin"
-              className="cursor-pointer rounded-md bg-slate-800/10 py-2 px-4 text-sm font-semibold text-slate-900 transition duration-100 hover:bg-slate-800/20 focus:outline-none focus:ring-2 focus:ring-slate-300"
-            >
-              Login
-            </a>
+            {status === "loading" && null}
+            {status === "unauthenticated" && !session && (
+              <a
+                href="auth/signin"
+                className="cursor-pointer rounded-md bg-slate-800/10 py-2 px-4 text-sm font-semibold text-slate-900 transition duration-100 hover:bg-slate-800/20 focus:outline-none focus:ring-2 focus:ring-slate-300"
+              >
+                Login
+              </a>
+            )}
+            {status === "authenticated" && session && (
+              <Avatar
+                image={session.user?.image}
+                imageAlt={`Avatar for ${session.user?.name}`}
+                fallback={`${getAvatarFallback(session.user?.name)}`}
+              />
+            )}
           </div>
         </div>
       </div>
