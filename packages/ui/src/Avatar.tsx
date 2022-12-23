@@ -12,7 +12,6 @@ export const Avatar: React.FC<AvatarProps> = ({
   imageAlt,
   fallback,
 }) => {
-  console.log(image);
 
   return (
     <AvatarComponent.Root className="inline-flex h-9 w-9 select-none items-center justify-center overflow-hidden rounded-full bg-slate-500 align-middle">
