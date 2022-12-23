@@ -84,7 +84,7 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({
           <input
             id="email"
             placeholder="name@example.com"
-            className="block h-9 w-full rounded-md border border-slate-300 py-2 px-3 text-sm placeholder:text-slate-400 hover:border-slate-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-slate-300"
+            className="block h-9 w-full rounded-md border border-slate-300 py-4 px-3 text-base placeholder:text-slate-400 hover:border-slate-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-slate-300"
             type="email"
             autoCapitalize="none"
             autoComplete="email"
