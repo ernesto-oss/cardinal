@@ -12,6 +12,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@acme/auth": "workspace:*",
     "@acme/database": "workspace:*",
     "@types/node": "^17.0.12",
     "ts-node": "^10.9.1",
