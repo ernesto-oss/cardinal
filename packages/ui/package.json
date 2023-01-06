@@ -9,8 +9,8 @@
     "./styles.css": "./dist/styles.css"
   },
   "scripts": {
-    "build": "tsup src/index.tsx --format cjs --dts --external react && tailwindcss -i ./src/styles.css -o ./dist/styles.css",
-    "dev": "concurrently --no-color --names \"@acme/ui:build,tailwind\" \"tsup src/index.tsx --format cjs --dts --external react --watch\" \"tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch\"",
+    "build": "tsup index.tsx --format cjs --dts --external react && tailwindcss -i ./src/styles.css -o ./dist/styles.css",
+    "dev": "concurrently --no-color --names \"@acme/ui:build,tailwind\" \"tsup index.tsx --format cjs --dts --external react --watch\" \"tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch\"",
     "clean": "rimraf dist"
   },
   "devDependencies": {
