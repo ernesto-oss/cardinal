@@ -1,10 +1,9 @@
 import * as React from "react";
-import Link from "next/link";
 import { IoMenu } from "react-icons/io5";
-import { Avatar } from "./Avatar";
-import { DropdownMenu, DropdownItem, DropdownSeparator } from "./DropdownMenu";
-import { CardinalLogo } from "./assets/CardinalLogo";
 import { type Session } from "@acme/auth";
+
+import { UserDropdown } from "./UserDropdown";
+import { CardinalLogo } from "./assets/CardinalLogo";
 
 type NavHeaderProps = {
   session?: Session | null;
@@ -12,20 +11,11 @@ type NavHeaderProps = {
   handleSignOut: () => Promise<undefined>;
 };
 
-export const NavHeader: React.FC<NavHeaderProps> = ({
+const NavHeaderComponent: React.FC<NavHeaderProps> = ({
   session,
   status,
   handleSignOut,
 }) => {
-  const getAvatarFallback = (name?: string | null) => {
-    if (name) {
-      const splitName = name.split(" ");
-      const stripedCharacters = splitName.map((word) => word.charAt(0));
-      return stripedCharacters.join("");
-    }
-    return "";
-  };
-
   return (
     <nav className="fixed z-50 w-full bg-transparent transition duration-500">
       <div className="relative flex h-14 items-center justify-center px-8 backdrop-blur-xl">
@@ -48,7 +38,7 @@ export const NavHeader: React.FC<NavHeaderProps> = ({
             </ul>
           </div>
           {/* Right align portion of the navbar */}
-          <div className="flex gap-4 justify-center items-center">
+          <div className="flex items-center justify-center gap-4">
             {status === "loading" && null}
             {status === "unauthenticated" && !session && (
               <a
@@ -59,71 +49,11 @@ export const NavHeader: React.FC<NavHeaderProps> = ({
               </a>
             )}
             {status === "authenticated" && session && (
-              <DropdownMenu
-                trigger={
-                  <button className="rounded-full">
-                    <Avatar
-                      image={session.user?.image}
-                      imageAlt={`Avatar for ${session.user?.name}`}
-                      fallback={`${getAvatarFallback(session.user?.name)}`}
-                    />
-                  </button>
-                }
-                modal={false}
-              >
-                <div className="py-3 px-4">
-                  <p className="text-base font-bold">{session.user?.name}</p>
-                  <p className="text-sm">{session.user?.email}</p>
-                </div>
-                <DropdownSeparator
-                  style={{ height: 1 }}
-                  className="w-full bg-slate-300/50"
-                />
-                <div className="h-full w-full">
-                  <DropdownItem
-                    asChild
-                    className="transition duration-100 hover:bg-slate-100 focus:bg-slate-100 focus:outline-none"
-                  >
-                    <Link
-                      href="/dashboard"
-                      className="block h-full w-full bg-transparent py-2 px-4 text-left text-sm text-slate-900"
-                    >
-                      Dashboard
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem
-                    asChild
-                    className="transition duration-100 hover:bg-slate-100 focus:bg-slate-100 focus:outline-none"
-                  >
-                    <Link
-                      href="/dashboard/settings"
-                      className="block h-full w-full bg-transparent py-2 px-4 text-left text-sm text-slate-900"
-                    >
-                      Settings
-                    </Link>
-                  </DropdownItem>
-                  <DropdownSeparator
-                    style={{ height: 1 }}
-                    className="w-full bg-slate-300/50"
-                  />
-                  <DropdownItem
-                    asChild
-                    className="transition duration-100 hover:bg-slate-100 focus:bg-slate-100 focus:outline-none"
-                  >
-                    <button
-                      className="w-full cursor-pointer bg-transparent py-2 px-4 text-left text-sm text-slate-900 transition duration-100 hover:bg-slate-100 focus:outline-none"
-                      onClick={handleSignOut}
-                    >
-                      Sign out
-                    </button>
-                  </DropdownItem>
-                </div>
-              </DropdownMenu>
+              <UserDropdown session={session} handleSignOut={handleSignOut} />
             )}
-
             {/* Mobile only view */}
             <div className="block sm:hidden">
-              <button className="w-full h-full flex items-center justify-center">
+              <button className="flex h-full w-full items-center justify-center">
                 <IoMenu className="h-7 w-7" />
               </button>
             </div>
@@ -133,3 +63,5 @@ export const NavHeader: React.FC<NavHeaderProps> = ({
     </nav>
   );
 };
+
+export const NavHeader = React.memo(NavHeaderComponent);
