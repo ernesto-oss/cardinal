@@ -55,14 +55,14 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({
 
       if (email) {
         addEmailState(email);
-        signIn("email", { email, callbackUrl: "/dashboard" });
+        signIn("email", { email, callbackUrl: "/dashboard/posts" });
       }
     }
   };
 
   const handleOAuthSignIn = (provider: "google" | "github") => {
     setDisableForm(true);
-    signIn(provider, { callbackUrl: "/dashboard" });
+    signIn(provider, { callbackUrl: "/dashboard/posts" });
   };
 
   return (
