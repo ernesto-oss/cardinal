@@ -1,21 +1,13 @@
-import * as React from "react";
+import { memo } from "react";
+import Image from "next/image";
 import { IoMenu } from "react-icons/io5";
-import { type Session } from "@acme/auth";
+import { useSession, signOut } from "next-auth/react";
+import { CardinalLogo, UserDropdown } from "@acme/ui";
+import BackgroundGradient from "@/assets/images/BackgroundGradient.png";
 
-import { UserDropdown } from "./UserDropdown";
-import { CardinalLogo } from "./assets/CardinalLogo";
+const NavHeaderComponent: React.FC = ({}) => {
+  const { data: session, status } = useSession();
 
-type NavHeaderProps = {
-  session?: Session | null;
-  status: "loading" | "unauthenticated" | "authenticated" | undefined;
-  handleSignOut: () => Promise<undefined>;
-};
-
-const NavHeaderComponent: React.FC<NavHeaderProps> = ({
-  session,
-  status,
-  handleSignOut,
-}) => {
   return (
     <nav className="fixed z-50 w-full bg-transparent transition duration-500">
       <div className="relative flex h-14 items-center justify-center px-8 backdrop-blur-xl">
@@ -49,10 +41,13 @@ const NavHeaderComponent: React.FC<NavHeaderProps> = ({
               </a>
             )}
             {status === "authenticated" && session && (
-              <UserDropdown session={session} handleSignOut={handleSignOut} />
+              <UserDropdown
+                session={session}
+                handleSignOut={() => signOut({ callbackUrl: "/" })}
+              />
             )}
             {/* Mobile only view */}
-            <div className="block sm:hidden">
+            <div className="sm:hidden">
               <button className="flex h-full w-full items-center justify-center">
                 <IoMenu className="h-7 w-7" />
               </button>
@@ -64,4 +59,24 @@ const NavHeaderComponent: React.FC<NavHeaderProps> = ({
   );
 };
 
-export const NavHeader = React.memo(NavHeaderComponent);
+export const NavHeader = memo(NavHeaderComponent);
+
+type HomeLayoutProps = {
+  children: React.ReactNode;
+};
+
+export const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
+  return (
+    <>
+      <NavHeader />
+      <Image
+        className="absolute top-0 -z-10"
+        src={BackgroundGradient}
+        quality={50}
+        fill
+        alt=""
+      />
+      <div className="pt-36">{children}</div>
+    </>
+  );
+};
