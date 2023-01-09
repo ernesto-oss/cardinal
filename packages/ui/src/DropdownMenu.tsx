@@ -18,7 +18,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       </DropdownMenuComponent.Trigger>
       <DropdownMenuComponent.Portal>
         <DropdownMenuComponent.Content
-          className="animate-fade-in-up h-full rounded-md border border-gray-300 bg-white shadow-lg shadow-slate-200/50"
+          className="animate-fade-in-up h-full rounded-md border border-gray-300 bg-white shadow-lg shadow-gray-900/50"
           sideOffset={10}
           side="bottom"
           align="end"
