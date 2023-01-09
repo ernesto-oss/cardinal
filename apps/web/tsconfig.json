@@ -3,11 +3,14 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@/utils/*": ["utils/*"],
-      "@/styles/*": ["styles/*"],
-      "@/layouts/*": ["layouts/*"],
-      "@/components/*": ["components/*"],
-      "@/assets/*": ["assets/*"]
+      // "@/pages/*": ["pages/*"],
+      // "@/hooks/*": ["hooks/*"],
+      // "@/utils/*": ["utils/*"],
+      // "@/styles/*": ["styles/*"],
+      // "@/layouts/*": ["layouts/*"],
+      // "@/components/*": ["components/*"],
+      // "@/assets/*": ["assets/*"],
+      "@/*": ["*"]
     }
   },
   "include": ["next-env.d.ts", "../../codegen.ts", "**/*.ts", "**/*.tsx"],
