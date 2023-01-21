@@ -1,10 +1,8 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
-  experimental: {
-    swcMinify: true,
-    transpilePackages: ["@acme/database", "@acme/auth"],
-  },
+  swcMinify: true,
+  transpilePackages: ["@acme/database", "@acme/graphql", "@acme/auth"],
 };
 
 export default config;
