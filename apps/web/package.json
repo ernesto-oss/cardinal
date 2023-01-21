@@ -9,19 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@acme/database": "workspace:*",
     "@acme/auth": "workspace:*",
+    "@acme/database": "workspace:*",
     "@acme/graphql": "workspace:*",
     "@acme/tailwind-config": "workspace:*",
     "@acme/ui": "workspace:*",
     "@apollo/server": "^4.3.1",
     "@as-integrations/next": "^1.2.0",
     "@editorjs/editorjs": "^2.26.4",
+    "@pothos/core": "^3.24.0",
     "@tanstack/react-query": "^4.22.0",
     "graphql-request": "^5.1.0",
     "next": "^13.1.4",
     "next-auth": "^4.18.8",
-    "nexus": "^1.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

@@ -5,6 +5,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator pothos {
+  provider = "prisma-pothos-types"
+  output   = "./generated.d.ts"
+}
+
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
@@ -67,11 +72,15 @@ model VerificationToken {
 }
 
 model Post {
-  id      String @id @default(cuid())
-  title   String
-  content String @db.Text
-  user    User   @relation(fields: [userId], references: [id])
-  userId  String
+  id        String   @id @default(cuid())
+  title     String
+  content   Json?
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+  published Boolean  @default(false)
 
-  @@index([userId])
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  @@index([authorId])
 }

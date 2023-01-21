@@ -1,29 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "target": "ES6",
-    "module": "CommonJS",
-    "lib": ["ESNext"],
     "noFallthroughCasesInSwitch": true,
-    "declaration": true,
-    "outDir": "dist",
     "strict": true,
     "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "watchOptions": {
-    "watchFile": "useFsEvents",
-    "watchDirectory": "useFsEvents",
-    "fallbackPolling": "dynamicPriority",
-    "synchronousWatchDirectory": true,
-    "excludeDirectories": ["**/node_modules"]
-  },
-  "exclude": [
-    "./node_modules/**/*",
-    "./dist/**/*"
-  ]
 }
