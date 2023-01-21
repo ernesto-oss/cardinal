@@ -16,21 +16,21 @@
   "dependencies": {
     "@acme/auth": "workspace:*",
     "@radix-ui/react-avatar": "^1.0.1",
-    "@radix-ui/react-dropdown-menu": "^2.0.1",
+    "@radix-ui/react-dropdown-menu": "^2.0.2",
     "clsx": "^1.2.1",
     "lodash.merge": "^4.6.2",
-    "next": "^13.0.5",
+    "next": "^13.1.4",
     "react": "^18.2.0",
     "react-hot-toast": "^2.4.0",
-    "react-icons": "^4.6.0",
-    "react-wrap-balancer": "^0.2.3"
+    "react-icons": "^4.7.1",
+    "react-wrap-balancer": "^0.3.0"
   },
   "devDependencies": {
     "@acme/tailwind-config": "workspace:*",
-    "@types/react": "^18.0.22",
-    "@types/react-dom": "^18.0.7",
-    "concurrently": "^7.5.0",
-    "rimraf": "^3.0.2",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "concurrently": "^7.6.0",
+    "rimraf": "^4.1.1",
     "tailwindcss": "^3.2.4",
     "tsup": "^6.5.0"
   }

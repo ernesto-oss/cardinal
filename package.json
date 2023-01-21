@@ -20,15 +20,15 @@
     "format": "prettier --write \"**/*.{js,mjs,cjs,jsx,ts,tsx,md}\""
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.3",
-    "@graphql-codegen/client-preset": "^1.0.2",
+    "@graphql-codegen/cli": "^2.16.4",
+    "@graphql-codegen/client-preset": "^1.2.6",
     "@types/node": "latest",
-    "@typescript-eslint/eslint-plugin": "^5.44.0",
-    "@typescript-eslint/parser": "^5.44.0",
-    "concurrently": "^7.5.0",
-    "eslint": "7.32.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "concurrently": "^7.6.0",
+    "eslint": "8.32.0",
     "prettier": "latest",
-    "prettier-plugin-tailwindcss": "^0.1.13",
+    "prettier-plugin-tailwindcss": "^0.2.1",
     "rimraf": "latest",
     "turbo": "latest"
   },
