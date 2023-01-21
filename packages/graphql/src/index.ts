@@ -1,23 +1,9 @@
-import { makeSchema, fieldAuthorizePlugin, connectionPlugin } from "nexus";
-import path from "path";
-import * as types from "./resolvers";
-export { context } from "./context";
+import type { GraphQLSchema } from "graphql";
 
-const pathToTypegen = path.resolve(
-  "../../packages/graphql/node_modules/@types/nexus-typegen/index.d.ts",
-);
-const pathToSchema = path.resolve("../../packages/graphql/src/schema.graphql");
-const pathToContext = path.resolve("../../packages/graphql/src/context.ts");
+/* Import all used schemas here to register them. Make sure to update the import list whenever you create new schema entities */
+import "./schema/user";
 
-export const schema = makeSchema({
-  types,
-  plugins: [fieldAuthorizePlugin(), connectionPlugin()],
-  contextType: {
-    module: pathToContext,
-    export: "Context",
-  },
-  outputs: {
-    typegen: pathToTypegen,
-    schema: pathToSchema,
-  },
-});
+/* Import the builder to with defined plugins and custom scalars */
+import { builder } from "./builder";
+
+export const schema: GraphQLSchema = builder.toSchema();
