@@ -1,4 +1,7 @@
 export { authOptions } from "./src/auth-options";
-export { getServerSession } from "./src/get-session";
+export { getServerAuthSession } from "./src/get-session";
 
-export type { Session } from "next-auth";
+import type { Session as NextAuthSession } from "next-auth";
+
+type SessionWithId = { user?: { id?: string | null } };
+export type Session = NextAuthSession & SessionWithId;
