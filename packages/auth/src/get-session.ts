@@ -1,9 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
-
 import { authOptions } from "./auth-options";
 
-export const getServerSession = async (
+export const getServerAuthSession = async (
   req: NextApiRequest,
   res: NextApiResponse,
 ) => {

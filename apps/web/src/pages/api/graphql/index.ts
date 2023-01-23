@@ -1,28 +1,26 @@
-import { ApolloServer } from "@apollo/server";
-import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
-import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
-import { startServerAndCreateNextHandler } from "@as-integrations/next";
-import { NextApiResponse, NextApiRequest } from "next";
+import { createYoga } from "graphql-yoga";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { schema } from "@acme/graphql";
-import { getServerSession } from "@acme/auth";
+import { getServerAuthSession } from "@acme/auth";
 
-const isDevelopment = process.env.NODE_ENV === "development";
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
-export const apolloServer = new ApolloServer({
-  plugins: [
-    isDevelopment
-      ? ApolloServerPluginLandingPageLocalDefault()
-      : ApolloServerPluginLandingPageDisabled(),
-  ],
-  introspection: isDevelopment ? true : false,
-  csrfPrevention: isDevelopment ? true : false,
-  schema,
-});
-
-export default startServerAndCreateNextHandler(apolloServer, {
-  context: async (req: NextApiRequest, res: NextApiResponse) => ({
-    req,
-    res,
-    session: await getServerSession(req, res),
+export default createYoga<{
+  req: NextApiRequest;
+  res: NextApiResponse;
+}>({
+  context: async ({ req, res }) => ({
+    req: req,
+    res: res,
+    session: await getServerAuthSession(req, res),
   }),
+  schema,
+  /**
+   * Needs to be defined explicitly because our endpoint lives at a different path other than `/graphql`
+   * */
+  graphqlEndpoint: "/api/graphql",
 });
