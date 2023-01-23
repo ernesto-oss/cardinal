@@ -11,28 +11,27 @@ builder.prismaNode("User", {
       nullable: true,
     }),
     image: t.exposeString("image", { nullable: true }),
-    // posts: t.relatedConnection("posts", { cursor: "id" }),
-    // accounts: t.relatedConnection("accounts", { cursor: "id" }),
+    posts: t.relatedConnection("posts", { cursor: "id", nullable: true }),
   }),
 });
 
-builder.queryType({
-  fields: (t) => ({
-    user: t.prismaField({
-      type: "User",
-      nullable: true,
-      args: {
-        id: t.arg.id({ required: true }),
-      },
-      resolve: (query, _root, args) => {
-        const id = args.id as string;
-        const user = prisma.user.findUnique({
-          ...query,
-          where: { id: id },
-        });
+builder.queryField("myUser", (t) =>
+  t.prismaField({
+    description:
+      "Returns information about the currently authenticated user",
+    type: "User",
+    authScopes: {
+      authorizedUser: true,
+    },
+    nullable: true,
+    resolve: (query, _root, _args, ctx) => {
+      const id = ctx.session?.user?.id as string;
+      const user = prisma.user.findUnique({
+        ...query,
+        where: { id: id },
+      });
 
-        return user;
-      },
-    }),
+      return user;
+    },
   }),
-});
+);
