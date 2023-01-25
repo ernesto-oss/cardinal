@@ -7,7 +7,6 @@ generator client {
 
 generator pothos {
   provider = "prisma-pothos-types"
-  output   = "./generated.d.ts"
 }
 
 datasource db {

@@ -6,7 +6,7 @@ import RelayPlugin from "@pothos/plugin-relay";
 import { DateTimeResolver, JSONResolver } from "graphql-scalars";
 
 import type { Session } from "@acme/auth";
-import type PrismaTypes from "@acme/database/prisma/generated";
+import type PrismaTypes from "@pothos/plugin-prisma/generated";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 /**
