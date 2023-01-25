@@ -7,11 +7,21 @@ import { prisma } from "@acme/database";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 export const authOptions: NextAuthOptions = {
+  callbacks: {
+    session({ session, user }) {
+      if (session.user) {
+        /* @ts-ignore */
+        session.user.id = user.id;
+      }
+      return session;
+    },
+  },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   pages: {
     signIn: "auth/signin",
     verifyRequest: "/auth/verify-request",
+    error: "/auth/error",
   },
   providers: [
     GoogleProvider({
