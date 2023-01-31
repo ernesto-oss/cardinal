@@ -17,7 +17,7 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({
     if (name) {
       const splitName = name.split(" ");
       const stripedCharacters = splitName.map((word) => word.charAt(0));
-      return stripedCharacters.join("");
+      return stripedCharacters.join("").toUpperCase();
     }
     return "";
   };
@@ -28,7 +28,9 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({
           <Avatar
             image={session.user?.image}
             imageAlt={`Avatar for ${session.user?.name}`}
-            fallback={`${getAvatarFallback(session.user?.name)}`}
+            fallback={`${getAvatarFallback(
+              session.user?.name || session.user?.email,
+            )}`}
           />
         </button>
       }
