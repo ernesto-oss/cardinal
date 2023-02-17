@@ -14,3 +14,4 @@ export default defineConfig({
   outDir: "dist",
   onSuccess: isDev ? "node dist/index.js" : undefined,
 });
+
