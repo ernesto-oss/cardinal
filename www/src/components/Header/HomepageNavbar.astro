@@ -1,0 +1,34 @@
+---
+import { Image } from "@astrojs/image/components";
+import ErOss from "../../assets/brand/er-logo.svg";
+import CardinalIcon from "../../assets/brand/cardinal-icon.svg";
+import CardinalLogo from "../../assets/brand/cardinal-logo.svg";
+---
+
+<nav class="fixed z-50 w-full">
+  <div class="relative flex h-14 items-center justify-center">
+    <div class="flex h-full w-full max-w-5xl justify-between border-b border-dark-gunmetal px-8 backdrop-blur-xl">
+      <div class="flex items-center justify-center gap-6">
+        <Image alt="Ernesto OSS Logo" src={ErOss} />
+        <div class="h-6 w-[1px] bg-slate-50"></div>
+        <div class="flex items-center gap-2">
+          <Image class="h-8 w-8" alt="" src={CardinalIcon} />
+          <Image class="h-4" alt="" src={CardinalLogo} />
+        </div>
+      </div>
+      <div class="flex items-center justify-center gap-16">
+        <ul class="flex gap-8 text-sm font-semibold">
+          <li class="transition duration-300">
+            <a href="#">Docs</a>
+          </li>
+          <li class="transition duration-300">
+            <a href="#">Features</a>
+          </li>
+          <li class="transition duration-300">
+            <a href="#">Showcase</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

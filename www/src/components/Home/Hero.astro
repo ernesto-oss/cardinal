@@ -1,0 +1,96 @@
+---
+import { Image } from "@astrojs/image/components";
+
+import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
+import CardinalLogoGradient from "@/assets/brand/cardinal-logo-gradient.svg";
+import BackgroundComposition from "@/assets/home/background-gradient.png";
+import Grid from "@/assets/home/grid-pattern.svg";
+---
+
+<main class="flex justify-center">
+  <Image src={BackgroundComposition} alt="" quality={90} class="select-none absolute -z-10 opacity-70 w-full" />
+  <Image src={Grid} alt="" class="select-none absolute -z-20 w-full" />
+  <div class="flex flex-col items-center w-full max-w-4xl px-8 py-32">
+    <div class="center relative flex flex-col items-center justify-center gap-8 pb-8">
+      <div class="cardinal p-6">
+        <Image alt="" src={CardinalIcon} />
+      </div>
+      <Image alt="" src={CardinalLogoGradient} />
+    </div>
+    <div class="flex gap-5 w-full max-w-3xl flex-col items-center pb-8">
+      <h1
+        class="bg-gradient-to-b from-slate-50 to-slate-300 bg-clip-text text-center text-6xl font-bold text-transparent"
+      >
+        The monorepo starter for full-stack applications
+      </h1>
+      <p class="w-full max-w-2xl text-center tracking-wider text-slate-300">
+        Cardinal is a CLI tool that helps you quickstart a monorepo project with the frontend framework of your choice,
+        and a GraphQL backend.
+      </p>
+    </div>
+    <div class="rounded-md bg-slate-400/10 border-2 border-slate-200/5 px-4 py-2">
+      <span class="text-slate-300 font-semibold font-mono">pnpm create cardinal-app@latest</span>
+    </div>
+  </div>
+</main>
+<style>
+  :root {
+    --primary-glow: radial-gradient(rgba(244, 42, 138, 0.2), rgba(0, 0, 0, 0));
+    --tile-start-rgb: 239, 245, 249;
+    --tile-end-rgb: 228, 232, 233;
+    --tile-border: conic-gradient(#ffffff80, #ffffff40, #ffffff30, #ffffff20, #ffffff10, #ffffff10, #ffffff80);
+  }
+
+  .cardinal {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateZ(0);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .cardinal::before,
+  .cardinal::after {
+    content: "";
+    position: absolute;
+    z-index: -10;
+  }
+
+  /* Conic Gradient Animation */
+  .cardinal::before {
+    animation: 6s rotate linear infinite;
+    width: 200%;
+    height: 200%;
+    background: var(--tile-border);
+  }
+
+  /* Inner Square */
+  .cardinal::after {
+    inset: 0;
+    padding: 1px;
+    border-radius: 12px;
+    background: linear-gradient(50deg, #3c0629 -15.85%, #020005 50%);
+    background-clip: content-box;
+  }
+
+  .center::after {
+    content: "";
+    position: absolute;
+    background: var(--primary-glow);
+    width: 350px;
+    height: 350px;
+    z-index: 1;
+    filter: blur(45px);
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+</style>
