@@ -32,11 +32,11 @@ export const ALGOLIA = {
 export type Sidebar = Record<(typeof KNOWN_LANGUAGE_CODES)[number], Record<string, { text: string; link: string }[]>>;
 export const SIDEBAR: Sidebar = {
   en: {
-    "Section Header": [
-      { text: "Introduction", link: "en/introduction" },
-      { text: "Page 2", link: "en/page-2" },
-      { text: "Page 3", link: "en/page-3" },
+    Overview: [
+      { text: "Introduction", link: "docs/en/introduction" },
+      { text: "Why Cardinal?", link: "docs/en/why-cardinal" },
+      { text: "Installation", link: "en/installation" },
+      { text: "Directory Structure", link: "docs/en/directory-structure" },
     ],
-    "Another Section": [{ text: "Page 4", link: "en/page-4" }],
   },
 };
