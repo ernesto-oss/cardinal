@@ -1,19 +1,8 @@
 ---
-import AvatarList from "./AvatarList.astro";
-type Props = {
-  path: string;
-};
-const { path } = Astro.props;
+import { Image } from "@astrojs/image/components";
+import PoweredByVercel from "@/assets/brand/powered-by-vercel.svg";
 ---
 
-<footer>
-  <AvatarList path={path} />
+<footer class="w-full flex justify-center py-8">
+  <Image src={PoweredByVercel} alt="" />
 </footer>
-
-<style>
-  footer {
-    margin-top: auto;
-    padding: 2rem;
-    border-top: 3px solid var(--theme-divider);
-  }
-</style>
