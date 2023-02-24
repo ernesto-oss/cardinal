@@ -5,6 +5,9 @@ import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
 import CardinalLogoGradient from "@/assets/brand/cardinal-logo-gradient.svg";
 import BackgroundComposition from "@/assets/home/background-gradient.png";
 import Grid from "@/assets/home/grid-pattern.svg";
+
+import { CLIInstallButton } from "@/components/Home/CLIInstallButton";
+import { CtaButtons } from "@/components/Home/CtaButtons";
 ---
 
 <main class="flex justify-center">
@@ -15,7 +18,7 @@ import Grid from "@/assets/home/grid-pattern.svg";
       <div class="cardinal p-6">
         <Image alt="" src={CardinalIcon} />
       </div>
-      <Image alt="" src={CardinalLogoGradient} />
+      <Image class="z-10" alt="" src={CardinalLogoGradient} />
     </div>
     <div class="flex gap-5 w-full max-w-3xl flex-col items-center pb-8">
       <h1
@@ -28,8 +31,11 @@ import Grid from "@/assets/home/grid-pattern.svg";
         and a GraphQL backend.
       </p>
     </div>
-    <div class="rounded-md bg-slate-400/10 border-2 border-slate-200/5 px-4 py-2">
-      <span class="text-slate-300 font-semibold font-mono">pnpm create cardinal-app@latest</span>
+    <div class="pb-8">
+      <CLIInstallButton client:load />
+    </div>
+    <div class="flex gap-6">
+      <CtaButtons client:load />
     </div>
   </div>
 </main>
@@ -58,7 +64,6 @@ import Grid from "@/assets/home/grid-pattern.svg";
     z-index: -10;
   }
 
-  /* Conic Gradient Animation */
   .cardinal::before {
     animation: 6s rotate linear infinite;
     width: 200%;
@@ -66,7 +71,6 @@ import Grid from "@/assets/home/grid-pattern.svg";
     background: var(--tile-border);
   }
 
-  /* Inner Square */
   .cardinal::after {
     inset: 0;
     padding: 1px;
