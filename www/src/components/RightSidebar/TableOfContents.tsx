@@ -1,14 +1,13 @@
+import { useState, useEffect, useRef } from "react";
 import type { MarkdownHeading } from "astro";
-import type { FunctionalComponent } from "preact";
 import { unescape } from "html-escaper";
-import { useState, useEffect, useRef } from "preact/hooks";
 
 type ItemOffsets = {
   id: string;
   topOffset: number;
 };
 
-const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({ headings = [] }) => {
+const TableOfContents: React.FC<{ headings: MarkdownHeading[] }> = ({ headings = [] }) => {
   const toc = useRef<HTMLUListElement>();
   const onThisPageID = "on-this-page-heading";
   const itemOffsets = useRef<ItemOffsets[]>([]);
@@ -60,20 +59,22 @@ const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({
     return () => headingsObserver.disconnect();
   }, [toc.current]);
 
-  const onLinkClick = (e) => {
+  const onLinkClick = (e: any) => {
     setCurrentID(e.target.getAttribute("href").replace("#", ""));
   };
 
   return (
     <>
-      <h2 id={onThisPageID} className="heading">
+      <h2 id={onThisPageID} className="pb-4 text-xl font-semibold text-slate-100">
         On this page
       </h2>
+      {/* @ts-ignore */}
       <ul ref={toc}>
         {headings
           .filter(({ depth }) => depth > 1 && depth < 4)
-          .map((heading) => (
+          .map((heading, i) => (
             <li
+              key={i}
               className={`header-link depth-${heading.depth} ${
                 currentID === heading.slug ? "current-header-link" : ""
               }`.trim()}

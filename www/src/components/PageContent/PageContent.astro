@@ -1,51 +1,35 @@
 ---
-import type { MarkdownHeading } from "astro";
 import MoreMenu from "../RightSidebar/MoreMenu.astro";
-import TableOfContents from "../RightSidebar/TableOfContents";
 
 type Props = {
   title: string;
-  headings: MarkdownHeading[];
+  description: string;
   githubEditUrl: string;
 };
 
-const { title, headings, githubEditUrl } = Astro.props;
+const { title, description, githubEditUrl } = Astro.props;
 ---
 
-<article id="article" class="content">
-  <section class="main-section">
-    <h1 class="content-title" id="overview">{title}</h1>
-    <nav class="block sm:hidden">
-      <TableOfContents client:media="(max-width: 50em)" headings={headings} />
-    </nav>
-    <slot />
+<article class="flex flex-col justify-center items-center leading-relaxed tracking-wide">
+  <section class="px-8 max-w-3xl">
+    <h1 class="text-slate-100 text-4xl font-semibold pb-4">{title}</h1>
+    <p class="text-slate-300 text-xl pb-8">{description}</p>
+    <div class="content-wrapper">
+      <slot />
+    </div>
   </section>
-  <nav class="block sm:hidden">
-    <MoreMenu editHref={githubEditUrl} />
-  </nav>
 </article>
 
-<style>
-  .content {
-    padding: 0;
-    max-width: 75ch;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+<style is:global>
+  .content-wrapper p {
+    @apply text-slate-100 text-base pb-4;
+    letter-spacing: 0.05em;
+    line-height: 1.7;
   }
-
-  .content > section {
-    margin-bottom: 4rem;
+  .content-wrapper ul {
+    @apply pb-6;
   }
-
-  .block {
-    display: block;
-  }
-
-  @media (min-width: 50em) {
-    .sm\:hidden {
-      display: none;
-    }
+  .content-wrapper h2 {
+    @apply text-2xl font-semibold pt-8 pb-6;
   }
 </style>

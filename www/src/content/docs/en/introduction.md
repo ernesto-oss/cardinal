@@ -1,10 +1,7 @@
 ---
 title: "Introduction"
-description: "Docs intro"
+description: "An open-source UI component library for building high-quality, accessible design systems and web apps."
 ---
-
-**Welcome to Astro!**
-
 This is the `docs` starter template. It contains all of the features that you need to build a Markdown-powered documentation site, including:
 
 - ✅ **Full Markdown support**
@@ -22,4 +19,8 @@ To get started with this theme, check out the `README.md` in your new project di
 
 Found a missing feature that you can't live without? Please suggest it on Discord [(#ideas-and-suggestions channel)](https://astro.build/chat) and even consider adding it yourself on GitHub! Astro is an open source project and contributions from developers like you are how we grow!
 
-Good luck out there, Astronaut. 🧑‍🚀
+## One more topic
+
+To get started with this theme, check out the `README.md` in your new project directory. It provides documentation on how to use and customize this template for your own project. Keep the README around so that you can always refer back to it as you build.
+
+### And one more depth
