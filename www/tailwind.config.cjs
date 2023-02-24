@@ -20,6 +20,7 @@ module.exports = {
       colors: {
         turquoise: '#35FFDB',
         sunglow: '#FFC635',
+        'eletric-pink': '#F42A8B',
         'radical-red': '#FF3559',
         'chinese-black': '#00030a',
         'dark-gunmetal': '#171D26'
