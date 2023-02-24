@@ -1,7 +1,7 @@
 /** @jsxImportSource react */
 import type { FunctionComponent } from "react";
-import "./LanguageSelect.css";
-import { KNOWN_LANGUAGES, langPathRegex } from "../../languages";
+import { KNOWN_LANGUAGES, langPathRegex } from "@/languages";
+import "./index.css";
 
 const LanguageSelect: FunctionComponent<{ lang: string }> = ({ lang }) => {
   return (

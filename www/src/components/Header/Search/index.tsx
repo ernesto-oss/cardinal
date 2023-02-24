@@ -1,11 +1,10 @@
-/** @jsxImportSource react */
 import { useState, useCallback, useRef } from "react";
-import { ALGOLIA } from "../../consts";
-import "@docsearch/css";
-import "./Search.css";
+import { ALGOLIA } from "@/consts";
+import "./index.css";
 
 import { createPortal } from "react-dom";
 import * as docSearchReact from "@docsearch/react";
+import { Search as SearchIcon } from "lucide-react";
 
 /** FIXME: This is still kinda nasty, but DocSearch is not ESM ready. */
 const DocSearchModal = docSearchReact.DocSearchModal || (docSearchReact as any).default.DocSearchModal;
@@ -43,26 +42,17 @@ export default function Search() {
 
   return (
     <>
-      <button type="button" ref={searchButtonRef} onClick={onOpen} className="search-input">
-        <svg width="24" height="24" fill="none">
-          <path
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-
-        <span>Search</span>
-
-        <span className="search-hint">
-          <span className="sr-only">Press </span>
-
-          <kbd>/</kbd>
-
-          <span className="sr-only"> to search</span>
-        </span>
+      <button
+        type="button"
+        ref={searchButtonRef}
+        onClick={onOpen}
+        className="flex w-full cursor-pointer items-center justify-between gap-12 rounded-md bg-slate-400/10 px-4 py-2 text-sm transition duration-150 hover:bg-slate-300/10"
+      >
+        <div className="flex gap-3">
+          <SearchIcon size={18} />
+          <span className="tracking-wide text-slate-300">Search</span>
+        </div>
+        <span className="font-body text-xs font-bold">Ctrl K</span>
       </button>
 
       {isOpen &&
