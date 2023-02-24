@@ -1,8 +1,6 @@
-/** @jsxImportSource preact */
-import type { FunctionalComponent } from "preact";
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect } from "react";
 
-const MenuToggle: FunctionalComponent = () => {
+const MenuToggle: React.FC = () => {
   const [sidebarShown, setSidebarShown] = useState(false);
 
   useEffect(() => {

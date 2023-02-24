@@ -1,0 +1,70 @@
+---
+import { Image } from "@astrojs/image/components";
+import Search from "@/components/Header/Search";
+import ThemeToggle from "@/components/RightSidebar/ThemeToggleButton";
+
+import ErOss from "@/assets/brand/er-logo.svg";
+import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
+import CardinalLogo from "@/assets/brand/cardinal-logo.svg";
+
+type Props = {
+  isDocsPage?: boolean;
+};
+
+const { isDocsPage } = Astro.props;
+---
+
+<nav class="fixed z-50 w-full bg-chinese-black/50 border-b border-dark-gunmetal">
+  <div class="relative flex h-14 items-center justify-center backdrop-blur-xl">
+    {
+      !isDocsPage && (
+        <div class="flex h-full w-full max-w-7xl justify-between px-8">
+          <div class="flex items-center justify-center gap-6">
+            <Image alt="Ernesto OSS Logo" src={ErOss} />
+            <div class="h-6 w-[1px] bg-slate-50" />
+            <div class="flex items-center gap-2">
+              <Image class="h-8 w-8" alt="" src={CardinalIcon} />
+              <Image class="h-4" alt="" src={CardinalLogo} />
+            </div>
+          </div>
+          <div class="flex items-center justify-center gap-16">
+            <ul class="text-slate-300 flex gap-8 text-sm font-semibold">
+              <li class="hover:text-slate-50 transition duration-150">
+                <a href="#">Docs</a>
+              </li>
+              <li class="hover:text-slate-50 transition duration-150">
+                <a href="#">Features</a>
+              </li>
+              <li class="hover:text-slate-50 transition duration-150">
+                <a href="#">Showcase</a>
+              </li>
+            </ul>
+            <div class="w-full max-w-lg">
+              <Search client:load />
+            </div>
+          </div>
+        </div>
+      )
+    }
+    {
+      isDocsPage && (
+        <div class="flex h-full w-full items-center justify-between px-8">
+          <div class="flex items-center justify-center gap-6">
+            <Image alt="Ernesto OSS Logo" src={ErOss} />
+            <div class="h-6 w-[1px] bg-slate-50" />
+            <div class="flex items-center gap-2">
+              <Image class="h-8 w-8" alt="" src={CardinalIcon} />
+              <Image class="h-4" alt="" src={CardinalLogo} />
+            </div>
+          </div>
+          <div class="w-full max-w-[500px]">
+            <Search client:load />
+          </div>
+          <div>
+            <ThemeToggle client:load />
+          </div>
+        </div>
+      )
+    }
+  </div>
+</nav>
