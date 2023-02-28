@@ -4,7 +4,7 @@ const validationRegExp =
   /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
 
 //Validate a string against allowed package.json names
-export const validateAppName = (input: string) => {
+export const validateAppDirectory = (input: string) => {
   const paths = input.split("/");
 
   // If the first part is a @, it's a scoped package
@@ -44,7 +44,7 @@ export async function checkValidFrontendDeployProviders(
     {
       value: "aws",
       label: "AWS",
-      hint: "Uses SST to deploy your app to AWS",
+      hint: "Deploy to AWS with SST",
     },
   ];
 
@@ -54,12 +54,12 @@ export async function checkValidFrontendDeployProviders(
       {
         value: "gcp",
         label: "Google Cloud",
-        hint: "Uses Google Cloud Run to run your app on a serverless container",
+        hint: "Deploy on Google Cloud Run",
       },
       {
         value: "docker",
         label: "Docker Container",
-        hint: "For local development",
+        hint: "Deploy with traditional Docker container",
       }
     );
   }
@@ -74,25 +74,21 @@ export async function checkValidGraphqlAgents(
     {
       value: "gcp",
       label: "Google Cloud Functions",
-      hint: "GraphQL endpoint will be served from a Google Cloud Function",
     },
     {
       value: "lambda",
       label: "Amazon AWS Lambda",
-      hint: "GraphQL endpoint will be served from Lambda or Lambda@Edge",
     },
     {
       value: "vercel",
       label: "Vercel",
-      hint: "GraphQL endpoint will be server from a Vercel Serverless Function",
     },
   ];
 
   if (frontendFramework === "next") {
     options.unshift({
       value: "next",
-      label: "Directly from Next.js app",
-      hint: "GraphQL endpoint will be served from within your Next.js application, wherever you deploy it",
+      label: "Directly from the Next.js app",
     });
   }
 
