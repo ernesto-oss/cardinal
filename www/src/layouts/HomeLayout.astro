@@ -1,34 +1,22 @@
 ---
 import "@/styles/global.css";
+import type { CollectionEntry } from "astro:content";
 import Navbar from "@/components/Header/Navbar.astro";
 import Footer from "@/components/Footer/Footer.astro";
+import HeadCommon from "@/components/HeadCommon.astro";
+import HeadSEO from "@/components/HeadSEO.astro";
+import { SITE } from "@/consts";
 
-export interface Props {
-  title?: string;
-  description?: string;
-}
+type Props = CollectionEntry<"docs">["data"];
 
-const {
-  title = "Cardinal",
-  description = "Cardinal is a CLI tool that helps you quickstart a monorepo project with the frontend framework of your choice, and a GraphQL backend.",
-} = Astro.props;
+const { ...data } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<!DOCTYPE html>
-<html lang="en">
+<html dir={data.dir} lang={SITE.defaultLanguage}>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <!-- <meta property="og:url" content={`${originLocation}${path}`} /> -->
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <!-- <meta property="og:image" content={imageUrl} /> -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#00030a" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <HeadCommon />
+    <HeadSEO {...data} canonicalUrl={canonicalUrl} />
   </head>
   <body>
     <Navbar />

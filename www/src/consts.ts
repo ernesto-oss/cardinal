@@ -1,14 +1,13 @@
 export const SITE = {
-  title: "Documentation",
-  description: "Your website description.",
+  title: "Cardinal",
+  description: "The monorepo starter for full-stack applications.",
   defaultLanguage: "en-us",
 } as const;
 
 export const OPEN_GRAPH = {
   image: {
-    src: "https://github.com/withastro/astro/blob/main/assets/social/banner-minimal.png?raw=true",
-    alt:
-      "astro logo on a starry expanse of space," + " with a purple saturn-like planet floating in the right foreground",
+    src: "https://raw.githubusercontent.com/ernesto-oss/cardinal/main/www/public/open-graph-banner.jpg",
+    alt: "cardinal logo in a subtle grid-like pattern background",
   },
   twitter: "astrodotbuild",
 };
@@ -29,7 +28,7 @@ export const ALGOLIA = {
   apiKey: "XXXXXXXXXX",
 };
 
-export type Sidebar = Record<(typeof KNOWN_LANGUAGE_CODES)[number], Record<string, { text: string; link: string }[]>>;
+export type Sidebar = Record<typeof KNOWN_LANGUAGE_CODES[number], Record<string, { text: string; link: string }[]>>;
 export const SIDEBAR: Sidebar = {
   en: {
     Overview: [
