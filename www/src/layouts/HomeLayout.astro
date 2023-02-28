@@ -18,7 +18,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <HeadCommon />
     <HeadSEO {...data} canonicalUrl={canonicalUrl} />
   </head>
-  <body>
+  <body class="font-body">
     <Navbar />
     <slot />
     <Footer />
