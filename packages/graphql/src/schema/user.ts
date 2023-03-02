@@ -11,7 +11,6 @@ builder.prismaNode("User", {
       nullable: true,
     }),
     image: t.exposeString("image", { nullable: true }),
-    posts: t.relatedConnection("posts", { cursor: "id", nullable: true }),
   }),
 });
 
