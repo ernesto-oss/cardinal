@@ -16,8 +16,7 @@ builder.prismaNode("User", {
 
 builder.queryField("myUser", (t) =>
   t.prismaField({
-    description:
-      "Returns information about the currently authenticated user",
+    description: "Returns information about the currently authenticated user",
     type: "User",
     authScopes: {
       authorizedUser: true,
@@ -32,5 +31,6 @@ builder.queryField("myUser", (t) =>
 
       return user;
     },
+    unauthorizedResolver: () => null,
   }),
 );

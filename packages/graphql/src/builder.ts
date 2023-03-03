@@ -3,18 +3,20 @@ import SchemaBuilder from "@pothos/core";
 import ScopeAuthPlugin from "@pothos/plugin-scope-auth";
 import PrismaPlugin from "@pothos/plugin-prisma";
 import RelayPlugin from "@pothos/plugin-relay";
-import { DateTimeResolver, JSONResolver } from "graphql-scalars";
+import { DateTimeResolver } from "graphql-scalars";
 
 import type { Session } from "@acme/auth";
 import type PrismaTypes from "@pothos/plugin-prisma/generated";
 import type { NextApiRequest, NextApiResponse } from "next";
+
+const isDevelopment = process.env.NODE_ENV === "development";
 
 /**
  * We check for the NODE_ENV to allow re-registration of plugins in development mode. This is used to
  * bypass Next.js behavior that triggers the error `Received multiple implementations for plugin {pluginName}`
  * @see: https://github.com/hayes/pothos/issues/696
  * */
-if (process.env.NODE_ENV === "development") {
+if (isDevelopment) {
   SchemaBuilder.allowPluginReRegistration = true;
 }
 
@@ -38,10 +40,6 @@ export const builder = new SchemaBuilder<{
       Input: Date;
       Output: Date;
     };
-    Json: {
-      Input: unknown;
-      Output: unknown;
-    };
   };
 }>({
   /**
@@ -51,15 +49,10 @@ export const builder = new SchemaBuilder<{
   plugins: [ScopeAuthPlugin, PrismaPlugin, RelayPlugin],
   scopeAuthOptions: {
     treatErrorsAsUnauthorized: true,
-    unauthorizedError: () =>
-      new Error(
-        `Not authorized. Make sure the request contains the cookies with session information provided by next-auth`,
-      ),
   },
   authScopes: async (context) => ({
     authorizedUser: context.session ? true : false,
   }),
-
   relayOptions: {
     clientMutationId: "omit",
     cursorType: "String",
@@ -74,11 +67,11 @@ export const builder = new SchemaBuilder<{
  * on all other files inside the `schema` folder.
  * */
 builder.queryType();
-builder.mutationType();
+// builder.mutationType();
 
 /**
  * Register the custom scalars. The scalars registered here can be used to define fields on the schema entities.
  * @see: https://pothos-graphql.dev/docs/guide/scalars#scalars
  * */
 builder.addScalarType("DateTime", DateTimeResolver, {});
-builder.addScalarType("Json", JSONResolver, {});
+// builder.addScalarType("Json", JSONResolver, {});
