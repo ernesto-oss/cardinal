@@ -9,10 +9,7 @@ type UserDropdownProps = {
   handleSignOut: () => Promise<undefined>;
 };
 
-export const UserDropdown: React.FC<UserDropdownProps> = ({
-  session,
-  handleSignOut,
-}) => {
+export const UserDropdown: React.FC<UserDropdownProps> = ({ session, handleSignOut }) => {
   const getAvatarFallback = (name?: string | null) => {
     if (name) {
       const splitName = name.split(" ");
@@ -28,9 +25,7 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({
           <Avatar
             image={session.user?.image}
             imageAlt={`Avatar for ${session.user?.name}`}
-            fallback={`${getAvatarFallback(
-              session.user?.name || session.user?.email,
-            )}`}
+            fallback={`${getAvatarFallback(session.user?.name || session.user?.email)}`}
           />
         </button>
       }
@@ -40,10 +35,7 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({
         <p className="text-base font-bold">{session.user?.name}</p>
         <p className="text-sm">{session.user?.email}</p>
       </div>
-      <DropdownSeparator
-        style={{ height: 1 }}
-        className="w-full bg-slate-300/50"
-      />
+      <DropdownSeparator style={{ height: 1 }} className="w-full bg-slate-300/50" />
       <div className="h-full w-full">
         <DropdownItem
           asChild
@@ -67,10 +59,7 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({
             Settings
           </Link>
         </DropdownItem>
-        <DropdownSeparator
-          style={{ height: 1 }}
-          className="w-full bg-slate-300/50"
-        />
+        <DropdownSeparator style={{ height: 1 }} className="w-full bg-slate-300/50" />
         <DropdownItem
           asChild
           className="transition duration-100 hover:bg-slate-100 focus:bg-slate-100 focus:outline-none"

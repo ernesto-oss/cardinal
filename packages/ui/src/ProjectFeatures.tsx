@@ -8,17 +8,17 @@ import { NextAuthLogo } from "./assets/NextAuthLogo";
 
 export const ProjectFeatures: React.FC = () => {
   return (
-    <section id="features" className="font-default scroll-mt-24 flex items-center justify-center px-8 pb-48">
+    <section
+      id="features"
+      className="font-default flex scroll-mt-24 items-center justify-center px-8 pb-48"
+    >
       <div className="w-full max-w-2xl">
-        <h1 className="pb-8 text-4xl font-extrabold tracking-tight text-slate-900">
-          Features
-        </h1>
+        <h1 className="pb-8 text-4xl font-extrabold tracking-tight text-slate-900">Features</h1>
         <p className="pb-8 text-base leading-7 text-gray-600">
-          Built on a set of solid technologies around Next.js and serverless
-          ecosystem.
+          Built on a set of solid technologies around Next.js and serverless ecosystem.
         </p>
 
-        <div className="flex flex-col sm:grid grid-cols-2 gap-5">
+        <div className="flex grid-cols-2 flex-col gap-5 sm:grid">
           <ProjectCard
             title="Next.js 13"
             description="Updated to the latest Next version and leveraging API routes for the GraphQL endpoint"

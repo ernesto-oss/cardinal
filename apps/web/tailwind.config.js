@@ -17,4 +17,3 @@ const localConfig = {
 const mergedConfig = merge(globalConfig, localConfig);
 
 module.exports = mergedConfig;
-

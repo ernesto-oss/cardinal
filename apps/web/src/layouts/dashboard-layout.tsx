@@ -2,11 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { getSession, signOut } from "next-auth/react";
 import { clsx } from "clsx";
-import {
-  QueryClientProvider,
-  QueryClient,
-  useQuery,
-} from "@tanstack/react-query";
+import { QueryClientProvider, QueryClient, useQuery } from "@tanstack/react-query";
 import { CardinalLogoSolid, UserDropdown } from "@acme/ui";
 import { IoDocumentOutline, IoSettingsOutline } from "react-icons/io5";
 
@@ -14,9 +10,7 @@ type DashboardLayoutProps = {
   children?: React.ReactNode;
 };
 
-export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
-  children,
-}) => {
+export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const router = useRouter();
   const currentPathname = router.pathname;
 

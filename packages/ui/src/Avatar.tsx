@@ -7,11 +7,7 @@ type AvatarProps = {
   fallback: string;
 };
 
-export const Avatar: React.FC<AvatarProps> = ({
-  image,
-  imageAlt,
-  fallback,
-}) => {
+export const Avatar: React.FC<AvatarProps> = ({ image, imageAlt, fallback }) => {
   return (
     <AvatarComponent.Root className="inline-flex h-9 w-9 select-none items-center justify-center overflow-hidden rounded-full bg-transparent align-middle">
       <AvatarComponent.Image

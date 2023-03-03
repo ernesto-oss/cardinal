@@ -1,25 +1,8 @@
-export const ProjectDirectoryIllustration = ({
-  className,
-}: {
-  className?: string;
-}) => {
+export const ProjectDirectoryIllustration = ({ className }: { className?: string }) => {
   return (
-    <svg
-      viewBox="0 0 358 565"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-    >
+    <svg viewBox="0 0 358 565" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
       <g filter="url(#filter0_d_775_374)">
-        <rect
-          x="40"
-          y="40"
-          width="278"
-          height="485"
-          rx="15"
-          fill="#FDFDFD"
-          fillOpacity="0.3"
-        />
+        <rect x="40" y="40" width="278" height="485" rx="15" fill="#FDFDFD" fillOpacity="0.3" />
         <path
           d="M156.5 239.768V247.375C156.5 247.872 156.302 248.349 155.951 248.701C155.599 249.052 155.122 249.25 154.625 249.25H145.875C145.378 249.25 144.901 249.052 144.549 248.701C144.198 248.349 144 247.872 144 247.375V234.875C144 234.378 144.198 233.901 144.549 233.549C144.901 233.198 145.378 233 145.875 233H149.732C150.064 233 150.382 233.132 150.616 233.366L156.134 238.884C156.368 239.118 156.5 239.436 156.5 239.768Z"
           stroke="black"
@@ -185,15 +168,8 @@ export const ProjectDirectoryIllustration = ({
           <feOffset />
           <feGaussianBlur stdDeviation="20" />
           <feComposite in2="hardAlpha" operator="out" />
-          <feColorMatrix
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"
-          />
-          <feBlend
-            mode="normal"
-            in2="BackgroundImageFix"
-            result="effect1_dropShadow_775_374"
-          />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0" />
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_775_374" />
           <feBlend
             mode="normal"
             in="SourceGraphic"

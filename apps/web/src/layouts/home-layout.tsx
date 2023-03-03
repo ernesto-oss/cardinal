@@ -41,10 +41,7 @@ const NavHeaderComponent: React.FC = ({}) => {
               </a>
             )}
             {status === "authenticated" && session && (
-              <UserDropdown
-                session={session}
-                handleSignOut={() => signOut({ callbackUrl: "/" })}
-              />
+              <UserDropdown session={session} handleSignOut={() => signOut({ callbackUrl: "/" })} />
             )}
             {/* Mobile only view */}
             <div className="sm:hidden">
@@ -69,13 +66,7 @@ export const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
   return (
     <>
       <NavHeader />
-      <Image
-        className="absolute top-0 -z-10"
-        src={BackgroundGradient}
-        quality={50}
-        fill
-        alt=""
-      />
+      <Image className="absolute top-0 -z-10" src={BackgroundGradient} quality={50} fill alt="" />
       <div className="pt-36">{children}</div>
     </>
   );
