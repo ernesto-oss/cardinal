@@ -22,6 +22,7 @@ export type Node = {
 
 export type Query = {
   __typename?: 'Query';
+  greeting: Scalars['String'];
   /** Returns information about the currently authenticated user */
   myUser?: Maybe<User>;
   node?: Maybe<Node>;
@@ -47,10 +48,16 @@ export type User = Node & {
   name?: Maybe<Scalars['String']>;
 };
 
+export type GreetingsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GreetingsQuery = { __typename?: 'Query', greeting: string };
+
 export type GetMyUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetMyUserQuery = { __typename?: 'Query', myUser?: { __typename: 'User', id: string, name?: string | null, email?: string | null } | null };
 
 
+export const GreetingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Greetings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"greeting"}}]}}]} as unknown as DocumentNode<GreetingsQuery, GreetingsQueryVariables>;
 export const GetMyUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMyUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"myUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]} as unknown as DocumentNode<GetMyUserQuery, GetMyUserQueryVariables>;
