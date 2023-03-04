@@ -2,17 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+:root {
+  --primary-glow: radial-gradient(rgba(244, 42, 138, 0.2), rgba(0, 0, 0, 0));
+  --tile-start-rgb: 239, 245, 249;
+  --tile-end-rgb: 228, 232, 233;
+  --tile-border: conic-gradient(
+    #ffffff80,
+    #ffffff40,
+    #ffffff30,
+    #ffffff20,
+    #ffffff10,
+    #ffffff10,
+    #ffffff80
+  );
 }
 
-body::-webkit-scrollbar {
-  width: 8px;
-}
-body::-webkit-scrollbar-track {
-  background-color: #fdfdfd;
-}
-body::-webkit-scrollbar-thumb {
-  background-color: #5f5c6d;
-  border-radius: 10px;
+body {
+  background-color: #00030a;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
