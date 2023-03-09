@@ -10,7 +10,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       <Image
         src={BackgroundGradient}
         quality={10}
-        className="absolute -z-10 h-full w-full select-none opacity-90"
+        className="absolute -z-10 h-full w-full select-none opacity-70"
         alt=""
       />
       <Image src={Grid} className="absolute -z-20 h-full w-full select-none" alt="" />
@@ -18,7 +18,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       <footer className="flex w-full items-center justify-center py-8">
         <div className="flex gap-2">
           <span className="text-slate-300">by</span>
-          <Image src={ErLogo} alt="" />
+          <Image className="w-6" src={ErLogo} alt="" />
         </div>
       </footer>
     </div>

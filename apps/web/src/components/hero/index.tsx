@@ -16,9 +16,9 @@ export const Hero: React.FC = () => {
           )}
         >
           <div className={clsx(styles.cardinal, "p-6")}>
-            <Image alt="" src={CardinalIcon} />
+            <Image className="w-16" alt="" src={CardinalIcon} />
           </div>
-          <Image className="z-10" alt="" src={CardinalLogoGradient} />
+          <Image className="z-10 w-44" alt="" src={CardinalLogoGradient} />
         </div>
       </div>
     </main>
