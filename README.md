@@ -1,9 +1,25 @@
 > **Warning**
-> This template is still a work in progress.
+> This template is a stub template for create-cardinal-app package.
 
 ## About
 
-This is an relatively opinionated template for monorepo projects that want to use both Next.js as a client application layer and GraphQL API’s from the same project structure, leveraging Vercel’s (or similar IaaS providers) serverless capabilities for the GraphQL endpoint.
+This is a stub template to test the Next.js implementation for the `create-cardinal-app` package. It's not optimized for standalone usage, but you can if you wish.
+
+## Getting started
+
+Install dependencies, copy the .env file and generate the Prisma Client:
+
+```bash
+pnpm install
+cp .env.example .env
+pnpm db-push
+```
+
+Run the development server:
+
+```bash
+pnpm dev
+```
 
 ---
 
