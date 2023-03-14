@@ -13,19 +13,19 @@ const sidebar = SIDEBAR[langCode];
 ---
 
 <nav class="px-4">
-  <ul class="nav-groups tracking-wide">
+  <ul class="nav-groups pt-14 tracking-wide">
     {
       Object.entries(sidebar).map(([header, children]) => (
         <li>
           <div class="tracking-wider">
-            <h2 class="font-semibold text-slate-100 text-lg px-6 py-2">{header}</h2>
+            <h2 class="px-6 py-2 text-lg font-semibold text-slate-900 dark:text-slate-100">{header}</h2>
             <ul>
               {children.map((child) => {
                 const url = Astro.site?.pathname + child.link;
                 return (
                   <li class="nav-link w-full">
                     <a
-                      class="block text-sm text-slate-300 w-full px-6 py-2 rounded-full"
+                      class="block w-full rounded-full px-6 py-2 text-sm text-slate-700 dark:text-slate-300"
                       href={url}
                       aria-current={currentPageMatch === child.link ? "page" : false}
                     >
@@ -51,10 +51,9 @@ const sidebar = SIDEBAR[langCode];
   });
 </script>
 
-<style>
+<style is:global>
   .nav-link [aria-current="page"] {
-    color: var(--theme-text-accent);
-    background-color: var(--color-slate-800);
+    @apply bg-slate-200 dark:bg-slate-800;
     font-weight: 600;
   }
 </style>

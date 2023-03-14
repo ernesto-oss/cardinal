@@ -1,17 +1,18 @@
 import { useState, useCallback, useRef } from "react";
+import { createPortal } from "react-dom";
+import { clsx } from "clsx";
+import { Search as SearchIcon } from "lucide-react";
+import * as docSearchReact from "@docsearch/react";
+
 import { ALGOLIA } from "@/consts";
 import "./index.css";
-
-import { createPortal } from "react-dom";
-import * as docSearchReact from "@docsearch/react";
-import { Search as SearchIcon } from "lucide-react";
 
 /** FIXME: This is still kinda nasty, but DocSearch is not ESM ready. */
 const DocSearchModal = docSearchReact.DocSearchModal || (docSearchReact as any).default.DocSearchModal;
 const useDocSearchKeyboardEvents =
   docSearchReact.useDocSearchKeyboardEvents || (docSearchReact as any).default.useDocSearchKeyboardEvents;
 
-export default function Search() {
+const Search: React.FC<{ homepage: boolean }> = ({ homepage }) => {
   const [isOpen, setIsOpen] = useState(false);
   const searchButtonRef = useRef<HTMLButtonElement>(null);
   const [initialQuery, setInitialQuery] = useState("");
@@ -46,11 +47,15 @@ export default function Search() {
         type="button"
         ref={searchButtonRef}
         onClick={onOpen}
-        className="flex w-full cursor-pointer items-center justify-between gap-12 rounded-md bg-slate-400/10 px-4 py-2 text-sm transition duration-150 hover:bg-slate-300/10"
+        className={clsx({
+          "flex cursor-pointer items-center justify-between gap-12 rounded-md px-4 py-2 text-sm": true,
+          "bg-slate-300/10 text-slate-50 hover:bg-slate-300/10": homepage,
+          "bg-slate-400/20 dark:bg-slate-400/10 dark:hover:bg-slate-300/10": !homepage,
+        })}
       >
         <div className="flex gap-3">
           <SearchIcon size={18} />
-          <span className="tracking-wide text-slate-300">Search</span>
+          <span className="tracking-wide">Search</span>
         </div>
         <span className="font-body text-xs font-bold">Ctrl K</span>
       </button>
@@ -82,4 +87,6 @@ export default function Search() {
         )}
     </>
   );
-}
+};
+
+export default Search;

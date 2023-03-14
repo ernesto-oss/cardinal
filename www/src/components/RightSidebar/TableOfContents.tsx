@@ -65,7 +65,7 @@ const TableOfContents: React.FC<{ headings: MarkdownHeading[] }> = ({ headings =
 
   return (
     <>
-      <h2 id={onThisPageID} className="pb-4 text-xl font-semibold text-slate-100">
+      <h2 id={onThisPageID} className="pb-4 text-xl font-semibold text-slate-900 dark:text-slate-100">
         On this page
       </h2>
       {/* @ts-ignore */}

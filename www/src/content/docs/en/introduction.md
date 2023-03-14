@@ -2,6 +2,7 @@
 title: "Introduction"
 description: "An open-source UI component library for building high-quality, accessible design systems and web apps."
 ---
+
 This is the `docs` starter template. It contains all of the features that you need to build a Markdown-powered documentation site, including:
 
 - ✅ **Full Markdown support**

@@ -12,23 +12,23 @@ import { CtaButtons } from "@/components/Home/CtaButtons";
 
 <main class="flex justify-center">
   <Image src={BackgroundComposition} alt="" quality={90} class="select-none absolute -z-10 opacity-70 w-full" />
-  <Image src={Grid} alt="" class="select-none absolute -z-20 w-full" />
-  <div class="flex flex-col items-center w-full max-w-4xl px-8 py-32">
+  <Image src={Grid} alt="" class="select-none absolute -z-20 opacity-60 w-full" />
+  <div class="flex w-full max-w-4xl flex-col items-center px-8 py-32">
     <div class="center relative flex flex-col items-center justify-center gap-8 pb-8">
-      <div class="cardinal p-6">
-        <Image alt="" src={CardinalIcon} />
+      <div class="cardinal p-5 sm:p-6">
+        <Image class="h-14 w-14 sm:h-20 sm:w-20" alt="" src={CardinalIcon} />
       </div>
       <Image class="z-10" alt="" src={CardinalLogoGradient} />
     </div>
-    <div class="flex gap-5 w-full max-w-3xl flex-col items-center pb-8">
+    <div class="flex w-full max-w-3xl flex-col items-center gap-8 pb-12">
       <h1
-        class="bg-gradient-to-b from-slate-50 to-slate-300 bg-clip-text text-center text-6xl font-bold text-transparent"
+        class="bg-gradient-to-b from-slate-50 to-slate-300 bg-clip-text text-center text-3xl font-bold text-transparent sm:text-6xl"
       >
         The monorepo starter for full-stack applications
       </h1>
-      <p class="w-full max-w-2xl text-center tracking-wider text-slate-300">
-        Cardinal is a CLI tool that helps you quickstart a monorepo project with the frontend framework of your choice,
-        and a GraphQL backend.
+      <p class="w-full max-w-[580px] text-center leading-loose tracking-wider text-slate-300">
+        Cardinal is a CLI tool that helps you quickstart a full-stack monorepo project. You choose the parts you want,
+        we put it together.
       </p>
     </div>
     <div class="pb-8">
@@ -41,7 +41,7 @@ import { CtaButtons } from "@/components/Home/CtaButtons";
 </main>
 <style>
   :root {
-    --primary-glow: radial-gradient(rgba(244, 42, 138, 0.2), rgba(0, 0, 0, 0));
+    --primary-glow: radial-gradient(rgba(244, 42, 138, 0.25), rgba(0, 0, 0, 0));
     --tile-start-rgb: 239, 245, 249;
     --tile-end-rgb: 228, 232, 233;
     --tile-border: conic-gradient(#ffffff80, #ffffff40, #ffffff30, #ffffff20, #ffffff10, #ffffff10, #ffffff80);
@@ -83,10 +83,10 @@ import { CtaButtons } from "@/components/Home/CtaButtons";
     content: "";
     position: absolute;
     background: var(--primary-glow);
-    width: 350px;
-    height: 350px;
+    width: 300px;
+    height: 300px;
     z-index: 1;
-    filter: blur(45px);
+    filter: blur(30px);
   }
 
   @keyframes rotate {

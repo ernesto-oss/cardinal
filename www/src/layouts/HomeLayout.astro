@@ -7,7 +7,7 @@ import HeadCommon from "@/components/HeadCommon.astro";
 import HeadSEO from "@/components/HeadSEO.astro";
 import { SITE } from "@/consts";
 
-type Props = CollectionEntry<"docs">["data"];
+// type Props = CollectionEntry<"docs">["data"];
 
 const { ...data } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
@@ -18,7 +18,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <HeadCommon />
     <HeadSEO {...data} canonicalUrl={canonicalUrl} />
   </head>
-  <body class="font-body">
+  <body class="bg-chinese-black font-body">
     <Navbar />
     <slot />
     <Footer />

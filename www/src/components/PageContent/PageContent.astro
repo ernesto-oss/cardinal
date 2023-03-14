@@ -10,10 +10,10 @@ type Props = {
 const { title, description, githubEditUrl } = Astro.props;
 ---
 
-<article class="flex flex-col justify-center items-center leading-relaxed tracking-wide">
-  <section class="px-8 max-w-3xl">
-    <h1 class="text-slate-100 text-4xl font-semibold pb-4">{title}</h1>
-    <p class="text-slate-300 text-xl pb-8">{description}</p>
+<article class="flex flex-col items-center justify-center leading-relaxed tracking-wide">
+  <section class="max-w-3xl px-8">
+    <h1 class="pb-4 text-4xl font-semibold text-slate-900 dark:text-slate-100">{title}</h1>
+    <p class="pb-8 text-xl text-slate-700 dark:text-slate-300">{description}</p>
     <div class="content-wrapper">
       <slot />
     </div>
@@ -22,7 +22,7 @@ const { title, description, githubEditUrl } = Astro.props;
 
 <style is:global>
   .content-wrapper p {
-    @apply text-slate-100 text-base pb-4;
+    @apply pb-4 text-base text-slate-900 dark:text-slate-100;
     letter-spacing: 0.05em;
     line-height: 1.7;
   }
@@ -30,6 +30,6 @@ const { title, description, githubEditUrl } = Astro.props;
     @apply pb-6;
   }
   .content-wrapper h2 {
-    @apply text-2xl font-semibold pt-8 pb-6;
+    @apply pt-8 pb-6 text-2xl font-semibold;
   }
 </style>
