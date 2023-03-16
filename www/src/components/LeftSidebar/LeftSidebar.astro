@@ -12,13 +12,13 @@ const langCode = getLanguageFromURL(currentPage);
 const sidebar = SIDEBAR[langCode];
 ---
 
-<nav class="px-4">
+<nav class="overflow-y-scroll w-full h-screen md:h-full px-4">
   <ul class="nav-groups pt-14 tracking-wide">
     {
       Object.entries(sidebar).map(([header, children]) => (
         <li>
           <div class="tracking-wider">
-            <h2 class="px-6 py-2 text-lg font-semibold text-slate-900 dark:text-slate-100">{header}</h2>
+            <h2 class="px-6 pb-2 pt-6 text-lg font-semibold text-slate-900 dark:text-slate-100">{header}</h2>
             <ul>
               {children.map((child) => {
                 const url = Astro.site?.pathname + child.link;

@@ -50,6 +50,7 @@ module.exports = {
       addBase({
         ':root': extractColorVars(theme('colors'))
       })
-    }
+    },
+    require("tailwindcss-animate")
   ]
 }

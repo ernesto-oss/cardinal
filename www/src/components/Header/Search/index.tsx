@@ -48,16 +48,17 @@ const Search: React.FC<{ homepage: boolean }> = ({ homepage }) => {
         ref={searchButtonRef}
         onClick={onOpen}
         className={clsx({
-          "flex cursor-pointer items-center justify-between gap-12 rounded-md px-4 py-2 text-sm": true,
-          "bg-slate-300/10 text-slate-50 hover:bg-slate-300/10": homepage,
+          "flex cursor-pointer items-center justify-between gap-12 rounded-md px-4 py-2 text-sm transition duration-100":
+            true,
+          "text-slate-50 hover:bg-slate-300/10 md:bg-slate-300/10": homepage,
           "bg-slate-400/20 dark:bg-slate-400/10 dark:hover:bg-slate-300/10": !homepage,
         })}
       >
         <div className="flex gap-3">
           <SearchIcon size={18} />
-          <span className="tracking-wide">Search</span>
+          <span className="hidden tracking-wide md:block">Search</span>
         </div>
-        <span className="font-body text-xs font-bold">Ctrl K</span>
+        <span className="hidden font-body text-xs font-bold md:block">Ctrl K</span>
       </button>
 
       {isOpen &&
