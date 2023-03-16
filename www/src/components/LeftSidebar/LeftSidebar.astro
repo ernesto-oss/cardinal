@@ -1,6 +1,7 @@
 ---
 import { getLanguageFromURL } from "../../languages";
 import { SIDEBAR } from "../../consts";
+import Search from "../Header/Search";
 
 type Props = {
   currentPage: string;
@@ -13,7 +14,10 @@ const sidebar = SIDEBAR[langCode];
 ---
 
 <nav class="overflow-y-scroll w-full h-screen md:h-full px-4">
-  <ul class="nav-groups pt-14 tracking-wide">
+  <div class="px-6 pt-14 flex md:hidden">
+    <Search homepage={false} client:load />
+  </div>
+  <ul class="nav-groups pt-8 tracking-wide">
     {
       Object.entries(sidebar).map(([header, children]) => (
         <li>
