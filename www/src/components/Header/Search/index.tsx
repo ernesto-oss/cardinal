@@ -26,6 +26,7 @@ const Search: React.FC<{ homepage: boolean }> = ({ homepage }) => {
   }, [setIsOpen]);
 
   const onInput = useCallback(
+    // @ts-ignore
     (e) => {
       setIsOpen(true);
       setInitialQuery(e.key);
@@ -51,14 +52,29 @@ const Search: React.FC<{ homepage: boolean }> = ({ homepage }) => {
           "flex cursor-pointer items-center justify-between gap-12 rounded-md px-4 py-2 text-sm transition duration-100":
             true,
           "text-slate-50 hover:bg-slate-300/10 md:bg-slate-300/10": homepage,
-          "bg-slate-400/20 dark:bg-slate-400/10 dark:hover:bg-slate-300/10": !homepage,
+          "w-full bg-slate-400/20 hover:bg-slate-400/30": !homepage,
         })}
       >
         <div className="flex gap-3">
           <SearchIcon size={18} />
-          <span className="hidden tracking-wide md:block">Search</span>
+          <span
+            className={clsx({
+              "tracking-wide": true,
+              "hidden md:block": homepage,
+            })}
+          >
+            Search docs
+          </span>
         </div>
-        <span className="hidden font-body text-xs font-bold md:block">Ctrl K</span>
+        <span
+          className={clsx({
+            "font-body text-xs font-bold": true,
+            "hidden md:block": homepage,
+            // "hidden md:block": !homepage,
+          })}
+        >
+          Ctrl K
+        </span>
       </button>
 
       {isOpen &&

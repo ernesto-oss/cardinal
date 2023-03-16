@@ -2,8 +2,8 @@
 import { clsx } from "clsx";
 import { Image } from "@astrojs/image/components";
 import LeftSidebar from "@/components/LeftSidebar/LeftSidebar.astro";
+import ThemeToggle from "@/components/Header/ToggleThemeButton.astro";
 import Search from "@/components/Header/Search";
-import ThemeToggle from "@/components/Header/ThemeToggleButton";
 import MobileMenuToggle from "@/components/Header/MobileMenuToggle";
 
 import ErOss from "@/assets/brand/ErOss.astro";
@@ -66,9 +66,11 @@ const currentPage = Astro.url.pathname;
               <CardinalLogo class="hidden sm:block w-20" />
             </a>
           </div>
-          <div class="flex gap-4">
+          <div class="flex gap-6">
+            <div class="md:flex hidden">
             <Search homepage={homepage} client:load />
-            <ThemeToggle client:load />
+              </div>
+            <ThemeToggle />
             <MobileMenuToggle homepage={homepage} client:visible>
               <LeftSidebar currentPage={currentPage} />
             </MobileMenuToggle>

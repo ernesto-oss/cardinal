@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import { clsx } from "clsx";
 import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/Dialog/Dialog";
@@ -7,29 +7,28 @@ export const MobileMenuToggle: React.FC<{ homepage: boolean; children?: React.Re
   homepage,
   children,
 }) => {
-  const [isClient] = useState(() => {
-    if (import.meta.env.SSR) {
-      return false;
-    }
-    if (window) {
-      return true;
-    }
-    return false;
-  });
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+    return () => {
+      setMounted(false);
+    };
+  }, []);
 
-  if (!isClient) {
+  if (!mounted)
     return (
-      <button
-        className={clsx({
-          "p-2 md:hidden": true,
-          "text-slate-50": homepage,
-          "text-slate-900 dark:text-slate-50": !homepage,
-        })}
-      >
-        <Menu />
-      </button>
+      <div className="md:hidden">
+        <button
+          className={clsx({
+            "p-2": true,
+            "text-slate-50": homepage,
+            "text-slate-900 dark:text-slate-50": !homepage,
+          })}
+        >
+          <Menu />
+        </button>
+      </div>
     );
-  }
 
   return (
     <div className="md:hidden">
