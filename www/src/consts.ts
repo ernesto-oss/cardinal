@@ -9,17 +9,9 @@ export const OPEN_GRAPH = {
     src: "https://raw.githubusercontent.com/ernesto-oss/cardinal/main/www/public/open-graph-banner.jpg",
     alt: "cardinal logo in a subtle grid-like pattern background",
   },
-  twitter: "astrodotbuild",
 };
 
-export const KNOWN_LANGUAGES = {
-  English: "en",
-} as const;
-export const KNOWN_LANGUAGE_CODES = Object.values(KNOWN_LANGUAGES);
-
-export const GITHUB_EDIT_URL = `https://github.com/withastro/astro/tree/main/examples/docs`;
-
-export const COMMUNITY_INVITE_URL = `https://astro.build/chat`;
+export const GITHUB_EDIT_URL = `https://github.com/ernesto-oss/cardinal/tree/main/www/src/content/docs`;
 
 // See "Algolia" section of the README for more information.
 export const ALGOLIA = {
@@ -28,15 +20,35 @@ export const ALGOLIA = {
   apiKey: "XXXXXXXXXX",
 };
 
-export type Sidebar = Record<typeof KNOWN_LANGUAGE_CODES[number], Record<string, { text: string; link: string }[]>>;
+export const KNOWN_LANGUAGES = {
+  en: "English",
+} as const;
+export const KNOWN_LANGUAGE_CODES = Object.values(KNOWN_LANGUAGES);
+export type KnownLanguageCode = keyof typeof KNOWN_LANGUAGES;
+
+export type OuterHeaders = "Overview";
+
+export type SidebarItem<TCode extends KnownLanguageCode = KnownLanguageCode> = {
+  text: string;
+  link: `docs/${TCode}/${string}`;
+};
+
+export type SidebarItemLink = SidebarItem["link"];
+
+export type Sidebar = {
+  [TCode in KnownLanguageCode]: {
+    [THeader in OuterHeaders]?: SidebarItem<TCode>[];
+  };
+};
+
 export const SIDEBAR: Sidebar = {
   en: {
     Overview: [
       { text: "Introduction", link: "docs/en/introduction" },
       { text: "Why Cardinal?", link: "docs/en/why-cardinal" },
-      { text: "Installation", link: "en/installation" },
-      { text: "Directory Structure", link: "docs/en/directory-structure" },
+      // { text: "Installation", link: "docs/installation" },
+      // { text: "Directory Structure", link: "docs/directory-structure" },
     ],
-    Usage: [{ text: "First Steps", link: "docs/en/first-steps" }],
+    // Usage: [{ text: "First Steps", link: "docs/en/first-steps" }],
   },
 };
