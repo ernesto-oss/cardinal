@@ -1,5 +1,5 @@
 ---
-import MoreMenu from "../RightSidebar/MoreMenu.astro";
+import Pagination from "@/components/Pagination/Pagination.astro";
 
 type Props = {
   title: string;
@@ -12,24 +12,59 @@ const { title, description, githubEditUrl } = Astro.props;
 
 <article class="flex flex-col items-center justify-center leading-relaxed tracking-wide">
   <section class="max-w-3xl md:px-8">
-    <h1 class="pb-4 text-4xl font-semibold text-slate-900 dark:text-slate-100">{title}</h1>
-    <p class="pb-8 text-xl text-slate-700 dark:text-slate-300">{description}</p>
+    <h1 class="pb-4 text-4xl font-bold text-slate-900 dark:text-slate-100">{title}</h1>
+    <p class="pb-8 text-xl tracking-wide text-slate-700 dark:text-slate-300">{description}</p>
     <div class="content-wrapper">
       <slot />
     </div>
   </section>
 </article>
+<Pagination />
+<div class="max-w-3xl md:px-8 pb-20">
+  <a class="tracking-wider dark:text-slate-300 text-slate-700" href={githubEditUrl}>Edit this page on GitHub.</a>
+</div>
 
 <style is:global>
+  /* Heading styles */
+  .content-wrapper > h2 {
+    @apply pt-8 pb-6 text-2xl font-bold;
+  }
+  .content-wrapper > h3 {
+    @apply pt-6 pb-4 text-xl font-bold;
+  }
+  .content-wrapper > h4 {
+    @apply pt-6 pb-4 text-lg font-bold;
+  }
+
+  /* Body styles */
   .content-wrapper p {
     @apply pb-4 text-base text-slate-900 dark:text-slate-100;
     letter-spacing: 0.05em;
-    line-height: 1.7;
+    line-height: 1.8;
+  }
+  .content-wrapper p:last-child {
+    @apply pb-0;
+  }
+  .content-wrapper a {
+    @apply decoration-pink-600 dark:decoration-pink-500 decoration-2 hover:decoration-4 underline;
   }
   .content-wrapper ul {
-    @apply pb-6;
+    @apply pb-6 pt-2;
   }
-  .content-wrapper h2 {
-    @apply pt-8 pb-6 text-2xl font-semibold;
+  .content-wrapper li {
+    @apply pb-1 ml-4 text-base text-slate-900 dark:text-slate-100;
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+    list-style: disc;
+    list-style-position: outside;
+  }
+
+  /* Code snniped styles */
+  .content-wrapper > p > code {
+    @apply font-mono text-pink-600 dark:text-pink-500 font-bold text-base inline-block dark:bg-slate-800 bg-slate-200 rounded-md px-1;
+    letter-spacing: initial;
+  }
+  .content-wrapper pre {
+    @apply p-4 rounded-lg;
   }
 </style>
