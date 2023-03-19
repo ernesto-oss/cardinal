@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import { clsx } from "clsx";
-import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/Dialog/Dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/navigation/dialog";
 
 export const MobileMenuToggle: React.FC<{ homepage: boolean; children?: React.ReactNode }> = ({
   homepage,

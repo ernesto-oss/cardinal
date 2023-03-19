@@ -1,14 +1,16 @@
 ---
 import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
-import HeadCommon from "@/components/HeadCommon.astro";
-import HeadSEO from "@/components/HeadSEO.astro";
-import Navbar from "@/components/Header/Navbar.astro";
-import PageContent from "@/components/PageContent/PageContent.astro";
-import LeftSidebar from "@/components/LeftSidebar/LeftSidebar.astro";
-import TableOfContents from "@/components/RightSidebar/TableOfContents";
-import Footer from "@/components/Footer/Footer.astro";
+
 import { GITHUB_EDIT_URL } from "@/consts";
+
+import HeadCommon from "@/components/seo/headCommon.astro";
+import HeadSEO from "@/components/seo/headSeo.astro";
+import Navbar from "@/components/navigation/navbar.astro";
+import PageContent from "@/components/docs/pageContent.astro";
+import LeftSidebar from "@/components/docs/leftSidebar.astro";
+import TableOfContents from "@/components/docs/tableOfContents";
+import Footer from "@/components/footer/Footer.astro";
 import "@/styles/global.css";
 
 type Props = CollectionEntry<"docs">["data"] & {
@@ -19,8 +21,10 @@ const { headings, ...data } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const currentPage = Astro.url.pathname;
-const currentFile = `src/content/docs${currentPage.replace(/\/$/, "")}.mdx`;
+const currentFile = `src/content${currentPage.replace(/\/$/, "")}.mdx`;
 const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
+
+console.log(currentFile);
 ---
 
 <html dir={data.dir} lang={data.lang} class="initial">
