@@ -71,7 +71,7 @@ const TableOfContents: React.FC<{ headings: MarkdownHeading[] }> = ({ headings =
       {/* @ts-ignore */}
       <ul ref={toc}>
         {headings
-          .filter(({ depth }) => depth > 1 && depth < 4)
+          .filter(({ depth }) => depth > 1 && depth < 5)
           .map((heading, i) => (
             <li
               key={i}
