@@ -1,0 +1,69 @@
+---
+title: "Why Cardinal?"
+description: "Why should you use Cardinal when there are so many other starter solutions out there."
+---
+
+import NoteDetail from "../../../components/Mdx/NoteDetail.tsx";
+
+With the recent shift to serverless focused technologies and end-to-end typesafety between client and server becoming a larger priority on developers, there has been more and more options for how to compose our applications. Putting them together for each new project takes some time and effort. We wanted to give you that time back so you can start building applications faster.
+
+This is a relatively opinionated project, because it has to be in order to do what it was built to do. Maybe it doesn't fit your needs, and that's fine.
+
+If what you see here seems to fit your project needs, give it a try, and If it doesn't you can move on to something else. We won't be mad.
+
+## Why is this tech included?
+
+The tech we choose to scaffold Cardinal with has to meet a few criterias:
+
+- It needs to be TypeScript friendly and have well-typed API's and primitives;
+- It has to be mature enough to handle production workloads without breaking;
+- It should play well with serverless architectures;
+
+### TypeScript
+
+If we really think about it. TypeScript is the glue that holds everything together. It's because of it that we can ensure end-to-end typesafety between server and client. It helps you have a better time developing JavaScript applications, and, at this point, it is an industry standard to developing safe web applications.
+
+### Authentication modules
+
+Depending on what you choose, your scaffolded template will be setup with either **[NextAuth](https://next-auth.js.org/)** or **[SSTAuth](https://docs.sst.dev/constructs/Auth)** as the authentication module. These are both serverless friendly and stateless options with passwordless authentication flows by default. We firmly believe that most new projects should not be implementing password authentication flows, and these auth solutions reflect that.
+
+<NoteDetail title="Note">
+  NextAuth is currently in the process of becoming **Auth.js**. The key difference is that instead of being an
+  authentication solution only for Next.js apps, it's going to have an framework agnostic core with custom adapters for
+  each framework (Next.js, SvelteKit, SolidStart). When stable releases become available for all of these
+  implementations, Auth.js will become the standard authentication library in Cardinal.
+</NoteDetail>
+
+### Database ORM's
+
+**[Prisma](https://www.prisma.io/)** is currently the only ORM for the TypeScript ecosystem that is cabable of:
+
+- Automatically generating types from a user-defined schema.
+- Automatically setup database tables from a user-defined schema.
+- Providing simultaneous compatibility with several database types.
+- Oferring tools for database visualization and management.
+
+This is why it's still the most sensible option to provide a typesafe layer between your server logic and your database.
+
+<NoteDetail title="Note">
+  While Prisma still has incomparable developer experience, it's **[heavy tool on serverless functions has been under a
+  lot of discussion lately](https://www.youtube.com/watch?v=3tl9XCiQErA)**. Cardinal is actively looking at more
+  serverless oriented and lightweight solutions like **[Drizzle](https://github.com/drizzle-team/drizzle-orm)** for
+  future releases.
+</NoteDetail>
+
+### Backend tools
+
+Depending on what you choose as your frontend framework, and deployment paths, you will be offered different tools for each available type of backend.
+
+If you choose Next.js as your frontend framework, you will be able to run any type of API directly from the Next.js API Routes/Route Handlers.
+
+Additionally, you can run any backend type as a standalone service on other cloud providers.
+
+Any backend type you choose will be also integrated with Prisma when applicable.
+
+#### GraphQL
+
+When choosing to use GraphQL as the backend type, we will setup the `api` module using **[Pothos](https://pothos-graphql.dev/)**, a GraphQL schema builder for TypeScript.
+
+The schema will then be served to the GraphQL server that better fits the deployment environment.
