@@ -1,0 +1,46 @@
+---
+title: "Introduction"
+description: "An open-source CLI tool to help you scaffold your next full-stack project."
+---
+
+Cardinal is a CLI tool designed to help you quickstart your next full-stack application on a monorepo project structure. It is the result of many years having to deal with tedious boilerplate work and making the different moving pieces of a full-stack application actually work together.
+
+On a modern full-stack application, there are a ton of things that require consideration:
+
+- What library/framework is going to be used for the frontend?
+- What backend type is gonna be used to send data to the client?
+- Where is this backend going to be served from?
+- Where is the application going to be deployed?
+- How do I correctly build/bundle/deploy my application?
+
+Piecing all these questions together into a cohesive solution is not an easy task. Some technologies don't exactly talk well with each other. Cardinal helps you solve these questions by putting together predefined libraries, project structures and configurations so you can focus on building your app.
+
+## Core principles
+
+Cardinal tries to solve a specific set of problems. Having a well defined support scope helps the project be easily maintanable and future-proof. Because of this, it's important to know that:
+
+### Typesafety is not optional
+
+TypeScript is considered a core foundation of any template bootstraped by Cardinal, and a lot of effort was put in place to ensure that every template achieves end-to-end typesafety from the server to the client.
+
+### Bring your own batteries
+
+Cardinal isn't trying to prescribe how you should write your applications. While we do have to make some choices on regards to what libraries to use in order to enable some of the chosen paths (eg. data-fetching), we fully expect you to bring your prefered libraries for state management, components, etc.
+
+### Serverless focused deployment paths
+
+Serverless architectures aligns with our vision removing complexity from your development pipeline whenever possible. We encourage the use of cloud platforms that support easy serverless deployments so you can spend less time worrying about managing your applications infrastructure.
+
+## Key features
+
+### Interactive CLI
+
+When you run the `create cardinal-app@latest` command, an interactive CLI will guide you into setting up your project. The anwsers you give will be used to scaffold modules and configuration files based on your choices.
+
+### The modules you want
+
+Based on your selection of frameworks and backend types, we provide you with optional modules for database, authentication and styling.
+
+### Deployment paths
+
+When necessary, we scaffold the necessary configuration for you to deploy your application and services on the chosen cloud providers.
