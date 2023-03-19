@@ -23,10 +23,15 @@ const currentPage = Astro.url.pathname;
   class={clsx({
     "fixed z-50 w-full border-b": true,
     "border-dark-gunmetal bg-chinese-black/10": homepage,
-    "border-slate-200 dark:border-dark-gunmetal dark:bg-chinese-black/10 bg-slate-50/40": !homepage,
+    "border-slate-200 dark:border-dark-gunmetal dark:bg-chinese-black bg-slate-50": !homepage,
   })}
 >
-  <div class="relative flex h-14 items-center justify-center backdrop-blur-xl">
+  <div
+    class={clsx({
+      "relative flex h-14 items-center justify-center": true,
+      "backdrop-blur-xl": homepage,
+    })}
+  >
     {
       !isDocsPage && (
         <div class="flex h-full w-full max-w-7xl justify-between px-8">
@@ -61,15 +66,15 @@ const currentPage = Astro.url.pathname;
           <div class="flex items-center justify-center gap-4">
             <ErOss class="w-7" homepage={homepage} />
             <div class="h-6 w-[1px] bg-slate-900 dark:bg-slate-50" />
-            <a href="/" class="flex w-40 items-center gap-2">
+            <a href="/" class="flex md:w-40 items-center gap-2">
               <Image class="h-8 w-8" alt="" src={CardinalIcon} />
               <CardinalLogo class="hidden sm:block w-20" />
             </a>
           </div>
           <div class="flex gap-6">
             <div class="md:flex hidden">
-            <Search homepage={homepage} client:load />
-              </div>
+              <Search homepage={homepage} client:load />
+            </div>
             <ThemeToggle />
             <MobileMenuToggle homepage={homepage} client:visible>
               <LeftSidebar currentPage={currentPage} />
