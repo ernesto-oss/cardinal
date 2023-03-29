@@ -31,7 +31,7 @@ const { next, prev } = paginate(langCode, currentPageMatch);
       next ? (
         <a rel="next" href={Astro.site?.pathname + next.link}>
           <div class="flex flex-col gap-2">
-            <span class="text-sm dark:text-slate-300">Previous</span>
+            <span class="text-sm dark:text-slate-300">Next</span>
             <span class="text-lg font-semibold dark:text-pink-400 text-pink-400">{next.text}</span>
           </div>
         </a>
