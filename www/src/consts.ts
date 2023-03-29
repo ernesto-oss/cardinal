@@ -26,7 +26,7 @@ export const KNOWN_LANGUAGES = {
 export const KNOWN_LANGUAGE_CODES = Object.values(KNOWN_LANGUAGES);
 export type KnownLanguageCode = keyof typeof KNOWN_LANGUAGES;
 
-export type OuterHeaders = "Overview";
+export type OuterHeaders = "Overview" | "Usage";
 
 export type SidebarItem<TCode extends KnownLanguageCode = KnownLanguageCode> = {
   text: string;
@@ -46,9 +46,10 @@ export const SIDEBAR: Sidebar = {
     Overview: [
       { text: "Introduction", link: "docs/en/introduction" },
       { text: "Why Cardinal?", link: "docs/en/why-cardinal" },
-      // { text: "Installation", link: "docs/installation" },
+      { text: "Recommendations", link: "docs/en/recommendations" },
       // { text: "Directory Structure", link: "docs/directory-structure" },
     ],
+    Usage: [{ text: "Installation", link: "docs/en/installation" }],
     // Usage: [{ text: "First Steps", link: "docs/en/first-steps" }],
   },
 };
