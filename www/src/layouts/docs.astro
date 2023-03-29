@@ -31,7 +31,7 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
     <HeadSEO {...data} canonicalUrl={canonicalURL} />
     <style is:global>
       .header-link {
-        @apply pb-2 text-sm text-slate-700 transition duration-100 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100;
+        @apply lg:pb-2 pb-4 lg:text-sm text-base text-slate-700 transition duration-100 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100;
       }
       .depth-3 {
         @apply pl-4;
@@ -48,7 +48,12 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
         <LeftSidebar currentPage={currentPage} />
       </aside>
       <main class="pl-8 pr-8 pt-14 md:pl-[250px] lg:pr-[250px]">
-        <PageContent title={data.title} description={data.description} githubEditUrl={githubEditUrl}>
+        <PageContent
+          title={data.title}
+          description={data.description}
+          githubEditUrl={githubEditUrl}
+          headings={headings}
+        >
           <slot />
         </PageContent>
       </main>
