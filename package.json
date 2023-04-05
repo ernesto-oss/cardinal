@@ -13,9 +13,9 @@
     "gen": "hygen"
   },
   "devDependencies": {
-    "sst": "^2.3.6",
-    "aws-cdk-lib": "2.62.2",
-    "constructs": "10.1.156",
+    "sst": "^2.4.0",
+    "aws-cdk-lib": "2.72.1",
+    "constructs": "10.1.302",
     "typescript": "^5.0.3",
     "@tsconfig/node16": "^1.0.3",
     "hygen": "^6.2.11"
