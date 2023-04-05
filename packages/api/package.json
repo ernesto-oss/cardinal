@@ -9,7 +9,7 @@
     "@types/aws-lambda": "^8.10.114",
     "@types/node": "^18.15.11",
     "prettier": "^2.8.7",
-    "sst": "^2.3.6",
+    "sst": "^2.4.0",
     "typescript": "^5.0.3"
   },
   "dependencies": {
