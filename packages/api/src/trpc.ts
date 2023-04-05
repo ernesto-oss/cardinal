@@ -1,27 +1,27 @@
-import * as trpc from '@trpc/server'
+import * as trpc from "@trpc/server";
 import {
   awsLambdaRequestHandler,
   CreateAWSLambdaContextOptions,
 } from "@trpc/server/adapters/aws-lambda";
-import { APIGatewayProxyEventV2 } from 'aws-lambda';
-
-import { z } from "zod";
+import { APIGatewayProxyEventV2 } from "aws-lambda";
 
 export const t = trpc.initTRPC.create();
 
 const appRouter = t.router({
-  getUser: t.procedure.input(z.string()).query((req) => {
-    req.input; // string
-    return { id: req.input, name: "Bilbo" };
+  hello: t.procedure.query(() => {
+    return {
+      greeting: `Hello from tRPC`,
+    };
   }),
 });
 
 // export type definition of API
 export type AppRouter = typeof appRouter;
 
-const createContext = ({}: CreateAWSLambdaContextOptions<APIGatewayProxyEventV2>) => ({}); // no context
+const createContext =
+  ({}: CreateAWSLambdaContextOptions<APIGatewayProxyEventV2>) => ({}); // no context
 
-// type Context = trpc.inferAsyncReturnType<typeof createContext>;
+export type Context = trpc.inferAsyncReturnType<typeof createContext>;
 
 export const handler = awsLambdaRequestHandler({
   router: appRouter,
