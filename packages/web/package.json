@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@react-sst-trpc/web",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -10,10 +10,6 @@
   "dependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-router-dom": "^6.10.0",
-    "urql": "^4.0.0",
-    "graphql": "^16.6.0",
-    "@cardinal-react-sst-trpc/graphql": "0.0.0",
     "react-icons": "^4.8.0"
   },
   "devDependencies": {
