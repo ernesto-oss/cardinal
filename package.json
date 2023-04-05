@@ -22,8 +22,5 @@
   },
   "workspaces": [
     "packages/*"
-  ],
-  "overrides": {
-    "graphql": "16.5.0"
-  }
+  ]
 }

@@ -1,0 +1,19 @@
+{
+  "name": "@react-sst-trpc/api",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "author": "Ernesto Resende<dev@ernestoresende.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.114",
+    "@types/node": "^18.15.11",
+    "prettier": "^2.8.7",
+    "sst": "^2.3.6",
+    "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "@trpc/server": "^10.18.0",
+    "zod": "^3.21.4"
+  }
+}
