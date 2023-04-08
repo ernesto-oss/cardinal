@@ -4,8 +4,7 @@ import { Hero } from "@/components/hero";
 import { DocsCard } from "@/components/docs-card";
 
 export default function App() {
-  const hello = trpc.hello.useQuery();
-  console.log(hello);
+  const hello = trpc.greetings.hello.useQuery()
 
   return (
     <Layout>

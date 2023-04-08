@@ -1,25 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { httpBatchLink } from "@trpc/client";
-import { trpc } from "./utils/trpc";
+import { api, trpc } from "./utils/trpc";
 import App from "./App";
 
 import "./index.css";
 
-const url = import.meta.env.VITE_API_URL;
-
 function ClientProviders() {
   const [queryClient] = React.useState(() => new QueryClient());
-  const [trpcClient] = React.useState(() =>
-    trpc.createClient({
-      links: [
-        httpBatchLink({
-          url: `${url}/trpc`,
-        }),
-      ],
-    })
-  );
+  const [trpcClient] = React.useState(() => api);
 
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>

@@ -1,29 +1,32 @@
 import * as trpc from "@trpc/server";
-import {
-  awsLambdaRequestHandler,
-  CreateAWSLambdaContextOptions,
-} from "@trpc/server/adapters/aws-lambda";
-import { APIGatewayProxyEventV2 } from "aws-lambda";
+import superjson from "superjson";
+import { ZodError } from "zod";
 
-export const t = trpc.initTRPC.create();
+import type { CreateAWSLambdaContextOptions } from "@trpc/server/adapters/aws-lambda";
+import type { APIGatewayProxyEventV2 } from "aws-lambda";
 
-const appRouter = t.router({
-  hello: t.procedure.query(() => {
-    return {
-      greeting: `Hello from tRPC`,
-    };
-  }),
-});
-
-// export type definition of API
-export type AppRouter = typeof appRouter;
-
-const createContext =
+export const createTRPCContext =
   ({}: CreateAWSLambdaContextOptions<APIGatewayProxyEventV2>) => ({}); // no context
 
-export type Context = trpc.inferAsyncReturnType<typeof createContext>;
-
-export const handler = awsLambdaRequestHandler({
-  router: appRouter,
-  createContext,
+export const t = trpc.initTRPC.context<typeof createTRPCContext>().create({
+  transformer: superjson,
+  errorFormatter({ shape, error }) {
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        zodError:
+          error.cause instanceof ZodError ? error.cause.flatten() : null,
+      },
+    };
+  },
 });
+
+export const createTRPCRouter = t.router;
+
+export const publicProcedure = t.procedure;
+
+// export const handler = awsLambdaRequestHandler({
+//   router: appRouter,
+//   createContext,
+// });
