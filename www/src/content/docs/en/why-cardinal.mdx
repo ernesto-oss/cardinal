@@ -5,9 +5,11 @@ description: "Why should you use Cardinal when there are so many other starter s
 
 import Detail from "@/components/docs/mdx/detail.tsx";
 
-With the recent shift to serverless focused technologies and end-to-end typesafety between client and server becoming a larger priority on developers minds, there has been more and more at our disposal. Putting them together for each new project takes some time and effort. We wanted to give you that time back so you can start building applications faster.
+With the recent shift to serverless focused technologies and end-to-end typesafety between client and server becoming a larger priority on developers minds, there has been more and more tools at our disposal. Putting them together for each new project takes some time and effort. We wanted to give you that time back so you can start building applications faster.
 
-This is a relatively opinionated project. It has to be in order to do what it was built to do. Maybe it doesn't fit your needs, and that's fine. If what you see here seems to fit your project needs, give it a try, and If it doesn't you can move on to something else. We won't be mad.
+This is a relatively opinionated project. It has to be in order to do what it was built to do. Maybe it doesn't fit your needs, and that's fine.
+
+If what you see here seems to fit your project needs, give it a try, and If it doesn't you can move on to something else. We won't be mad.
 
 ## Is this a template?
 
@@ -29,9 +31,13 @@ Templates scaffolded by Cardinal will always be configured with TypeScript by de
 
 ### Authentication modules
 
-Depending on what you choose, your scaffolded template will be setup with either **[NextAuth](https://next-auth.js.org/)** or **[SSTAuth](https://docs.sst.dev/constructs/Auth)** as the authentication module. These are both serverless friendly and stateless options with passwordless authentication flows by default.
+Modern and **secure** authentication and authorization is hard. Try implementing it by yourself, and suddenly you will have to deal with several implementation choices, manual integration with OAuth providers, and proper implementation of security protocols. It's a lot.
 
-We firmly believe that most new project authors should not be trying to implement their own password authentication flows unless they **really know what they're doing**, and these auth solutions reflect that.
+We firmly believe that most new project authors should not be trying to roll out their own implementation of authentication and authorization features. The surface area for introducing critical security issues to your applications increases massively unless you really know what you're doing.
+
+Cardinal offers you some choices in that regard. When applicable, you will be offered ways of self-hosting your authentication module within your application with options like **[NextAuth](https://next-auth.js.org/)** or **[SSTAuth](https://docs.sst.dev/constructs/Auth)**. Both are serverless friendly and stateless options with passwordless authentication flows by default.
+
+In cases where there is no viable self-hosted solution for your stack, or if you want to entirely outsource the authentication to a dedicated third-party, we also offer to pre-configure **[Clerk](https://clerk.com/)**, a user management SaaS with a very generous free-tier and fair pricing.
 
 <Detail type="note">
   NextAuth is currently in the process of becoming **Auth.js**. The key difference is that instead of being an

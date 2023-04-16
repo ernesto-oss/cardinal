@@ -1,0 +1,65 @@
+---
+title: "New project"
+description: "How to install and get started with a new Cardinal project."
+---
+
+import DeepDive from "@/components/docs/mdx/deep-dive.tsx";
+
+To create a new Cardinal project, use our `create-cardinal` npm package:
+
+```
+pnpm dlx create-cardinal@latest
+```
+
+## Running the CLI
+
+With the package installed, the CLI tool will run automatically, and you will be asked a few questions:
+
+### Where would you like to create your app?
+
+Choose anywhere you like by using a relative path based on your current working directory. The default is `./my-cardinal-app`.
+
+### What is your frontend framework of choice?
+
+The framework you'll be using to build your web application. Currently supported options are `Next.js` and `React w/ Vite`, with more to come soon. The option you choose here will be used to scaffold the `packages/web` directory.
+
+### What is your backend type of choice?
+
+The backend type you'll be using to build your API. Currently supported options are `tRPC`, `GraphQL` and `REST`. The option you choose here will be used to scaffold the `packages/api` directory.
+
+Additionaly, if you're using Next.js for the frontend application, you will also be asked if you want to serve the API directly from Next's API Routes.
+
+### Where do you want to deploy your application?
+
+The infrastructure where you will be deploying your application. When applicable, this will scaffold the necessary configuration for specific deployment paths.
+
+### Which additions would you like to enable?
+
+In this last step, we will offer you additional compatible libraries in order to enable certain features like **[authentication]()**, **[database]()** and **[styling]()**.
+
+Currently supported additions and their integrations are also individually documented, and automatically integrated with each other whenever applicable. For more details, you can check the docs page for individual library additions:
+
+## Directory structure and monorepo configuration
+
+The project scaffolded by Cardinal is built on top of a monorepo structure. In the past, monorepos were known for being extremely difficult to setup and maintain because of poor tooling, but the implementation of **workspaces** on all modern Node package managers has made that work much simpler.
+
+<DeepDive client:load title="What is a monorepo, exactly?">
+A monorepo is a collection of multiple apps and packages in a single codebase.
+
+This essentially means that instead of having a separate repository for your web application, mobile application and API logic implementation, all of these pieces can live together under the same repository, and eventually share code with each other.
+</DeepDive>
+
+The main building block of monorepos in modern package managers is the workspace. Each app and module under your monorepo has it's own workspace, and when needed, workspaces can depend on each other, creating an internal dependency graph.
+
+Your scaffolded project will always follow the following directory structure:
+
+```
+📦 my-cardinal-app
+ └ 📂 packages
+    └ 📂 web
+    └ 📂 api
+    └ 📂 ...additional modules
+
+```
+
+Each module under the `packages` directory represents a part of your application. The monorepo setup of the project allows you to share code between those modules. This means that, for example, your `api` package can import things from the `database` or `auth` module inside it's logic implementation whenever it needs to interact with these domains.
