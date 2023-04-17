@@ -3,7 +3,9 @@ title: "New project"
 description: "How to install and get started with a new Cardinal project."
 ---
 
+import Components from "@/components/docs/mdx/components.tsx";
 import DeepDive from "@/components/docs/mdx/deep-dive.tsx";
+export const components = Components;
 
 To create a new Cardinal project, use our `create-cardinal` npm package:
 
@@ -47,6 +49,7 @@ The project scaffolded by Cardinal is built on top of a monorepo structure. In t
 A monorepo is a collection of multiple apps and packages in a single codebase.
 
 This essentially means that instead of having a separate repository for your web application, mobile application and API logic implementation, all of these pieces can live together under the same repository, and eventually share code with each other.
+
 </DeepDive>
 
 The main building block of monorepos in modern package managers is the workspace. Each app and module under your monorepo has it's own workspace, and when needed, workspaces can depend on each other, creating an internal dependency graph.
