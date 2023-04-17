@@ -49,7 +49,9 @@ export const SIDEBAR: Sidebar = {
       { text: "Recommendations", link: "docs/en/recommendations" },
       // { text: "Directory Structure", link: "docs/directory-structure" },
     ],
-    Usage: [{ text: "Installation", link: "docs/en/installation" }],
-    // Usage: [{ text: "First Steps", link: "docs/en/first-steps" }],
+    Usage: [
+      { text: "New Project", link: "docs/en/new-project" },
+      { text: "First Steps", link: "docs/en/first-steps" },
+    ],
   },
 };
