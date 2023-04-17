@@ -64,10 +64,10 @@ const TableOfContents: React.FC<{ headings: MarkdownHeading[] }> = ({ headings =
   };
 
   return (
-    <>
+    <nav className="border-l border-slate-200 px-4 dark:border-slate-50/10">
       <h2
         id={onThisPageID}
-        className="hidden pb-4 font-semibold text-slate-900 dark:text-slate-100 md:block md:text-xl"
+        className="hidden pb-4 font-semibold text-slate-900 dark:text-slate-100 xl:block text-lg"
       >
         On this page
       </h2>
@@ -88,7 +88,7 @@ const TableOfContents: React.FC<{ headings: MarkdownHeading[] }> = ({ headings =
             </li>
           ))}
       </ul>
-    </>
+    </nav>
   );
 };
 

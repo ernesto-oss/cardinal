@@ -1,34 +1,12 @@
-@font-face {
-  font-family: "Neue Haas Grotesk Display";
-  src: url("/fonts/NeueHaasDisplayRoman.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Neue Haas Grotesk Display";
-  src: url("/fonts/NeueHaasDisplayMedium.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Neue Haas Grotesk Display";
-  src: url("/fonts/NeueHaasDisplayBold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
-  --font-neue-haas-grotesk: "Neue Haas Grotesk Display";
+  --nav-height: 5rem;
+  --sidebar-width: 272px;
+  --layout-max-width: 1440px;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 64px;
+  scroll-padding-top: calc(var(--nav-height) + 10px);
 }
 
 body {
@@ -41,7 +19,7 @@ body::-webkit-scrollbar {
   width: 8px;
 }
 body::-webkit-scrollbar-track {
-  background-color: var(--color-chinese-black);
+  background-color: transparent;
 }
 body::-webkit-scrollbar-thumb {
   background-color: #5f5c6d;

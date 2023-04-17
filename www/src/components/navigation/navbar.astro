@@ -1,7 +1,6 @@
 ---
 import { clsx } from "clsx";
 import { Image } from "@astrojs/image/components";
-import LeftSidebar from "@/components/docs/leftSidebar.astro";
 import ThemeToggle from "@/components/navigation/toggleThemeButton.astro";
 import Search from "@/components/navigation/search";
 import MobileMenuToggle from "@/components/navigation/mobileMenuToggle";
@@ -16,19 +15,18 @@ type Props = {
 
 const { isDocsPage } = Astro.props;
 const homepage = !isDocsPage;
-const currentPage = Astro.url.pathname;
 ---
 
 <nav
   class={clsx({
-    "fixed z-50 w-full border-b": true,
-    "border-dark-gunmetal bg-chinese-black/10": homepage,
-    "border-slate-200 dark:border-dark-gunmetal dark:bg-chinese-black bg-slate-50": !homepage,
+    "fixed z-10 w-full": true,
+    "border-b border-dark-gunmetal bg-chinese-black/10": homepage,
+    "": !homepage,
   })}
 >
   <div
     class={clsx({
-      "relative flex h-14 items-center justify-center": true,
+      "relative flex h-20 items-center justify-center": true,
       "backdrop-blur-xl": homepage,
     })}
   >
@@ -62,26 +60,53 @@ const currentPage = Astro.url.pathname;
     }
     {
       isDocsPage && (
-        <div class="flex h-full w-full items-center justify-between px-8">
-          <div class="flex items-center justify-center gap-4">
-            <ErOss class="w-7" homepage={homepage} />
-            <div class="h-6 w-[1px] bg-slate-900 dark:bg-slate-50" />
-            <a href="/" class="flex md:w-40 items-center gap-2">
-              <Image class="h-8 w-8" alt="" src={CardinalIcon} />
-              <CardinalLogo class="hidden sm:block w-20" />
-            </a>
-          </div>
-          <div class="flex gap-6">
-            <div class="md:flex hidden">
-              <Search homepage={homepage} client:load />
+        <div class="h-full w-full docs-navbar">
+          <div class="flex items-center justify-end w-full h-full shadow-lg dark:shadow-docs-dark shadow-slate-50 bg-slate-50 dark:bg-docs-dark">
+            <div class="flex gap-6">
+              <div class="flex justify-center items-center">
+                <ul class="hidden md:flex gap-8 text-sm font-semibold dark:text-slate-300">
+                  <li class="transition duration-150 dark:hover:text-slate-50">
+                    <a href="/">Home</a>
+                  </li>
+                  <li class="transition duration-150 hover:text-slate-50">
+                    <a href="/docs/en/introduction">Docs</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="md:flex hidden">
+                <Search homepage={homepage} client:load />
+              </div>
+              <ThemeToggle />
+              <MobileMenuToggle homepage={homepage} client:visible />
             </div>
-            <ThemeToggle />
-            <MobileMenuToggle homepage={homepage} client:visible>
-              <LeftSidebar currentPage={currentPage} />
-            </MobileMenuToggle>
           </div>
         </div>
       )
     }
   </div>
 </nav>
+<style is:global>
+  .title-container {
+    width: var(--sidebar-width);
+    height: var(--nav-height);
+    padding: 0 32px;
+  }
+  .docs-navbar {
+    @apply px-8;
+  }
+  @media (min-width: 960px) {
+    .docs-navbar {
+      padding-left: var(--sidebar-width);
+    }
+  }
+  @media (min-width: 1440px) {
+    .title-container {
+      padding-left: max(32px, calc((100% - (var(--layout-max-width) - 64px)) / 2));
+      width: calc((100% - (var(--layout-max-width) - 64px)) / 2 + var(--sidebar-width) - 32px);
+    }
+    .docs-navbar {
+      padding-left: calc((100vw - var(--layout-max-width)) / 2 + var(--sidebar-width));
+      padding-right: calc((100vw - var(--layout-max-width)) / 2 + 32px);
+    }
+  }
+</style>

@@ -1,7 +1,8 @@
 ---
 import type { MarkdownHeading } from "astro";
+import OnThisPage from "@/components/docs/onThisPage";;
 import Pagination from "@/components/docs/pagination.astro";
-import OnThisPage from "@/components/docs/onThisPage";
+import TableOfContents from "@/components/docs/tableOfContents";
 
 type Props = {
   title: string;
@@ -13,51 +14,45 @@ type Props = {
 const { title, description, githubEditUrl, headings } = Astro.props;
 ---
 
-<OnThisPage headings={headings} client:load />
-<article class="flex flex-col items-center justify-center leading-relaxed tracking-wide">
-  <section class="max-w-3xl md:px-8">
-    <h1 class="pb-4 text-4xl font-bold text-slate-900 dark:text-slate-100">{title}</h1>
-    <p class="pb-8 text-xl tracking-wide text-slate-700 dark:text-slate-300">{description}</p>
-    <div class="content-wrapper">
-      <slot />
-    </div>
-  </section>
-</article>
-<Pagination />
-<div class="max-w-3xl md:px-8 pb-20">
-  <a class="tracking-wider dark:text-slate-300 text-slate-700" href={githubEditUrl}>Edit this page on GitHub.</a>
+<div class="px-0 md:px-8 leading-relaxed">
+  <div class="flex justify-center px-8 pt-8">
+    <aside class="relative order-2 hidden w-full max-w-[256px] pl-8 xl:block">
+      <div class="aside-container fixed top-0 h-screen w-[224px] overflow-y-auto overflow-x-hidden pt-24">
+        <TableOfContents headings={headings} />
+      </div>
+    </aside>
+    <article class="px-8 py-20">
+      <OnThisPage headings={headings} client:load />
+      <h1 class="pb-4 text-4xl font-bold text-slate-900 dark:text-slate-100">{title}</h1>
+      <p class="pb-8 text-xl text-slate-700 dark:text-slate-300">{description}</p>
+      <div class="content-wrapper">
+        <slot />
+      </div>
+      <div class="pt-14">
+        <a class="text-slate-700 dark:text-slate-300" href={githubEditUrl}>Edit this page on GitHub.</a>
+      </div>
+      <Pagination />
+    </article>
+  </div>
 </div>
 
 <style is:global>
-  /* Heading styles */
-  .content-wrapper > h2 {
-    @apply pt-8 pb-6 text-2xl font-bold;
-  }
-  .content-wrapper > h3 {
-    @apply pt-6 pb-4 text-xl font-bold;
-  }
-  .content-wrapper > h4 {
-    @apply pt-6 pb-4 text-lg font-bold;
-  }
-
   /* Body styles */
   .content-wrapper p {
     @apply pb-4 text-base text-slate-900 dark:text-slate-100;
-    letter-spacing: 0.05em;
     line-height: 1.8;
   }
   .content-wrapper p:last-child {
     @apply pb-0;
   }
-  .content-wrapper a {
-    @apply decoration-pink-600 dark:decoration-pink-500 decoration-2 hover:decoration-4 underline;
-  }
+  /* .content-wrapper a {
+    @apply underline decoration-pink-600 decoration-2 hover:decoration-4 dark:decoration-pink-500;
+  } */
   .content-wrapper ul {
     @apply pb-6 pt-2;
   }
   .content-wrapper li {
-    @apply pb-1 ml-4 text-base text-slate-900 dark:text-slate-100;
-    letter-spacing: 0.05em;
+    @apply ml-4 pb-1 text-base text-slate-900 dark:text-slate-100;
     line-height: 1.5;
     list-style: disc;
     list-style-position: outside;
@@ -66,10 +61,10 @@ const { title, description, githubEditUrl, headings } = Astro.props;
   /* Code snniped styles */
   .content-wrapper > p > code,
   .content-wrapper > ul > li > code {
-    @apply font-mono text-pink-600 dark:text-pink-500 font-bold text-base inline-block dark:bg-slate-800 bg-slate-200 rounded-md px-1;
+    @apply inline-block rounded-md bg-slate-200 px-1 font-mono text-sm font-bold text-pink-600 dark:bg-slate-800 dark:text-pink-500;
     letter-spacing: initial;
   }
   .content-wrapper pre {
-    @apply p-4 rounded-lg;
+    @apply mb-6 rounded-lg p-4 text-sm;
   }
 </style>
