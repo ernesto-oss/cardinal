@@ -1,0 +1,6 @@
+.link-heading svg {
+  display: none;
+}
+.link-heading:hover svg {
+  display: inline-flex; 
+}

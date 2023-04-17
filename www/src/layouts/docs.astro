@@ -3,13 +3,11 @@ import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
 
 import { GITHUB_EDIT_URL } from "@/consts";
-
 import HeadCommon from "@/components/seo/headCommon.astro";
 import HeadSEO from "@/components/seo/headSeo.astro";
 import Navbar from "@/components/navigation/navbar.astro";
 import PageContent from "@/components/docs/pageContent.astro";
 import LeftSidebar from "@/components/docs/leftSidebar.astro";
-import TableOfContents from "@/components/docs/tableOfContents";
 import Footer from "@/components/footer/Footer.astro";
 import "@/styles/global.css";
 
@@ -29,25 +27,16 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
   <head>
     <HeadCommon />
     <HeadSEO {...data} canonicalUrl={canonicalURL} />
-    <style is:global>
-      .header-link {
-        @apply lg:pb-2 pb-4 lg:text-sm text-base text-slate-700 transition duration-100 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100;
-      }
-      .depth-3 {
-        @apply pl-4;
-      }
-      .depth-4 {
-        @apply pl-8;
-      }
-    </style>
   </head>
-  <body class="bg-slate-50 font-body text-chinese-black dark:bg-chinese-black dark:text-slate-50">
+  <body class="bg-slate-50 font-body text-chinese-black dark:bg-docs-dark dark:text-slate-50">
     <Navbar isDocsPage={true} />
-    <div class="relative pt-14">
-      <aside class="top-14 bottom-0 hidden w-[250px] overflow-x-hidden md:fixed md:block">
+    <div class="relative">
+      <aside
+        class="sidebar-nav fixed top-0 left-0 bottom-0 overflow-y-auto overflow-x-hidden px-8 pt-8 bg-slate-200 dark:bg-docs-dark-alt"
+      >
         <LeftSidebar currentPage={currentPage} />
       </aside>
-      <main class="pl-8 pr-8 pt-14 md:pl-[250px] lg:pr-[250px]">
+      <main class="docs-content">
         <PageContent
           title={data.title}
           description={data.description}
@@ -57,12 +46,60 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
           <slot />
         </PageContent>
       </main>
-      <aside
-        class="fixed top-14 right-0 hidden w-[250px] overflow-x-hidden pt-14 leading-relaxed tracking-wide lg:block"
-      >
-        <TableOfContents headings={headings} />
-      </aside>
     </div>
     <Footer />
   </body>
 </html>
+
+<style is:global>
+  /** Custom scrollbar styling targeting Chrome based browsers for the navigation sidebar */
+  .sidebar-nav::-webkit-scrollbar {
+    width: 8px;
+  }
+  .sidebar-nav::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .sidebar-nav::-webkit-scrollbar-thumb {
+    background-color: #5f5c6d;
+    border-radius: 10px;
+  }
+
+  /* Default state for the sidebar navigation */
+  .sidebar-nav {
+    width: var(--sidebar-width);
+    transition: opacity 0.5s, transform 0.25s ease;
+    transform: translate(-100%);
+    opacity: 0;
+  }
+
+  @media (min-width: 960px) {
+    /* When the viewport reaches 960px, transform back to original position */
+    .sidebar-nav {
+      opacity: 1;
+      transform: translate(0);
+    }
+    .docs-content {
+      padding-left: var(--sidebar-width);
+    }
+  }
+  @media (min-width: 1440px) {
+    .sidebar-nav {
+      width: calc((100% - (var(--layout-max-width) - 64px)) / 2 + var(--sidebar-width) - 32px);
+      padding-left: max(32px, calc((100% - (var(--layout-max-width) - 64px)) / 2));
+    }
+    .docs-content {
+      padding-right: calc((100vw - var(--layout-max-width)) / 2);
+      padding-left: calc((100vw - var(--layout-max-width)) / 2 + var(--sidebar-width));
+    }
+  }
+
+  .header-link {
+    @apply pb-4 text-base text-slate-700 transition duration-100 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100 lg:pb-2 lg:text-sm;
+  }
+  .depth-3 {
+    @apply pl-4;
+  }
+  .depth-4 {
+    @apply pl-8;
+  }
+</style>

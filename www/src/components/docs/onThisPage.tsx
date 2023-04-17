@@ -17,16 +17,16 @@ export const OnThisPage: React.FC<{ headings: MarkdownHeading[] }> = ({ headings
 
   if (!mounted)
     return (
-      <button className="flex items-center gap-2 md:px-8 lg:hidden">
+      <button className="flex items-center gap-2 xl:hidden">
         <span className="text-default font-semibold text-pink-600 dark:text-pink-500">On this page</span>
         <ChevronsUpDown className="h-5 w-5 text-pink-600 dark:text-pink-500" />
       </button>
     );
 
   return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full pb-8 lg:hidden">
+    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full pb-8 xl:hidden">
       <CollapsibleTrigger asChild>
-        <button className="flex items-center gap-2 md:px-8">
+        <button className="flex items-center gap-2">
           <span className="text-default font-semibold text-pink-600 dark:text-pink-500">On this page</span>
           <ChevronsUpDown className="h-5 w-5 text-pink-600 dark:text-pink-500" />
         </button>

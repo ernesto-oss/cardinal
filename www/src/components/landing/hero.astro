@@ -10,8 +10,8 @@ import Grid from "@/assets/home/grid-pattern.svg";
 ---
 
 <main class="flex justify-center">
-  <Image src={BackgroundComposition} alt="" quality={90} class="select-none absolute -z-10 opacity-70 w-full" />
-  <Image src={Grid} alt="" class="select-none absolute -z-20 opacity-60 w-full" />
+  <Image src={BackgroundComposition} alt="" quality={90} class="absolute -z-10 w-full select-none opacity-70" />
+  <Image src={Grid} alt="" class="absolute -z-20 w-full select-none opacity-60" />
   <div class="flex w-full max-w-4xl flex-col items-center px-8 py-32">
     <div class="center relative flex flex-col items-center justify-center gap-8 pb-8">
       <div class="cardinal p-5 sm:p-6">
@@ -25,7 +25,7 @@ import Grid from "@/assets/home/grid-pattern.svg";
       >
         The monorepo starter for full-stack applications
       </h1>
-      <p class="w-full max-w-[580px] text-center leading-loose tracking-wider text-slate-300">
+      <p class="w-full max-w-[580px] text-center leading-loose text-slate-300">
         Cardinal is a CLI tool that helps you quickstart a full-stack monorepo project. You choose the parts you want,
         we put it together.
       </p>

@@ -59,7 +59,6 @@ const Search: React.FC<{ homepage: boolean }> = ({ homepage }) => {
           <SearchIcon size={18} />
           <span
             className={clsx({
-              "tracking-wide": true,
               "hidden md:block": homepage,
             })}
           >

@@ -8,7 +8,7 @@ const DeepDive: React.FC<{
   const [open, setOpen] = React.useState<boolean>(false);
 
   return (
-    <details open={open} {...props} className="pointer-events-none rounded-lg bg-indigo-700/20 py-6 px-8">
+    <details open={open} {...props} className="pointer-events-none mb-6 rounded-lg bg-indigo-700/20 py-6 px-8">
       <summary className="flex flex-col">
         <div className="flex gap-2 pb-4">
           <BookOpen size={24} strokeWidth={3} className="text-indigo-600 dark:text-indigo-400" />
