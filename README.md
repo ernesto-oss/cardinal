@@ -7,7 +7,7 @@
 </h2>
 
 <p align="center">
-  Cardinal is a CLI tool that helps you quickstart a full-stack monorepo project. Get started by running <pre>npm create-cardinal-app@latest</pre> on the terminal.
+  CLI tool that helps you quickstart a full-stack monorepo project. Get started by running <code>npm create-cardinal-app@latest</code> on the terminal.
 </>
 
 Cardinal is a CLI tool designed to help you quickstart your next full-stack application on a monorepo project structure. It is the result of painful years having to deal with tedious boilerplate work and making the different moving pieces of a full-stack application actually work together in a monorepo structure.
