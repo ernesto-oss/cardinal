@@ -16,20 +16,20 @@
     "remove-app": "rimraf dist my-cardinal-app"
   },
   "dependencies": {
-    "@clack/core": "^0.3.0",
-    "@clack/prompts": "^0.6.0",
-    "fs-extra": "^11.1.0",
+    "@clack/core": "^0.3.2",
+    "@clack/prompts": "^0.6.3",
+    "fs-extra": "^11.1.1",
     "picocolors": "^1.0.0",
     "sort-package-json": "^2.4.1",
-    "type-fest": "^3.6.0"
+    "type-fest": "^3.8.0"
   },
   "devDependencies": {
-    "@prisma/client": "^4.10.1",
+    "@prisma/client": "^4.13.0",
     "@types/fs-extra": "^11.0.1",
-    "@types/node": "^18.13.0",
-    "rimraf": "^4.1.2",
-    "tsup": "^6.6.3",
-    "typescript": "^4.9.5"
+    "@types/node": "^18.15.11",
+    "rimraf": "^5.0.0",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4"
   },
   "engines": {
     "node": ">=14.16"
