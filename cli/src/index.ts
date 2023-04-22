@@ -8,7 +8,6 @@ import {
   promptAppDirectory,
   promptFrontendFramework,
   promptDeployProvider,
-  promptGraphqlHostingAgent,
   promptAdditionalPackages,
 } from "@/cli/index.js";
 import { type AvailablePackages } from "@/installers/index.js";
@@ -32,8 +31,7 @@ export const runCli = async () => {
 
   const conditionalPromptGroup = await group(
     {
-      deployProvider: () => promptDeployProvider(frontendFramework),
-      graphqlHostingAgent: () => promptGraphqlHostingAgent(frontendFramework),
+      deployProvider: () => promptDeployProvider(),
       additionalPackages: () => promptAdditionalPackages(frontendFramework),
     },
     {
@@ -44,7 +42,7 @@ export const runCli = async () => {
     },
   );
 
-  const { deployProvider, graphqlHostingAgent, additionalPackages } = conditionalPromptGroup;
+  const { deployProvider, additionalPackages } = conditionalPromptGroup;
 
   const addons = additionalPackages as AvailablePackages[];
 
@@ -52,7 +50,6 @@ export const runCli = async () => {
     appDir: corePromptGroup.appDir,
     frontendFramework: frontendFramework,
     deployProvider: deployProvider,
-    graphQLHostingAgent: graphqlHostingAgent,
     additionalPackages: addons,
   };
 };
@@ -64,7 +61,7 @@ async function main() {
   const pkgManager = getUserPkgManager();
 
   /* Run CLI prompts and get information about what packages will be included on the scaffolded project */
-  const { appDir, additionalPackages, deployProvider, frontendFramework, graphQLHostingAgent } = await runCli();
+  const { appDir, additionalPackages, deployProvider, frontendFramework } = await runCli();
 
   /* Parses the app name and directory from the user input */
   const [scopedAppName, appPath] = parseNameAndPath(appDir);

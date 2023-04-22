@@ -6,7 +6,7 @@ export const dependencyVersionMap = {
   // Internal packages, used on the monorepo workspace
   "@acme/auth": "workspace:*",
   "@acme/database": "workspace:*",
-  "@acme/graphql": "workspace:*",
+  "@acme/api": "workspace:*",
 
   // NextAuth.js
   "next-auth": "^4.19.0",

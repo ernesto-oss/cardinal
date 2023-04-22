@@ -1,4 +1,4 @@
-export type FrontendFramework = symbol | "next" | "react" | "astro";
+export type FrontendFramework = string | symbol;
 
 const validationRegExp =
   /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
@@ -35,10 +35,7 @@ export async function checkValidAddons(frontendFramework: FrontendFramework) {
   return options;
 }
 
-export async function checkValidFrontendDeployProviders(
-  frontendFramework: FrontendFramework
-) {
-  /* Core options that will work for any framework */
+export async function checkValidDeployProviders() {
   let options = [
     { value: "vercel", label: "Vercel", hint: "Recommended for most apps" },
     {
@@ -48,49 +45,12 @@ export async function checkValidFrontendDeployProviders(
     },
   ];
 
-  /* Only push Google Cloud Functions and Docker container if Next.js or React where chosen */
-  if (frontendFramework === "next" || frontendFramework === "react") {
-    options.push(
-      {
-        value: "gcp",
-        label: "Google Cloud",
-        hint: "Deploy on Google Cloud Run",
-      },
-      {
-        value: "docker",
-        label: "Docker Container",
-        hint: "Deploy with traditional Docker container",
-      }
-    );
-  }
-
-  return options;
-}
-
-export async function checkValidGraphqlAgents(
-  frontendFramework: FrontendFramework
-) {
-  let options = [
-    {
-      value: "gcp",
-      label: "Google Cloud Functions",
-    },
-    {
-      value: "lambda",
-      label: "Amazon AWS Lambda",
-    },
-    {
-      value: "vercel",
-      label: "Vercel",
-    },
-  ];
-
-  if (frontendFramework === "next") {
-    options.unshift({
-      value: "next",
-      label: "Directly from the Next.js app",
-    });
-  }
+  /* TODO: When more deployment paths start being supported, we can start adding then here on a
+* per frontend framework basis */
+  // if (frontendFramework === "next" || frontendFramework === "react") {
+  //   options.push(
+  //   );
+  // }
 
   return options;
 }
