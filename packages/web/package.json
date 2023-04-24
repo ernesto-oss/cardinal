@@ -14,13 +14,13 @@
     "@acme/database": "workspace:*",
     "@acme/tailwind-config": "workspace:*",
     "@pothos/core": "^3.29.0",
-    "@tanstack/react-query": "^4.29.3",
     "graphql-yoga": "^3.9.1",
     "next": "^13.3.1",
     "next-auth": "^4.22.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "urql": "^4.0.0"
+    "urql": "^4.0.0",
+    "wonka": "^6.3.1"
   },
   "devDependencies": {
     "@prisma/nextjs-monorepo-workaround-plugin": "^4.13.0",

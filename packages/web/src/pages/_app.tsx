@@ -1,11 +1,11 @@
 import "@/styles/globals.css";
 
-import { createClient, cacheExchange, fetchExchange, Provider as UrqlProvider } from "urql";
+import { Provider as UrqlProvider } from "urql";
+import { urqlClient } from "@/utils/urql";
 
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
-// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
 
@@ -17,12 +17,6 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const urql = createClient({
-  url: "http://localhost:3000/api/graphql",
-  exchanges: [cacheExchange, fetchExchange],
-});
-
-// const queryClient = new QueryClient();
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export default function App({
@@ -33,7 +27,7 @@ export default function App({
 
   return getLayout(
     <SessionProvider session={session}>
-      <UrqlProvider value={urql}>
+      <UrqlProvider value={urqlClient}>
         <style jsx global>{`
           html {
             font-family: ${inter.style.fontFamily};

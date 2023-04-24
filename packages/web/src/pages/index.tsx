@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useTypedQuery } from "@acme/api/urql";
+import { useTypedQuery } from "@/utils/urql";
 import { Layout } from "@/layouts/layout";
 import { Hero } from "@/components/hero";
 import { DocsCard } from "@/components/docs-card";
