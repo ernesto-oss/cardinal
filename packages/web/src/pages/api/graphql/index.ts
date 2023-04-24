@@ -1,6 +1,6 @@
 import { createYoga } from "graphql-yoga";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { schema } from "@acme/graphql";
+import { schema } from "@/../../api/src";
 import { getServerAuthSession } from "@acme/auth";
 /**
  * Disabling the body parsing is required to allow Yoga to handle the request body.
