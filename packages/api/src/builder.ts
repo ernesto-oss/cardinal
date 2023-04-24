@@ -98,7 +98,7 @@ export const builder = new SchemaBuilder<{
  * on all other files inside the `schema` folder.
  * */
 builder.queryType();
-// builder.mutationType();
+builder.mutationType();
 
 /**
  * Register custom scalars here. The scalars registered here can be used to define fields on the schema entities.
