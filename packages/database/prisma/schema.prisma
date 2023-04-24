@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["jsonProtocol"]
 }
 
@@ -15,11 +15,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// NextAuth.js required models.
+model Article {
+  id    String @id @default(cuid())
+  title String
+  url   String
+}
 
 // NOTE: If you're not using mysql, postgresql or sqlserver
 // as the provider above, comment the `@db.Text` annotations
 // bellow. See why in: https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+
+// NextAuth.js required models.
 model Account {
   id                       String  @id @default(cuid())
   userId                   String
