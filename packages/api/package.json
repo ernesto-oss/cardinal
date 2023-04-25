@@ -19,7 +19,6 @@
     "@genql/cli": "^3.0.5",
     "@graphql-codegen/cli": "^3.3.1",
     "@graphql-codegen/schema-ast": "^3.0.1",
-    "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.15.13",
     "@types/react": "^18.0.38",
     "chokidar-cli": "^3.0.0",
@@ -33,8 +32,6 @@
     "@pothos/plugin-scope-auth": "^3.19.0",
     "graphql": "^16.6.0",
     "graphql-scalars": "^1.21.3",
-    "react": "^18.2.0",
-    "urql": "^4.0.0",
-    "wonka": "^6.3.1"
+    "react": "^18.2.0"
   }
 }
