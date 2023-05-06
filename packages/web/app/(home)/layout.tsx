@@ -4,7 +4,11 @@ import ErLogo from "@/assets/brand/er-logo.svg";
 import BackgroundGradient from "@/assets/home/background-gradient.png";
 import Grid from "@/assets/home/grid-pattern.svg";
 
-export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface HomeLayoutProps {
+  children: React.ReactNode;
+}
+
+export default async function HomeLayout({ children }: HomeLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col">
       <Image
@@ -23,4 +27,4 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       </footer>
     </div>
   );
-};
+}

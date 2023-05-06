@@ -1,19 +1,9 @@
 import { createYoga } from "graphql-yoga";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { schema } from "@/../../api/src";
-import { getServerAuthSession } from "@acme/auth";
-/**
- * Disabling the body parsing is required to allow Yoga to handle the request body.
- * Specially useful if you're dealing with file uploads from GraphQL.
- * @see: https://the-guild.dev/graphql/yoga-server/docs/features/file-uploads
- */
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+import { NextApiRequest, NextApiResponse} from "next";
+import { schema } from "@acme/api";
+// import { getServerAuthSession } from "@acme/auth";
 
-export default createYoga<{
+const handler = createYoga<{
   req: NextApiRequest;
   res: NextApiResponse;
 }>({
@@ -25,7 +15,7 @@ export default createYoga<{
      * This is used to handle authorization on the GraphQL resolvers.
      * @see: https://the-guild.dev/graphql/yoga-server/docs/features/context
      */
-    session: await getServerAuthSession(req, res),
+    // session: await getServerAuthSession(req, res),
   }),
   schema,
   /**
@@ -34,3 +24,5 @@ export default createYoga<{
    */
   graphqlEndpoint: "/api/graphql",
 });
+
+export default handler;
