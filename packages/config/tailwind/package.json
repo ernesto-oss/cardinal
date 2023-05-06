@@ -1,8 +1,0 @@
-{
-  "name": "@acme/tailwind-config",
-  "version": "0.1.0",
-  "license": "MIT",
-  "devDependencies": {
-    "tailwindcss": "^3.2.4"
-  }
-}
