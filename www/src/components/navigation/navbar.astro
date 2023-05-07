@@ -20,14 +20,14 @@ const homepage = !isDocsPage;
 <nav
   class={clsx({
     "fixed z-10 w-full": true,
-    "border-b border-dark-gunmetal bg-chinese-black/10": homepage,
+    "bg-chinese-black/10": homepage,
     "": !homepage,
   })}
 >
   <div
     class={clsx({
-      "relative flex h-20 items-center justify-center": true,
-      "backdrop-blur-xl": homepage,
+      "relative flex h-16 items-center justify-center": true,
+      "backdrop-blur-xl h-16": homepage,
     })}
   >
     {

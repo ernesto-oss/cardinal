@@ -1,5 +1,5 @@
 :root {
-  --nav-height: 5rem;
+  --nav-height: @apply h-16;
   --sidebar-width: 272px;
   --layout-max-width: 1440px;
 }
