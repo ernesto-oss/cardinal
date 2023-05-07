@@ -16,9 +16,9 @@ export const GITHUB_EDIT_URL = `https://github.com/ernesto-oss/cardinal/tree/mai
 /* FIXME: Remove this when the search component has been refactored to something other
 then Algolia */
 export const ALGOLIA = {
-  indexName: "XXXXXXXXXX",
-  appId: "XXXXXXXXXX",
-  apiKey: "XXXXXXXXXX",
+  indexName: "cardinal-docs",
+  appId: "ESHYC2PSBV",
+  apiKey: "efb9b3623dd00e90072a861f27f58357",
 };
 
 export const KNOWN_LANGUAGES = {

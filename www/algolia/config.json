@@ -1,0 +1,14 @@
+{
+  "index_name": "cardinal-docs",
+  "start_urls": ["https://cardinal.ernestoresende.com/docs/en/introduction"],
+  "stop_urls": [],
+  "selectors": {
+    "lvl0": "[data-algolia-page-scope] h1",
+    "lvl1": "[data-algolia-page-scope] h2",
+    "lvl2": "[data-algolia-page-scope] h3",
+    "lvl3": "[data-algolia-page-scope] h4",
+    "text": "[data-algolia-page-scope] p, [data-algolia-page-scope] li"
+  },
+  "min_indexed_level": 1,
+  "selectors_exclude": ["[data-algolia-exclude]"]
+}
