@@ -5,7 +5,7 @@ import { Search as SearchIcon } from "lucide-react";
 import * as docSearchReact from "@docsearch/react";
 
 import { ALGOLIA } from "@/consts";
-import "./index.css";
+import "@/styles/docsearch.css";
 
 /** FIXME: This is still kinda nasty, but DocSearch is not ESM ready. */
 const DocSearchModal = docSearchReact.DocSearchModal || (docSearchReact as any).default.DocSearchModal;
