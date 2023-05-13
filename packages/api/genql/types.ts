@@ -57,9 +57,6 @@ export default {
             "greeting": [
                 2
             ],
-            "somethingElse": [
-                2
-            ],
             "__typename": [
                 2
             ]
