@@ -9,7 +9,7 @@ const localConfig = {
   theme: {
     extend: {
       fontFamily: {
-        default: ["var(--font-sans)", ...fontFamily.sans],
+        default: ["var(--font-default)", ...fontFamily.sans],
       },
     },
   },
