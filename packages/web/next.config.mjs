@@ -1,10 +1,9 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
-  transpilePackages: ["@acme/database", "@acme/api", "@acme/auth"],
+  transpilePackages: ["@acme/database", "@acme/api", "@acme/auth", "@acme/config"],
   experimental: {
     appDir: true,
-    // serverComponentsExternalPackages: ["@prisma/client"],
   }
 };
 
