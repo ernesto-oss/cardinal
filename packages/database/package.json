@@ -8,7 +8,8 @@
     "clean": "rimraf .turbo node_modules",
     "with-env": "dotenv -e ../../.env",
     "db-push": "pnpm with-env prisma db push",
-    "db-generate": "pnpm with-env prisma generate"
+    "db-generate": "pnpm with-env prisma generate",
+    "db-studio": "pnpm with-env prisma studio"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"

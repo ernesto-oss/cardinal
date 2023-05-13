@@ -20,6 +20,7 @@ export const Hero: React.FC = () => {
           </div>
           <Image className="z-10 w-44" alt="" src={CardinalLogoGradient} />
         </div>
+        <p className="text-slate-300 text-lg max-w-[600px] font-semibold text-center leading-relaxed">Your next fullstack application begins here. Browser the code and documentation to take a look at how we've scaffolded things for you.</p>
       </div>
     </main>
   );

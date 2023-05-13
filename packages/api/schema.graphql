@@ -17,5 +17,4 @@ type Query {
   article(articleID: String!): Article
   articles: [Article!]!
   greeting: String!
-  somethingElse: String!
 }

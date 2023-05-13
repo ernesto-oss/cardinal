@@ -14,6 +14,7 @@ export interface Article {
 }
 
 export interface Mutation {
+    /** Creates and returns a new Article */
     createArticle: Article
     __typename: 'Mutation'
 }
@@ -22,7 +23,6 @@ export interface Query {
     article?: Article
     articles: Article[]
     greeting: Scalars['String']
-    somethingElse: Scalars['String']
     __typename: 'Query'
 }
 
@@ -35,6 +35,7 @@ export interface ArticleGenqlSelection{
 }
 
 export interface MutationGenqlSelection{
+    /** Creates and returns a new Article */
     createArticle?: (ArticleGenqlSelection & { __args: {title: Scalars['String'], url: Scalars['String']} })
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -44,7 +45,6 @@ export interface QueryGenqlSelection{
     article?: (ArticleGenqlSelection & { __args: {articleID: Scalars['String']} })
     articles?: ArticleGenqlSelection
     greeting?: boolean | number
-    somethingElse?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }

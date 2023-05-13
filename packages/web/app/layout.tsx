@@ -1,5 +1,5 @@
 import { Inter as FontSans } from "next/font/google";
-import { clsx as cn } from "clsx";
+import { clsx } from "clsx";
 import Providers from "@/utils/providers";
 import { siteConfig } from "@/config/site";
 
@@ -7,7 +7,7 @@ import "@/styles/globals.css";
 
 const fontSans = FontSans({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-default",
 });
 
 interface RootLayoutProps {
@@ -35,7 +35,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={cn(fontSans.className, "font-default")}>
+      <body className={clsx("font-default text-slate-200", fontSans.variable)}>
         <Providers>{children}</Providers>
       </body>
     </html>
