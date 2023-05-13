@@ -1,10 +1,13 @@
 import type PrismaTypes from "@pothos/plugin-prisma/generated";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest } from "next/server";
 
 import { prisma } from "@acme/database";
 import SchemaBuilder from "@pothos/core";
 import PrismaPlugin from "@pothos/plugin-prisma";
 import { DateTimeResolver } from "graphql-scalars";
+
+import type { YogaInitialContext } from 'graphql-yoga'
+import type { JwtPayload } from '@acme/auth';
 
 /**
  * This is where all the GraphQL stuff for Pothos is created and configured. This file documents
@@ -46,8 +49,8 @@ export const builder = new SchemaBuilder<{
    * @see: https://pothos-graphql.dev/docs/guide/context
    */
   Context: {
-    req: NextApiRequest;
-    res: NextApiResponse;
+    request: NextRequest & YogaInitialContext;
+    session?: JwtPayload;
   };
 
   /** SCALARS
