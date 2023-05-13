@@ -14,11 +14,11 @@ export const DocsCard: React.FC<DocsCardProps> = ({ title, description, href }) 
       target="_blank"
       rel="noopener noreferrer"
     >
-      <div className="flex items-center gap-2 pb-4 font-sans text-slate-50">
+      <div className="flex items-center gap-2 pb-4 text-slate-50">
         <h2 className="text-2xl font-bold">{title}</h2>
-        <IoArrowForward className="relative top-1 h-5 w-5" />
+        <IoArrowForward className="relative h-5 w-5" />
       </div>
-      <p className="font-sans text-slate-300">{description}</p>
+      <p className="text-sm leading-relaxed text-slate-300">{description}</p>
     </a>
   );
 };
