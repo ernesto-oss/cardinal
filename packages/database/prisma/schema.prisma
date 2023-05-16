@@ -4,6 +4,7 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["jsonProtocol"]
+  binaryTargets   = ["native", "rhel-openssl-1.0.x"]
 }
 
 generator pothos {
@@ -11,8 +12,9 @@ generator pothos {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model AuthUser {
@@ -51,6 +53,8 @@ model Article {
   id    String @id @default(cuid())
   title String
   url   String
+
+  @@map("article")
 }
 
 // NOTE: If you're not using mysql, postgresql or sqlserver
