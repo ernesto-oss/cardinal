@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from 'next/navigation';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +24,8 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const UserAuthForm: React.FC<UserAuthFormProps> = ({ className, ...props }) => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -38,10 +41,14 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({ className, ...props 
   async function submit(data: FormData) {
     setDisableForm(true);
 
-    await fetch(`/api/auth/${loginForm ? "login" : "signup"}`, {
+    const request = await fetch(`/api/auth/${loginForm ? "login" : "signup"}`, {
       method: "POST",
       body: JSON.stringify({ email: data.email.toLowerCase(), password: data.password }),
     });
+
+    if (request.status === 302) {
+      router.push('/dashboard');
+    }
   }
 
   return (
@@ -73,7 +80,7 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({ className, ...props 
             {errors?.email && <p className="px-1 text-xs text-red-600">{errors.email.message}</p>}
           </div>
           <button
-            className="h-10 py-2 px-4 inline-flex w-full items-center justify-center rounded-md bg-gray-300 text-sm font-bold text-slate-900 hover:border-gray-300/90"
+            className="inline-flex h-10 w-full items-center justify-center rounded-md bg-gray-300 px-4 py-2 text-sm font-bold text-slate-900 hover:border-gray-300/90"
             disabled={disableForm}
             type="submit"
           >
