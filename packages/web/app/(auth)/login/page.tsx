@@ -35,7 +35,7 @@ export default function LoginPage() {
         </div>
         <UserAuthForm signupForm={false} loginForm />
         <p className="px-8 text-center text-sm text-slate-400">
-          Dont't have an account?{" "}
+          Dont&apos;t have an account?{" "}
           <Link href="/register" className="hover:text-brand underline underline-offset-4">
             Sign up
           </Link>{" "}
