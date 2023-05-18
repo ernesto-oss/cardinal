@@ -13,7 +13,7 @@ import { prisma as db } from "@acme/database";
  * that doesn´t need to be polyfilled */
 import "lucia-auth/polyfill/node";
 
-const authSecret = env.AUTH_SECRET;    
+const authSecret = env.AUTH_SECRET;
 
 export const auth = lucia({
   adapter: prismaAdapter(db as any),
@@ -44,6 +44,13 @@ export type JwtPayload = {
   state: "idle" | "active";
   iat: number;
 };
+
+
+export type ErrorMessage = "AUTH_INVALID_SESSION_ID" | "AUTH_INVALID_PASSWORD" | "AUTH_DUPLICATE_SESSION_ID" | "AUTH_DUPLICATE_KEY_ID" | "AUTH_INVALID_KEY_ID" | "AUTH_INVALID_USER_ID" | "AUTH_INVALID_REQUEST" | "AUTH_NOT_AUTHENTICATED" | "REQUEST_UNAUTHORIZED" | "UNKNOWN_ERROR" | "AUTH_OUTDATED_PASSWORD" | "AUTO_USER_ID_GENERATION_NOT_SUPPORTED" | "AUTH_EXPIRED_KEY";
+
 export type Auth = typeof auth;
 export type { Session } from 'lucia-auth'
-export { LuciaError } from 'lucia-auth';
+export { LuciaError, SESSION_COOKIE_NAME } from 'lucia-auth';
+
+/* Export providers */
+export { credentialsHandler, credentialsAuthSchema } from "./providers/credentials";
