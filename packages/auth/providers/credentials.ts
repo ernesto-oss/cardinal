@@ -108,7 +108,9 @@ export async function credentialsHandler(
         });
       }
     } catch (error) {
-      errorHandler(error);
+      if (error instanceof LuciaError || error instanceof Prisma.PrismaClientKnownRequestError)
+        return NextResponse.json({ error: error.message }, { status: 403 });
+      else return NextResponse.json({ error: "UNKNOWN_ERROR" }, { status: 500 });
     }
 
   /* Login endpoint handler */
@@ -189,7 +191,9 @@ export async function credentialsHandler(
 
       return new Response(null, { status: 403 });
     } catch (error) {
-      errorHandler(error);
+      if (error instanceof LuciaError || error instanceof Prisma.PrismaClientKnownRequestError)
+        return NextResponse.json({ error: error.message }, { status: 403 });
+      else return NextResponse.json({ error: "UNKNOWN_ERROR" }, { status: 500 });
     }
 
   if (slug === "renew")
@@ -221,7 +225,7 @@ export async function credentialsHandler(
           const sessionCookie = auth.createSessionCookie(renewedSession);
           const { expires } = sessionCookie.attributes;
           const signedSession = signJwtToken(renewedSession);
-          const user = auth.getSessionUser(renewedSession.sessionId)
+          const user = auth.getSessionUser(renewedSession.sessionId);
 
           return NextResponse.json(user, {
             status: 302,
@@ -244,6 +248,8 @@ export async function credentialsHandler(
         }
       }
     } catch (error) {
-      errorHandler(error);
+      if (error instanceof LuciaError || error instanceof Prisma.PrismaClientKnownRequestError)
+        return NextResponse.json({ error: error.message }, { status: 403 });
+      else return NextResponse.json({ error: "UNKNOWN_ERROR" }, { status: 500 });
     }
 }
