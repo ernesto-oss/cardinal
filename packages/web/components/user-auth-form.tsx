@@ -1,7 +1,10 @@
 "use client";
 
+import { type ErrorMessage } from "@acme/auth";
+import { credentialsAuthSchema } from "@acme/auth/validation/credentials";
+
 import * as React from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,12 +14,7 @@ import { IoLogoGithub as Github, IoLogoGoogle as Google } from "react-icons/io5"
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const userAuthSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-});
-
-type FormData = z.infer<typeof userAuthSchema>;
+type FormData = z.infer<typeof credentialsAuthSchema>;
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   loginForm: boolean;
@@ -24,6 +22,9 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const UserAuthForm: React.FC<UserAuthFormProps> = ({ className, ...props }) => {
+  const [disableForm, setDisableForm] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<ErrorMessage | undefined>(undefined);
+
   const router = useRouter();
 
   const {
@@ -31,14 +32,14 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({ className, ...props 
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(userAuthSchema),
+    resolver: zodResolver(credentialsAuthSchema),
   });
 
-  const [disableForm, setDisableForm] = React.useState<boolean>(false);
 
   const { loginForm } = props;
 
   async function submit(data: FormData) {
+    setError(undefined);
     setDisableForm(true);
 
     const request = await fetch(`/api/auth/${loginForm ? "login" : "signup"}`, {
@@ -46,14 +47,19 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({ className, ...props 
       body: JSON.stringify({ email: data.email.toLowerCase(), password: data.password }),
     });
 
-    if (request.status === 302) {
-      router.push('/dashboard');
+    if (request.status === 403 || request.status === 500) {
+      const json = (await request.json()) as { error: ErrorMessage };
+      setError(json.error);
     }
+
+    if (request.status === 302) router.push("/protected");
+
+    setDisableForm(false);
   }
 
   return (
     <div className={clsx("grid gap-6", className)}>
-      <form onSubmit={handleSubmit(submit)}>
+      <form noValidate onSubmit={handleSubmit(submit)}>
         <div className="grid gap-4">
           <div className="grid-gap-4">
             <Label htmlFor="email" className="sr-only">
@@ -69,22 +75,41 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({ className, ...props 
               disabled={disableForm}
               {...register("email")}
             />
-            {errors?.email && <p className="px-1 text-xs text-red-600">{errors.email.message}</p>}
+            <div className="h-3 py-1">
+              {errors?.email && (
+                <p className="px-1 text-xs text-pink-500">{errors.email.message}</p>
+              )}
+            </div>
           </div>
-
           <div className="grid-gap-2">
             <Label htmlFor="password" className="sr-only">
               Password
             </Label>
             <Input id="password" type="password" disabled={disableForm} {...register("password")} />
-            {errors?.email && <p className="px-1 text-xs text-red-600">{errors.email.message}</p>}
+            <div className="h-3 py-1">
+              {errors?.password && (
+                <p className="px-1 text-xs text-pink-500">
+                  {errors?.password.message === "min_8" &&
+                    "Password should have at least 8 characters"}
+                  {errors?.password.message === "max_20" &&
+                    "Password should have no more then 20 characters"}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="h-3 py-1">
+            {error === "AUTH_INVALID_KEY_ID" && (
+              <p className="px-1 text-center text-xs text-pink-500">
+                Wrong email or password. Try again.
+              </p>
+            )}
           </div>
           <button
             className="inline-flex h-10 w-full items-center justify-center rounded-md bg-gray-300 px-4 py-2 text-sm font-bold text-slate-900 hover:border-gray-300/90"
             disabled={disableForm}
             type="submit"
           >
-            Signin
+            {loginForm ? "Login" : "Signup"}
           </button>
         </div>
       </form>

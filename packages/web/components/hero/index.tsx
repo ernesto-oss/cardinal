@@ -5,7 +5,7 @@ import { clsx } from "clsx";
 import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
 import CardinalLogoGradient from "@/assets/brand/cardinal-logo-gradient.svg";
 
-export const Hero: React.FC = () => {
+export const Hero: React.FC<{ protectedRoute?: boolean }> = ({ protectedRoute }) => {
   return (
     <main className="flex justify-center">
       <div className="flex w-full max-w-4xl flex-col items-center px-8 py-10">
@@ -20,7 +20,21 @@ export const Hero: React.FC = () => {
           </div>
           <Image className="z-10 w-44" alt="" src={CardinalLogoGradient} />
         </div>
-        <p className="text-slate-300 text-lg max-w-[600px] text-center leading-relaxed">Your next fullstack application begins here. Browser the code and documentation to take a look at how we&apos;ve scaffolded things for you.</p>
+        <p className="max-w-[600px] text-center text-lg leading-relaxed text-slate-300">
+          {protectedRoute && (
+            <>
+              If you're seeing this page, it means you're <b>authenticated</b>. Logging out will
+              redirect you back to the login page.
+            </>
+          )}
+
+          {!protectedRoute && (
+            <>
+              Your next fullstack application begins here. Browser the code and documentation to
+              take a look at how we&apos;ve scaffolded things for you.
+            </>
+          )}
+        </p>
       </div>
     </main>
   );
