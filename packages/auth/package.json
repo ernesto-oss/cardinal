@@ -8,11 +8,13 @@
     "@acme/database": "workspace:*",
     "@lucia-auth/adapter-prisma": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
-    "lucia-auth": "^1.5.0"
+    "lucia-auth": "^1.5.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.2",
     "eslint": "8.39.0",
+    "next": "^13.4.1",
     "typescript": "^5.0.4"
   }
 }
