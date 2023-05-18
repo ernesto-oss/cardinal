@@ -1,17 +1,22 @@
 import Link from "next/link";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import { IoChevronBack as Back } from "react-icons/io5";
 
 import { UserAuthForm } from "@/components/user-auth-form";
+import { getUser } from "@/utils/user";
 
 import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
 
 export const metadata = {
-  title: "Create an account",
-  description: "Create an account to get started.",
+  title: "Log into your account",
+  description: "Log into your account to get started.",
 };
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const { user } = await getUser();
+  if (user) redirect("/protected");
+
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0">
       <Link
