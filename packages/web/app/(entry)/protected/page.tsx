@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Hero } from "@/components/hero";
-import { DocsCard } from "@/components/docs-card";
 
 import { client } from "@/utils/genql";
 import { redirect } from "next/navigation";
@@ -15,20 +14,17 @@ async function getGreetingMessage() {
     greeting: true,
   });
 
-  if (!greetingsQuery) {
-    return null;
-  }
-
+  if (!greetingsQuery) return null;
   return greetingsQuery.greeting;
 }
 
 export default async function IndexPage() {
-  const { user, idleSession } = await getUser();
+  const user = await getUser();
   const greeting = await getGreetingMessage();
 
-  if (!user && idleSession) redirect("/api/auth/renew");
-
-  if (!user && !idleSession) redirect("/login");
+  if (!user) {
+    redirect("/login");
+  }
 
   return (
     <>
