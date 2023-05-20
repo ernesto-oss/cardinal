@@ -1,24 +1,22 @@
-import type { Session } from "lucia-auth";
-import lucia from "lucia-auth";
-import { web } from "lucia-auth/middleware";
-import { sign, decode } from "jsonwebtoken";
-import { env } from "@acme/config/env";
+import { prisma as db } from '@acme/database';
+import prismaAdapter from '@lucia-auth/adapter-prisma';
+import lucia from 'lucia-auth';
+import { nextjs } from 'lucia-auth/middleware';
 
-/* Prisma client and adapter */
-import prismaAdapter from "@lucia-auth/adapter-prisma";
-import { prisma as db } from "@acme/database";
+/* Crypto pollyfill for Node.js 18 and bellow */
+import 'lucia-auth/polyfill/node';
 
-/* Crypto pollyfill for Node.js 18 and bellow.
- * You can remove it if you're using a recent version of Node
- * that doesn´t need to be polyfilled */
-import "lucia-auth/polyfill/node";
-
-const authSecret = env.AUTH_SECRET;
-
+/**
+ * This is the Lucia Auth initializer. From here, you can define
+ * how Lucia connects with your database, session expiry and
+ * other attributes.
+ *
+ * @see https://lucia-auth.com/start-here/getting-started
+ */
 export const auth = lucia({
   adapter: prismaAdapter(db),
-  env: process.env.NODE_ENV === "development" ? "DEV" : "PROD",
-  middleware: web(),
+  env: process.env.NODE_ENV === 'development' ? 'DEV' : 'PROD',
+  middleware: nextjs(),
   transformDatabaseUser: (userData) => {
     return {
       userId: userData.id,
@@ -27,46 +25,31 @@ export const auth = lucia({
   },
   sessionExpiresIn: {
     activePeriod: 1000 * 60 * 60 * 24 * 7, // 1 week
-    idlePeriod: 0, // essentially removes the idle state
+    idlePeriod: 0, // disable session renewal
   },
 });
 
-export const signJwtToken = (session: Session) => {
-  const { sessionId, activePeriodExpiresAt, state } = session;
-  const tokenPayload = { sessionId, expires: activePeriodExpiresAt, state };
-
-  return sign(tokenPayload, authSecret);
-};
-
-export const decodeJwtToken = (token: string) => {
-  return decode(token);
-};
-
-export type JwtPayload = {
-  sessionId: string;
-  expires: string;
-  state: "idle" | "active";
-  iat: number;
-};
-
 export type ErrorMessage =
-  | "AUTH_INVALID_SESSION_ID"
-  | "AUTH_INVALID_PASSWORD"
-  | "AUTH_DUPLICATE_SESSION_ID"
-  | "AUTH_DUPLICATE_KEY_ID"
-  | "AUTH_INVALID_KEY_ID"
-  | "AUTH_INVALID_USER_ID"
-  | "AUTH_INVALID_REQUEST"
-  | "AUTH_NOT_AUTHENTICATED"
-  | "REQUEST_UNAUTHORIZED"
-  | "UNKNOWN_ERROR"
-  | "AUTH_OUTDATED_PASSWORD"
-  | "AUTO_USER_ID_GENERATION_NOT_SUPPORTED"
-  | "AUTH_EXPIRED_KEY";
+  | 'AUTH_INVALID_SESSION_ID'
+  | 'AUTH_INVALID_PASSWORD'
+  | 'AUTH_DUPLICATE_SESSION_ID'
+  | 'AUTH_DUPLICATE_KEY_ID'
+  | 'AUTH_INVALID_KEY_ID'
+  | 'AUTH_INVALID_USER_ID'
+  | 'AUTH_INVALID_REQUEST'
+  | 'AUTH_NOT_AUTHENTICATED'
+  | 'REQUEST_UNAUTHORIZED'
+  | 'UNKNOWN_ERROR'
+  | 'AUTH_OUTDATED_PASSWORD'
+  | 'AUTO_USER_ID_GENERATION_NOT_SUPPORTED'
+  | 'AUTH_EXPIRED_KEY';
 
 export type Auth = typeof auth;
-export type { Session } from "lucia-auth";
-export { LuciaError, SESSION_COOKIE_NAME } from "lucia-auth";
+export type { Session } from 'lucia-auth';
+export { LuciaError, SESSION_COOKIE_NAME } from 'lucia-auth';
 
 /* Export providers */
-export { credentialsHandler, credentialsAuthSchema } from "./providers/credentials";
+export {
+  credentialsHandler,
+  credentialsAuthSchema,
+} from './providers/credentials';
