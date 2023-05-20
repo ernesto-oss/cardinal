@@ -1,5 +1,5 @@
-import Image from "next/image";
-import BackgroundGradient from "@/assets/home/background-gradient.png";
+import Image from 'next/image';
+import BackgroundGradient from '@/assets/home/background-gradient.png';
 
 interface AuthLayoutProps {
   children: React.ReactNode;

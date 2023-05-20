@@ -1,10 +1,12 @@
-import { builder } from "../builder";
+import { builder } from '../builder';
 
-builder.queryField("greeting", (t) =>
+builder.queryField('greeting', (t) =>
   t.field({
-    type: "String",
-    resolve: async (_query, _args) => {
-      return "Hello from GraphQl";
+    type: 'String',
+    resolve: async (_query, _args, ctx) => {
+      console.log(ctx.session);
+
+      return 'Hello from GraphQl';
     },
   }),
 );

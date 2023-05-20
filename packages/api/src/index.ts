@@ -1,18 +1,21 @@
-import { NextRequest } from "next/server";
-import { createYoga } from "graphql-yoga";
-import { decodeJwtToken, type JwtPayload } from "@acme/auth";
-import { schema } from "./schema";
+import { cookies } from 'next/headers';
+import { type NextRequest } from 'next/server';
+import { auth } from '@acme/auth';
+import { createYoga } from 'graphql-yoga';
+
+import { schema } from './schema';
 
 export async function graphqlHandler(req: NextRequest) {
   const yoga = createYoga({
     schema: schema,
-    graphqlEndpoint: "/api/graphql",
+    graphqlEndpoint: '/api/graphql',
     context: async () => {
-      const signedToken = req.cookies.get("auth_session")?.value;
-      if (signedToken) {
-        const session = decodeJwtToken(signedToken) as JwtPayload;
-        return { session };
-      }
+      const authRequest = auth.handleRequest({ cookies });
+      const session = await authRequest.validate();
+
+      return {
+        session,
+      };
     },
   });
 
