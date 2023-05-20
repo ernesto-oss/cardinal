@@ -1,11 +1,12 @@
 # Dependencies
-node_modules
+**/node_modules
 
 # Next.js
-.next
+**/.next
 
 # TurboRepo
-.turbo
+**/.turbo
 
 # Build artifacts
-dist
+**/dist
+

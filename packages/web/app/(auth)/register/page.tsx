@@ -1,21 +1,24 @@
-import Link from "next/link";
-import Image from "next/image";
-import { redirect } from "next/navigation";
-import { IoChevronBack as Back } from "react-icons/io5";
+import { cookies } from 'next/headers';
+import Image from 'next/image';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import CardinalIcon from '@/assets/brand/cardinal-icon.svg';
+import { auth } from '@acme/auth';
+import { IoChevronBack as Back } from 'react-icons/io5';
 
-import { UserAuthForm } from "@/components/user-auth-form";
-import { getUser } from "@/utils/user";
+import { UserAuthForm } from '@/components/user-auth-form';
 
-import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: "Create an account",
-  description: "Create an account to get started.",
+  title: 'Create an account',
+  description: 'Create an account to get started.',
 };
 
 export default async function RegisterPage() {
-  const user = await getUser();
-  if (user) redirect("/protected");
+  const authRequest = auth.handleRequest({ cookies });
+  const { user } = await authRequest.validateUser();
+  if (user) redirect('/protected');
 
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0">
@@ -42,10 +45,13 @@ export default async function RegisterPage() {
         </div>
         <UserAuthForm signupForm loginForm={false} />
         <p className="px-8 text-center text-sm text-slate-400">
-          Already have an account?{" "}
-          <Link href="/login" className="hover:text-brand underline underline-offset-4">
+          Already have an account?{' '}
+          <Link
+            href="/login"
+            className="hover:text-brand underline underline-offset-4"
+          >
             Sign in
-          </Link>{" "}
+          </Link>{' '}
         </p>
       </div>
     </div>

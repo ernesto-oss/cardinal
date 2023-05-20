@@ -1,10 +1,4 @@
 {
-  "recommendations": [
-    "mgmcdermott.vscode-language-babel",
-    "esbenp.prettier-vscode",
-    "bradlc.vscode-tailwindcss",
-    "Prisma.prisma",
-  ],
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,

@@ -1,5 +1,5 @@
 export type SiteConfig = {
-  name: string
-  description: string
-  ogImage: string
-}
+  name: string;
+  description: string;
+  ogImage: string;
+};

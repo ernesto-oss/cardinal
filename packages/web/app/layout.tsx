@@ -1,12 +1,13 @@
-import { Inter as FontSans } from "next/font/google";
-import { clsx } from "clsx";
-import { siteConfig } from "@/config/site";
+import { Inter as FontSans } from 'next/font/google';
+import { clsx } from 'clsx';
 
-import "@/styles/globals.css";
+import { siteConfig } from '@/config/site';
+
+import '@/styles/globals.css';
 
 const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-default",
+  subsets: ['latin'],
+  variable: '--font-default',
 });
 
 interface RootLayoutProps {
@@ -20,13 +21,13 @@ export const metadata = {
   },
   description: siteConfig.description,
   openGraph: {
-    type: "website",
+    type: 'website',
     title: siteConfig.name,
     siteName: siteConfig.name,
     description: siteConfig.description,
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: '/favicon.svg',
   },
 };
 
@@ -34,7 +35,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={clsx("font-default text-slate-200", fontSans.variable)}>
+      <body className={clsx('font-default text-slate-200', fontSans.variable)}>
         {children}
       </body>
     </html>

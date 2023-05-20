@@ -1,21 +1,25 @@
-import Link from "next/link";
-import Image from "next/image";
-import { redirect } from "next/navigation";
-import { IoChevronBack as Back } from "react-icons/io5";
+import { Suspense } from 'react';
+import { cookies } from 'next/headers';
+import Image from 'next/image';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import CardinalIcon from '@/assets/brand/cardinal-icon.svg';
+import { auth } from '@acme/auth';
+import { IoChevronBack as Back } from 'react-icons/io5';
 
-import { UserAuthForm } from "@/components/user-auth-form";
-import { getUser } from "@/utils/user";
+import { UserAuthForm } from '@/components/user-auth-form';
 
-import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: "Log into your account",
-  description: "Log into your account to get started.",
+  title: 'Log into your account',
+  description: 'Log into your account to get started.',
 };
 
 export default async function LoginPage() {
-  const user = await getUser();
-  if (user) redirect("/protected");
+  const authRequest = auth.handleRequest({ cookies });
+  const { user } = await authRequest.validateUser();
+  if (user) redirect('/protected');
 
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0">
@@ -36,14 +40,21 @@ export default async function LoginPage() {
           </div>
 
           <h1 className="text-2xl font-bold">Welcome back</h1>
-          <p className="text-sm text-slate-400">Enter your email and password bellow to sign in</p>
+          <p className="text-sm text-slate-400">
+            Enter your email and password bellow to sign in
+          </p>
         </div>
-        <UserAuthForm signupForm={false} loginForm />
+        <Suspense>
+          <UserAuthForm signupForm={false} loginForm />
+        </Suspense>
         <p className="px-8 text-center text-sm text-slate-400">
-          Dont&apos;t have an account?{" "}
-          <Link href="/register" className="hover:text-brand underline underline-offset-4">
+          Dont&apos;t have an account?{' '}
+          <Link
+            href="/register"
+            className="hover:text-brand underline underline-offset-4"
+          >
             Sign up
-          </Link>{" "}
+          </Link>{' '}
         </p>
       </div>
     </div>

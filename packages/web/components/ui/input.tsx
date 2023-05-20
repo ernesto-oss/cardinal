@@ -1,7 +1,7 @@
-import * as React from "react";
-import { clsx } from "clsx";
+import * as React from 'react';
+import { clsx } from 'clsx';
 
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement>
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
@@ -9,7 +9,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <input
         type={type}
         className={clsx(
-          "ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border-2 border-gray-700 bg-transparent px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50",
+          'ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border-2 border-gray-700 bg-transparent px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50',
           className,
         )}
         ref={ref}
@@ -18,6 +18,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   },
 );
-Input.displayName = "Input";
+Input.displayName = 'Input';
 
 export { Input };

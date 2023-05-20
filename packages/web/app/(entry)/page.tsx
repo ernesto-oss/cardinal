@@ -1,17 +1,15 @@
-import Link from "next/link";
-import { Hero } from "@/components/hero";
-import { DocsCard } from "@/components/docs-card";
+import Link from 'next/link';
 
-import { client } from "@/utils/genql";
+import { DocsCard } from '@/components/docs-card';
+import { Hero } from '@/components/hero';
+import { client } from '@/utils/graphql';
 
-async function getGreetingMessage() {
+export const dynamic = 'force-dynamic';
+
+export async function getGreetingMessage() {
   const greetingsQuery = await client.query({
     greeting: true,
   });
-
-  if (!greetingsQuery) {
-    return null;
-  }
 
   return greetingsQuery.greeting;
 }
@@ -25,7 +23,11 @@ export default async function IndexPage() {
       <div className="flex w-full flex-col items-center justify-between">
         <div className="flex max-w-5xl flex-col items-center justify-center px-6">
           <div className="mb-8 w-fit rounded-md border-2 border-slate-200/5 bg-slate-400/10 px-10 py-2 text-center">
-            {greeting && <p className="font-mono font-semibold text-slate-300">{greeting}</p>}
+            {greeting && (
+              <p className="font-mono font-semibold text-slate-300">
+                {greeting}
+              </p>
+            )}
           </div>
           <div className="mb-8 flex w-full items-center justify-center gap-2">
             <Link
