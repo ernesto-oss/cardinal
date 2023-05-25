@@ -1,0 +1,26 @@
+{
+  "name": "cardinal-react-sst-trpc",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sst dev",
+    "build": "sst build",
+    "deploy": "sst deploy",
+    "remove": "sst remove",
+    "console": "sst console",
+    "typecheck": "tsc --noEmit",
+    "gen": "hygen"
+  },
+  "devDependencies": {
+    "sst": "^2.4.0",
+    "aws-cdk-lib": "2.72.1",
+    "constructs": "10.1.302",
+    "typescript": "^5.0.3",
+    "@tsconfig/node16": "^1.0.3",
+    "hygen": "^6.2.11"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
