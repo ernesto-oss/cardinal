@@ -1,5 +1,5 @@
-import { prisma as db } from '@acme/database';
-import prismaAdapter from '@lucia-auth/adapter-prisma';
+import { connection } from '@acme/database';
+import { planetscale } from '@lucia-auth/adapter-mysql';
 import lucia from 'lucia-auth';
 import { nextjs } from 'lucia-auth/middleware';
 
@@ -14,7 +14,7 @@ import 'lucia-auth/polyfill/node';
  * @see https://lucia-auth.com/start-here/getting-started
  */
 export const auth = lucia({
-  adapter: prismaAdapter(db),
+  adapter: planetscale(connection),
   env: process.env.NODE_ENV === 'development' ? 'DEV' : 'PROD',
   middleware: nextjs(),
   transformDatabaseUser: (userData) => {

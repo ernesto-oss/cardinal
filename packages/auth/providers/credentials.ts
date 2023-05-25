@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { Prisma } from '@acme/database';
 import { z } from 'zod';
 
 import { LuciaError, auth } from '../index';
@@ -67,6 +66,7 @@ export async function credentialsHandler(
          * @see https://lucia-auth.com/basics/sessions#create-new-session
          */
         const session = await auth.createSession(user.userId);
+        //@ts-ignore
         const authRequest = auth.handleRequest({ request, cookies });
         authRequest.setSession(session);
 
@@ -75,13 +75,11 @@ export async function credentialsHandler(
         });
       }
     } catch (error) {
-      if (
-        error instanceof LuciaError ||
-        error instanceof Prisma.PrismaClientKnownRequestError
-      )
+      if (error instanceof LuciaError)
         return NextResponse.json({ error: error.message }, { status: 403 });
-      else
+      else {
         return NextResponse.json({ error: 'UNKNOWN_ERROR' }, { status: 500 });
+      }
     }
 
   /* Login endpoint handler */
@@ -105,6 +103,7 @@ export async function credentialsHandler(
         const { email, password } = creds.data;
         const key = await auth.useKey('email', email, password);
         const session = await auth.createSession(key.userId);
+        //@ts-ignore
         const authRequest = auth.handleRequest({ request, cookies });
         authRequest.setSession(session);
 
@@ -113,18 +112,17 @@ export async function credentialsHandler(
         });
       }
     } catch (error) {
-      if (
-        error instanceof LuciaError ||
-        error instanceof Prisma.PrismaClientKnownRequestError
-      )
+      if (error instanceof LuciaError)
         return NextResponse.json({ error: error.message }, { status: 403 });
-      else
+      else {
         return NextResponse.json({ error: 'UNKNOWN_ERROR' }, { status: 500 });
+      }
     }
 
   /* Logout endpoint handler */
   if (operation.includes('logout'))
     try {
+      //@ts-ignore
       const authRequest = auth.handleRequest({ request, cookies });
       const session = await authRequest.validate();
 
@@ -139,15 +137,9 @@ export async function credentialsHandler(
       authRequest.setSession(null);
       return new Response(null, {
         status: 302,
-        headers: {
-          location: '/login',
-        },
       });
     } catch (error) {
-      if (
-        error instanceof LuciaError ||
-        error instanceof Prisma.PrismaClientKnownRequestError
-      )
+      if (error instanceof LuciaError)
         return NextResponse.json({ error: error.message }, { status: 403 });
       else
         return NextResponse.json({ error: 'UNKNOWN_ERROR' }, { status: 500 });

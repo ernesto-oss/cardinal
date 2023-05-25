@@ -1,21 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
-    "db-push": {
-      "cache": false
-    },
-    "db-generate": {
-      "cache": false
-    },
-    "db-seed": {
-      "cache": false
-    },
     "dev": {
-      "dependsOn": ["^db-generate"],
       "cache": false
     },
     "build": {
-      "dependsOn": ["^build", "^db-generate"],
+      "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
     "lint": {

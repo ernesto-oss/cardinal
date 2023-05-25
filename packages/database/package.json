@@ -1,26 +1,25 @@
 {
   "name": "@acme/database",
   "version": "0.1.0",
-  "main": "./index.ts",
-  "types": "./index.ts",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "license": "MIT",
   "scripts": {
     "clean": "rimraf .turbo node_modules",
     "with-env": "dotenv -e ../../.env",
-    "db-push": "pnpm with-env prisma db push",
-    "db-generate": "pnpm with-env prisma generate",
-    "db-studio": "pnpm with-env prisma studio"
-  },
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "db-push": "pnpm with-env drizzle-kit push:mysql",
+    "db-migration": "pnpm with-env drizzle-kit generate",
+    "db-introspect": "pnpm with-env drizzle-kit introspect:mysql",
+    "db-drop": "pnpm with-env drizzle-kit drop --out=drizzle"
   },
   "dependencies": {
-    "@prisma/client": "^4.13.0"
+    "@acme/config": "workspace:*",
+    "@planetscale/database": "^1.7.0",
+    "drizzle-orm": "^0.26.0"
   },
   "devDependencies": {
     "dotenv-cli": "^7.2.1",
-    "prisma": "^4.13.0",
-    "ts-node": "^10.9.1",
+    "drizzle-kit": "^0.18.0",
     "typescript": "^5.0.4"
   }
 }
