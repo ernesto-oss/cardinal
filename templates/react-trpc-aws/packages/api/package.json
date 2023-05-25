@@ -7,14 +7,14 @@
   "author": "Ernesto Resende<dev@ernestoresende.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.114",
-    "@types/node": "^18.15.11",
-    "sst": "^2.4.0",
-    "typescript": "^5.0.3"
+    "@types/aws-lambda": "^8.10.115",
+    "@types/node": "^20.2.3",
+    "sst": "^2.10.3",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@trpc/server": "^10.18.0",
-    "superjson": "^1.12.2",
+    "@trpc/server": "^10.27.3",
+    "superjson": "^1.12.3",
     "zod": "^3.21.4"
   }
 }
