@@ -7,9 +7,6 @@ const config = {
     '@acme/auth',
     '@acme/config',
   ],
-  experimental: {
-    appDir: true,
-  },
 };
 
 export default config;
