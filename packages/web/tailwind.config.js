@@ -1,19 +1,18 @@
-const merge = require("lodash.merge");
 const { fontFamily } = require("tailwindcss/defaultTheme");
-
-const globalConfig = require("@acme/tailwind-config/tailwind.config.js");
 
 /** @type {import('tailwindcss').Config} */
 const localConfig = {
+  content: [
+    `./components/**/*.{js,ts,jsx,tsx}`,
+    `./app/**/*.{js,ts,jsx,tsx}`,
+  ],
   theme: {
     extend: {
       fontFamily: {
-        default: ["var(--font-inter)", ...fontFamily.sans],
+        default: ["var(--font-default)", ...fontFamily.sans],
       },
     },
   },
 };
 
-const mergedConfig = merge(globalConfig, localConfig);
-
-module.exports = mergedConfig;
+module.exports = localConfig;
