@@ -6,13 +6,12 @@ import { useRouter } from 'next/navigation';
 export const LogoutButton = () => {
   const router = useRouter();
   const [loggingOut, setLoggingOut] = React.useState(false);
-  console.log(loggingOut);
 
   async function onLogout() {
     setLoggingOut(true);
     const logoutRequest = await fetch('/api/auth/logout');
 
-    if (logoutRequest) {
+    if (logoutRequest.status === 302) {
       router.push('/login');
     }
   }

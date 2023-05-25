@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 import { clsx } from 'clsx';
 
@@ -14,18 +15,12 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  openGraph: {
-    type: 'website',
-    title: siteConfig.name,
-    siteName: siteConfig.name,
-    description: siteConfig.description,
-  },
   icons: {
     icon: '/favicon.svg',
   },

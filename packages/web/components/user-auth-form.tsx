@@ -96,6 +96,7 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({
               Password
             </Label>
             <Input
+              autoComplete="current-password"
               id="password"
               type="password"
               disabled={disableForm}
@@ -114,6 +115,11 @@ export const UserAuthForm: React.FC<UserAuthFormProps> = ({
           </div>
           <div className="h-3 py-1">
             {error === 'AUTH_INVALID_KEY_ID' && (
+              <p className="px-1 text-center text-xs text-pink-500">
+                Wrong email or password. Try again.
+              </p>
+            )}
+            {error === 'AUTH_INVALID_PASSWORD' && (
               <p className="px-1 text-center text-xs text-pink-500">
                 Wrong email or password. Try again.
               </p>

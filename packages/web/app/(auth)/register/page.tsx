@@ -16,6 +16,7 @@ export const metadata = {
 };
 
 export default async function RegisterPage() {
+  //@ts-ignore
   const authRequest = auth.handleRequest({ cookies });
   const { user } = await authRequest.validateUser();
   if (user) redirect('/protected');

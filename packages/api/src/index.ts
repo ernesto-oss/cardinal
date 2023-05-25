@@ -1,21 +1,27 @@
-import { cookies } from 'next/headers';
 import { type NextRequest } from 'next/server';
 import { auth } from '@acme/auth';
+import { useResponseCache } from '@graphql-yoga/plugin-response-cache';
 import { createYoga } from 'graphql-yoga';
 
 import { schema } from './schema';
 
 export async function graphqlHandler(req: NextRequest) {
+  const authorizationHeader = req.headers.get('authorization');
+  const sessionToken = authorizationHeader?.split(' ').pop();
+
   const yoga = createYoga({
     schema: schema,
     graphqlEndpoint: '/api/graphql',
+    plugins: [
+      useResponseCache({
+        session: () => sessionToken ? sessionToken : null,
+      }),
+    ],
     context: async () => {
-      const authRequest = auth.handleRequest({ cookies });
-      const session = await authRequest.validate();
-
-      return {
-        session,
-      };
+      if (sessionToken) {
+        const session = await auth.validateSessionUser(sessionToken);
+        return { session };
+      }
     },
   });
 
