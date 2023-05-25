@@ -1,0 +1,37 @@
+{
+  "name": "@acme/api",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "codegen:schema": "graphql-codegen --config codegen.ts",
+    "codegen:client": "npx @genql/cli --output ./genql --schema ./schema.graphql --esm",
+    "codegen": "pnpm codegen:schema && pnpm codegen:client",
+    "dev": "chokidar \"**/*.ts\" --silent --initial -i \"node_modules\" -i \"genql\" -c \"pnpm codegen\""
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@pothos/core": "^3.24.0"
+  },
+  "devDependencies": {
+    "@genql/cli": "3.x",
+    "@graphql-codegen/cli": "^3.3.1",
+    "@graphql-codegen/schema-ast": "^3.0.1",
+    "@types/node": "^20.2.3",
+    "@types/react": "^18.2.6",
+    "chokidar-cli": "^3.0.0",
+    "next": "13.4.3"
+  },
+  "dependencies": {
+    "@acme/auth": "workspace:*",
+    "@acme/database": "workspace:*",
+    "@graphql-yoga/plugin-response-cache": "^1.9.1",
+    "@pothos/core": "^3.30.0",
+    "@pothos/plugin-scope-auth": "^3.19.2",
+    "graphql": "^16.6.0",
+    "graphql-scalars": "^1.22.0",
+    "graphql-yoga": "^3.9.1",
+    "react": "^18.2.0"
+  }
+}

@@ -1,4 +1,0 @@
-packages:
-  - "www"
-  - "cli"
-  - "cli/template/addons/*"
