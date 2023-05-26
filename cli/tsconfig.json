@@ -15,9 +15,9 @@
     "sourceMap": true,
     "removeComments": true,
 
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -26,5 +26,5 @@
     "checkJs": true
   },
   "include": ["src"],
-  "exclude": ["template"],
+  "exclude": ["template"]
 }
