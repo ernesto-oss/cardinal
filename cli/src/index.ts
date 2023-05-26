@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { intro, outro, group, cancel } from "@clack/prompts";
+import { intro, outro, group } from "@clack/prompts";
 import { setTimeout as sleep } from "node:timers/promises";
 import color from "picocolors";
 import { getUserPkgManager } from "@/utils/getUserPackageManager.js";
@@ -7,8 +7,10 @@ import { parseNameAndPath } from "@/utils/parseNameAndPath.js";
 import {
   promptAppDirectory,
   promptFrontendFramework,
+  promptBackendType,
   promptDeployProvider,
-  promptAdditionalPackages,
+  promptDatabaseProvider,
+  promptAuthentication,
 } from "@/cli/index.js";
 import { type AvailablePackages } from "@/installers/index.js";
 import { createProject } from "@/helpers/createProject.js";
@@ -16,41 +18,31 @@ import { createProject } from "@/helpers/createProject.js";
 export const runCli = async () => {
   const corePromptGroup = await group(
     {
-      appDir: () => promptAppDirectory(),
-      frontendFramework: () => promptFrontendFramework(),
-    },
-    {
-      onCancel: () => {
-        cancel("Installation stopped. Come back when you're ready to try again.");
-        process.exit(0);
-      },
+      appDir: async () => await promptAppDirectory(),
+      frontendFramework: async () => await promptFrontendFramework(),
     },
   );
 
-  const frontendFramework = corePromptGroup.frontendFramework;
-
-  const conditionalPromptGroup = await group(
+  const infraPromptGroup = await group(
     {
-      deployProvider: () => promptDeployProvider(),
-      additionalPackages: () => promptAdditionalPackages(frontendFramework),
-    },
-    {
-      onCancel: () => {
-        cancel("Installation stopped. Come back when you're ready to try again");
-        process.exit(0);
-      },
+      backendType: async () => await promptBackendType(corePromptGroup.frontendFramework),
+      deployProvider: async () => await promptDeployProvider(),
     },
   );
 
-  const { deployProvider, additionalPackages } = conditionalPromptGroup;
+  const databaseProvider = await promptDatabaseProvider(infraPromptGroup.deployProvider);
 
-  const addons = additionalPackages as AvailablePackages[];
+  let authentication;
+  if (databaseProvider !== "none") {
+    authentication = await promptAuthentication();
+  }
 
   return {
     appDir: corePromptGroup.appDir,
-    frontendFramework: frontendFramework,
-    deployProvider: deployProvider,
-    additionalPackages: addons,
+    frontendFramework: corePromptGroup.frontendFramework,
+    backendType: infraPromptGroup.backendType,
+    deployProvider: infraPromptGroup.deployProvider,
+    databaseProvider,
   };
 };
 
@@ -61,18 +53,20 @@ async function main() {
   const pkgManager = getUserPkgManager();
 
   /* Run CLI prompts and get information about what packages will be included on the scaffolded project */
-  const { appDir, additionalPackages, deployProvider, frontendFramework } = await runCli();
+  const { appDir, frontendFramework, databaseProvider, deployProvider, backendType } = await runCli();
+
+  // console.log(appDir, frontendFramework, databaseProvider, deployProvider, backendType);
 
   /* Parses the app name and directory from the user input */
   const [scopedAppName, appPath] = parseNameAndPath(appDir);
 
   /* Bootstraps all the template files into the project directory */
-  await createProject({
-    packages: additionalPackages,
-    pkgManager,
-    projectDir: appPath,
-    projectName: scopedAppName,
-  });
+  // await createProject({
+  //   packages: additionalPackages,
+  //   pkgManager,
+  //   projectDir: appPath,
+  //   projectName: scopedAppName,
+  // });
 
   outro(`
     ${color.bold(color.green("✅Success!"))} Project created in ${color.magenta(appPath)}
