@@ -1,0 +1,13 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
+  "changelog": [
+    "@changesets/cli/changelog",
+    { "repo": "ernesto-oss/cardinal" }
+  ],
+  "commit": false,
+  "updateInternalDependencies": "patch",
+  "baseBranch": "main",
+  "access": "public",
+  "fixed": [["create-cardinal-app"]],
+  "ignore": ["@cardinal/web"]
+}
