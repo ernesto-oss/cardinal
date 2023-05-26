@@ -2,7 +2,7 @@
   "name": "create-cardinal-app",
   "type": "module",
   "version": "0.0.0",
-  "description": "",
+  "description": "Cardinal is a CLI tool that helps you quickstart a full-stack monorepo project. You choose the parts you want, we put it together.",
   "author": "Ernesto Resende <dev@ernestoresende.com>",
   "packageManager": "pnpm@7.13.0",
   "license": "MIT",
@@ -24,7 +24,6 @@
     "type-fest": "^3.8.0"
   },
   "devDependencies": {
-    "@prisma/client": "^4.13.0",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.15.11",
     "rimraf": "^5.0.0",
