@@ -51,7 +51,6 @@ export async function promptFrontendFramework() {
     ],
   } as SelectOptions<Option<FrontendFramework>[], FrontendFramework>);
 
-
   handlePromptCancellation(frontendFramework);
   return frontendFramework;
 }
