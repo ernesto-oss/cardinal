@@ -6,6 +6,7 @@ on:
 
 jobs:
   release:
+    if: ${{ github.repository_owner == 'ernesto-oss' }}
     name: Release
     runs-on: ubuntu-latest
     steps:
