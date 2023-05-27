@@ -1,1 +1,1 @@
-./cli/README.md
+cli/README.md
