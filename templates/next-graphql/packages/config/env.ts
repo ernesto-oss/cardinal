@@ -9,7 +9,7 @@ export const env = createEnv({
   clientPrefix: 'NEXT_',
   client: {},
   server: {
-    SITE_URL: z.string(),
+    SITE_URL: z.string().url(),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
     DATABASE_HOST: z.string(),
