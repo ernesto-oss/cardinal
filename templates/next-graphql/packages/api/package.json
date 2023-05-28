@@ -18,10 +18,10 @@
     "@genql/cli": "3.x",
     "@graphql-codegen/cli": "^3.3.1",
     "@graphql-codegen/schema-ast": "^3.0.1",
-    "@types/node": "^20.2.3",
-    "@types/react": "^18.2.6",
+    "@types/node": "^20.2.5",
+    "@types/react": "^18.2.7",
     "chokidar-cli": "^3.0.0",
-    "next": "13.4.3"
+    "next": "13.4.4"
   },
   "dependencies": {
     "@acme/auth": "workspace:*",

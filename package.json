@@ -9,11 +9,12 @@
   "scripts": {
     "build:cli": "turbo --filter=create-cardinal-app build",
     "build:www": "turbo --filter=www build",
-    "build": "turbo build",
     "start:cli": "turbo --filter=create-cardinal-app start",
     "start:www": "turbo --filter=www start",
     "dev:cli": "turbo --filter=create-cardinal-app dev",
     "dev:www": "turbo --filter=www dev",
+    "build": "turbo build",
+    "typecheck": "turbo typecheck",
     "clean": "turbo clean && rimraf node_modules"
   },
   "devDependencies": {

@@ -15,11 +15,11 @@
   "dependencies": {
     "@acme/config": "workspace:*",
     "@planetscale/database": "^1.7.0",
-    "drizzle-orm": "^0.26.0"
+    "drizzle-orm": "^0.26.1"
   },
   "devDependencies": {
     "dotenv-cli": "^7.2.1",
-    "drizzle-kit": "^0.18.0",
+    "drizzle-kit": "^0.18.1",
     "typescript": "^5.0.4"
   }
 }
