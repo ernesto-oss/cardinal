@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,7 +16,6 @@ export const metadata = {
 };
 
 export default async function LoginPage() {
-  //@ts-ignore
   const authRequest = auth.handleRequest({ cookies });
   const { user } = await authRequest.validateUser();
   if (user) redirect('/protected');
@@ -45,9 +43,7 @@ export default async function LoginPage() {
             Enter your email and password bellow to sign in
           </p>
         </div>
-        <Suspense>
           <UserAuthForm signupForm={false} loginForm />
-        </Suspense>
         <p className="px-8 text-center text-sm text-slate-400">
           Dont&apos;t have an account?{' '}
           <Link
