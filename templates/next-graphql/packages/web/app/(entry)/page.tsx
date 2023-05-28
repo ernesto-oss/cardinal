@@ -19,11 +19,12 @@ import { QueryBox } from '@/components/query-box';
  * @see https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#using-dynamic-data-fetches
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
  */
+
 const makeClient = () => {
   const client = createClient({
     url: `${getBaseUrl()}/api/graphql`,
     fetch: fetch,
-    next: { revalidate: 60 },
+    cache: 'no-store',
   });
 
   return client;

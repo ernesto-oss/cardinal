@@ -1,14 +1,16 @@
 import React from 'react';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { createClient, getBaseUrl, registerClient } from '@/utils/graphql';
+import {
+  createClient,
+  getBaseUrl,
+  registerClient,
+} from '@/utils/graphql';
 import { auth } from '@acme/auth';
 
 import { Hero } from '@/components/hero';
 import { LogoutButton } from '@/components/logout';
 import { QueryBox } from '@/components/query-box';
-
-export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'Protected',
@@ -18,9 +20,10 @@ const makeClient = () => {
   const client = createClient({
     url: `${getBaseUrl()}/api/graphql`,
     fetch: fetch,
+    cache: 'no-store',
     headers: {
       Authorization: `Bearer ${cookies().get('auth_session')?.value}`,
-    },
+    }
   });
 
   return client;
@@ -29,13 +32,13 @@ const makeClient = () => {
 const { getClient } = registerClient(makeClient);
 
 export default async function IndexPage() {
-  //@ts-ignore
   const authRequest = auth.handleRequest({ cookies });
   const { user } = await authRequest.validateUser();
+
   if (!user) redirect('/login');
 
   const data = await getClient().query({
-    protected: true,
+    authorizedOnly: true,
   });
 
   return (
