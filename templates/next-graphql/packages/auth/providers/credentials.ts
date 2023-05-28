@@ -66,7 +66,6 @@ export async function credentialsHandler(
          * @see https://lucia-auth.com/basics/sessions#create-new-session
          */
         const session = await auth.createSession(user.userId);
-        //@ts-ignore
         const authRequest = auth.handleRequest({ request, cookies });
         authRequest.setSession(session);
 
@@ -103,7 +102,6 @@ export async function credentialsHandler(
         const { email, password } = creds.data;
         const key = await auth.useKey('email', email, password);
         const session = await auth.createSession(key.userId);
-        //@ts-ignore
         const authRequest = auth.handleRequest({ request, cookies });
         authRequest.setSession(session);
 
@@ -122,7 +120,6 @@ export async function credentialsHandler(
   /* Logout endpoint handler */
   if (operation.includes('logout'))
     try {
-      //@ts-ignore
       const authRequest = auth.handleRequest({ request, cookies });
       const session = await authRequest.validate();
 
