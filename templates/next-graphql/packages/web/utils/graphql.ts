@@ -1,18 +1,15 @@
 import React from 'react';
-import { siteConfig } from '@/config/site'
+import { cookies } from 'next/headers';
+import { type Client } from '@acme/api/genql';
+import { type GraphqlOperation } from '@acme/api/genql/runtime';
 
-import { type Client } from '@acme/api/genql'
 export { generateQueryOp, createClient } from '@acme/api/genql';
 
 export const getBaseUrl = () => {
-  if (process.env.NODE_ENV === "production") return siteConfig.url;
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
 
-  /**
-   * Assume localhost. Using ipv4 address because of an
-   * ongoing issue with Node.js `undici` library
-   * @see https://github.com/nodejs/undici/issues/1602
-   * @see https://github.com/vercel/next.js/issues/44062
-   */
   return `http://127.0.0.1:${process.env.PORT ?? 3000}`;
 };
 
@@ -21,4 +18,54 @@ export function registerClient(makeClient: () => Client) {
   return {
     getClient,
   };
+}
+
+export function getDefaultGraphqlHeaders(
+  operation: GraphqlOperation | GraphqlOperation[],
+) {
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(operation),
+    headers: {
+      Accept: 'application/json',
+      'content-type': 'application/json',
+      'content-length': Buffer.byteLength(JSON.stringify(operation)).toString(),
+    },
+  } as RequestInit;
+  return options;
+}
+
+export async function defaultFetcher({
+  operation,
+  fetchOptions,
+}: {
+  operation: GraphqlOperation | GraphqlOperation[];
+  fetchOptions?: RequestInit;
+})
+{
+  const response = await fetch(`${getBaseUrl()}/api/graphql`, {
+    ...getDefaultGraphqlHeaders(operation),
+    ...fetchOptions,
+  });
+
+  return await response.json();
+}
+
+export async function protectedFetcher({
+  operation,
+  fetchOptions,
+}: {
+  operation: GraphqlOperation | GraphqlOperation[];
+  fetchOptions?: RequestInit;
+})
+{
+  const response = await fetch(`${getBaseUrl()}/api/graphql`, {
+    ...getDefaultGraphqlHeaders(operation),
+    ...fetchOptions,
+    headers: {
+      Authorization: `Bearer ${cookies().get('auth_session')?.value}`,
+    }
+  });
+
+  return await response.json();
 }

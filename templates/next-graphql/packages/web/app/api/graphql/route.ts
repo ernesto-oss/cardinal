@@ -1,3 +1,3 @@
-import { graphqlHandler } from '@acme/api';
+import { handleRequest } from '@acme/api';
 
-export { graphqlHandler as GET, graphqlHandler as POST };
+export { handleRequest as GET, handleRequest as POST };
