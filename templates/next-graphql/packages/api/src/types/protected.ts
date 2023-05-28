@@ -1,6 +1,6 @@
 import { builder } from '../builder';
 
-builder.queryField('protected', (t) =>
+builder.queryField('authorizedOnly', (t) =>
   t.field({
     authScopes: {
       authorized: true,

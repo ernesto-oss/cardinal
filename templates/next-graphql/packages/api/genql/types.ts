@@ -7,10 +7,10 @@ export default {
     "types": {
         "DateTime": {},
         "Query": {
-            "greeting": [
+            "authorizedOnly": [
                 2
             ],
-            "protected": [
+            "greeting": [
                 2
             ],
             "__typename": [

@@ -6,14 +6,14 @@ export type Scalars = {
 }
 
 export interface Query {
+    authorizedOnly: Scalars['String']
     greeting: Scalars['String']
-    protected: Scalars['String']
     __typename: 'Query'
 }
 
 export interface QueryGenqlSelection{
+    authorizedOnly?: boolean | number
     greeting?: boolean | number
-    protected?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
