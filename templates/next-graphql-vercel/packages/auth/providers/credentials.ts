@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
-import { LuciaError, auth } from '../index';
+import { auth, LuciaError } from '../index';
 
 type CredentialsOperations = ['login' | 'logout' | 'signup'];
 
@@ -10,8 +10,6 @@ export const credentialsAuthSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
-
-export const runtime = 'edge';
 
 /**
  * This is the example of a general use email/password credentials
@@ -136,6 +134,9 @@ export async function credentialsHandler(
       authRequest.setSession(null);
       return new Response(null, {
         status: 302,
+        headers: {
+          location: '/login',
+        },
       });
     } catch (error) {
       if (error instanceof LuciaError)

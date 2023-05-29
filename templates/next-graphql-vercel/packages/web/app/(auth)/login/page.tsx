@@ -1,15 +1,9 @@
-import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import CardinalIcon from '@/assets/brand/cardinal-icon.svg';
-import { auth } from '@acme/auth';
 import { IoChevronBack as Back } from 'react-icons/io5';
 
 import { UserAuthForm } from '@/components/user-auth-form';
-
-export const dynamic = 'force-dynamic';
-export const runtime = 'edge';
 
 export const metadata = {
   title: 'Log into your account',
@@ -17,10 +11,6 @@ export const metadata = {
 };
 
 export default async function LoginPage() {
-  const authRequest = auth.handleRequest({ cookies });
-  const { user } = await authRequest.validateUser();
-  if (user) redirect('/protected');
-
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0">
       <Link
@@ -44,7 +34,7 @@ export default async function LoginPage() {
             Enter your email and password bellow to sign in
           </p>
         </div>
-          <UserAuthForm signupForm={false} loginForm />
+        <UserAuthForm signupForm={false} loginForm />
         <p className="px-8 text-center text-sm text-slate-400">
           Dont&apos;t have an account?{' '}
           <Link

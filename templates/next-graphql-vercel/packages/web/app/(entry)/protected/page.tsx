@@ -1,12 +1,7 @@
 import React from 'react';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import {
-  createClient,
-  getBaseUrl,
-  registerClient,
-} from '@/utils/graphql';
-import { auth } from '@acme/auth';
+import { createClient, getBaseUrl, registerClient } from '@/utils/graphql';
+import { SESSION_COOKIE_NAME } from '@acme/auth';
 
 import { Hero } from '@/components/hero';
 import { LogoutButton } from '@/components/logout';
@@ -25,8 +20,8 @@ const makeClient = () => {
     fetch: fetch,
     cache: 'no-store',
     headers: {
-      Authorization: `Bearer ${cookies().get('auth_session')?.value}`,
-    }
+      Authorization: `Bearer ${cookies().get(SESSION_COOKIE_NAME)?.value}`,
+    },
   });
 
   return client;
@@ -35,11 +30,6 @@ const makeClient = () => {
 const { getClient } = registerClient(makeClient);
 
 export default async function IndexPage() {
-  const authRequest = auth.handleRequest({ cookies });
-  const { user } = await authRequest.validateUser();
-
-  if (!user) redirect('/login');
-
   const data = await getClient().query({
     authorizedOnly: true,
   });
