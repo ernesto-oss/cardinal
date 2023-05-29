@@ -1,6 +1,6 @@
 {
-  "name": "cardinal",
-  "version": "1.0.0",
+  "name": "@cardinal/next-graphql-vercel",
+  "version": "0.0.0",
   "private": true,
   "workspaces": [
     "packages/*/**"

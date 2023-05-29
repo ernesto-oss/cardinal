@@ -1,5 +1,5 @@
 {
-  "name": "cardinal-react-sst-trpc",
+  "name": "@cardinal/react-sst-trpc",
   "version": "0.0.0",
   "private": true,
   "type": "module",
