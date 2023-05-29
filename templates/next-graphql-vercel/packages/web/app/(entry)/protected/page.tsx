@@ -12,6 +12,9 @@ import { Hero } from '@/components/hero';
 import { LogoutButton } from '@/components/logout';
 import { QueryBox } from '@/components/query-box';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
+
 export const metadata = {
   title: 'Protected',
 };

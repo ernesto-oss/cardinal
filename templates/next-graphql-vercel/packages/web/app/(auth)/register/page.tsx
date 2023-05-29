@@ -9,6 +9,7 @@ import { IoChevronBack as Back } from 'react-icons/io5';
 import { UserAuthForm } from '@/components/user-auth-form';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 export const metadata = {
   title: 'Create an account',

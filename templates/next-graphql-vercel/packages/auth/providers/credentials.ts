@@ -11,6 +11,8 @@ export const credentialsAuthSchema = z.object({
   password: z.string().min(8),
 });
 
+export const runtime = 'edge';
+
 /**
  * This is the example of a general use email/password credentials
  * authentication handler for Next.js. You can extend it and modify it

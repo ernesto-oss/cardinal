@@ -5,6 +5,9 @@ import { DocsCard } from '@/components/docs-card';
 import { Hero } from '@/components/hero';
 import { QueryBox } from '@/components/query-box';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
+
 /**
  * When fetching from the GraphQL endpoint, remember that Next.js will try
  * to make the request on the server to generate the cache and prerender the
@@ -12,7 +15,7 @@ import { QueryBox } from '@/components/query-box';
  * pointing to an endpoint that will send back a response, otherwise, it will
  * fail on the pre-render stage with a `fetch` error.
  *
- * You can also change the page rendering behavior to fully dynamic by changing
+ * You can also change the page rendering behavior to by changing
  * the `fetch` caching behavior, or the route segment config:
  *
  * @see https://nextjs.org/docs/app/building-your-application/data-fetching/caching
