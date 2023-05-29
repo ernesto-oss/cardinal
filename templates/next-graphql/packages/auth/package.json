@@ -7,7 +7,7 @@
     "@acme/config": "workspace:*",
     "@acme/database": "workspace:*",
     "@lucia-auth/adapter-mysql": "^1.1.1",
-    "lucia-auth": "^1.7.0",
+    "lucia-auth": "^1.7.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {

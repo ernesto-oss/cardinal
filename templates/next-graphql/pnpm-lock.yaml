@@ -97,10 +97,10 @@ importers:
         version: link:../database
       '@lucia-auth/adapter-mysql':
         specifier: ^1.1.1
-        version: 1.1.1(lucia-auth@1.7.0)
+        version: 1.1.1(lucia-auth@1.7.1)
       lucia-auth:
-        specifier: ^1.7.0
-        version: 1.7.0
+        specifier: ^1.7.1
+        version: 1.7.1
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -1174,7 +1174,7 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
 
-  /@lucia-auth/adapter-mysql@1.1.1(lucia-auth@1.7.0):
+  /@lucia-auth/adapter-mysql@1.1.1(lucia-auth@1.7.1):
     resolution: {integrity: sha512-br+/OBDNJ+eRc6RrZnnC20ef+2VEMrXFxNYvsbryPw64ito7vg40STblpENdjJF0o4R10mjWTO43wQ+56jyXLA==}
     peerDependencies:
       '@planetscale/database': ^1.0.0
@@ -1186,7 +1186,7 @@ packages:
       mysql2:
         optional: true
     dependencies:
-      lucia-auth: 1.7.0
+      lucia-auth: 1.7.1
     dev: false
 
   /@next/env@13.4.4:
@@ -4416,8 +4416,8 @@ packages:
       es5-ext: 0.10.62
     dev: true
 
-  /lucia-auth@1.7.0:
-    resolution: {integrity: sha512-JisZE50dlvVdX726TSxUH0uoI/bwBrgSjO/+Ts/Yrk7TseKtcK8ezDNCAYUCI1XK3PHm37jgobklELpxeAmYLw==}
+  /lucia-auth@1.7.1:
+    resolution: {integrity: sha512-QXTWdcDpQfpA1c64LXo80Imfk8V8Hn5w+Rmv+DPbArSJc4nPYVxbBR4+XwTcnW7YQOeoo7yNLXMjYOQDW27eNg==}
     dev: false
 
   /memoizee@0.4.15:
