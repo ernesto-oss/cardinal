@@ -3,9 +3,6 @@ import { planetscale } from '@lucia-auth/adapter-mysql';
 import lucia from 'lucia-auth';
 import { nextjs } from 'lucia-auth/middleware';
 
-/* Crypto pollyfill for Node.js 18 and bellow */
-import 'lucia-auth/polyfill/node';
-
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 /**
@@ -19,10 +16,6 @@ export const auth = lucia({
   adapter: planetscale(connection),
   env: process.env.NODE_ENV === 'development' ? 'DEV' : 'PROD',
   middleware: nextjs(),
-  experimental: {
-    debugMode: isDevelopment ? true : false,
-  },
-
   transformDatabaseUser: (userData) => {
     return {
       userId: userData.id,
