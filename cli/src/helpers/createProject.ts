@@ -1,29 +1,23 @@
 import { spinner as spinnerPrompt } from "@clack/prompts";
-import { prismaInstaller } from "@/installers/prisma.js";
-import { nextAuthInstaller } from "@/installers/nextAuth.js";
-import { AvailablePackages } from "@/installers/index.js";
+
+import { type ProjectOptions } from "@/index.js";
+import { rootInstaller, configInstaller, databaseInstaller } from "@/installers/index.js";
 import { PackageManager } from "@/utils/getUserPackageManager.js";
 
 interface CreateProjectOptions {
   projectName: string;
   projectDir: string;
-  packages: AvailablePackages[];
+  projectOptions: ProjectOptions;
   pkgManager: PackageManager;
 }
 
-export const createProject = async ({ projectName, projectDir, packages, pkgManager }: CreateProjectOptions) => {
+export const createProject = async ({ projectName, projectDir, projectOptions, pkgManager }: CreateProjectOptions) => {
   const spinner = spinnerPrompt();
   spinner.start("Scaffolding your project with selected options");
-
-  const installerOptions = {
-    projectName,
-    packages,
-    pkgManager,
-    projectDir,
-  };
-
-  packages.includes("prisma") ? prismaInstaller(installerOptions) : null;
-  packages.includes("next-auth") ? nextAuthInstaller(installerOptions) : null;
+  
+  rootInstaller({ pkgManager, projectDir, projectName, projectOptions });
+  configInstaller({ projectDir, projectName, projectOptions });
+  databaseInstaller({ projectDir, projectName, projectOptions });
 
   spinner.stop("Finished scaffolding monorepo");
 };

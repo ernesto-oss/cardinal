@@ -19,10 +19,6 @@ function handlePromptCancellation(target: unknown) {
   }
 }
 
-/**
- * Prompts and validates the directory where the
- * projet is going to be installed
- */
 export async function promptAppDirectory() {
   const name = await text({
     message: "Where should we create your project?",
@@ -38,9 +34,6 @@ export async function promptAppDirectory() {
   return name;
 }
 
-/**
- * Prompts and returns the user selected frontend framework
- */
 export async function promptFrontendFramework() {
   const frontendFramework = await select({
     initialValue: "next",
@@ -111,32 +104,12 @@ export const promptDeployProvider = async () => {
   return deployProvider;
 };
 
-export async function promptDatabaseProvider(deployProvider: DeploymentProvider) {
+export async function promptDatabaseProvider(_deployProvider: DeploymentProvider) {
   const options: Option<DatabaseProvider>[] = [
     { value: "planetscale", label: "Planetscale", hint: "Drizzle ORM connected to Planetscale's Serverless Driver" },
     { value: "sqlite", label: "SQLite", hint: "Dizzle ORM connected to a local SQLite file" },
+    { value: "none", label: "No database", hint: "No database will be setup. You can setup your own database configuration later." }
   ];
-
-  if (deployProvider === "aws") {
-    options.push(
-      {
-        value: "mysql",
-        label: "MySQL",
-        hint: `${deployProvider === "aws" ? "Drizzle ORM connected to a MySQL database on Amazon RDS" : undefined}`,
-      },
-      {
-        value: "postgres",
-        label: "Postgres",
-        hint: `${deployProvider === "aws" ? "Drizzle ORM connected to a Postgres database on AWS RDS" : undefined}`,
-      },
-    );
-  }
-
-  options.push({
-    value: "none",
-    label: "No database",
-    hint: "None of the provided database options will be setup. You can setup your own database configuration later.",
-  });
 
   const databaseProvider = await select({
     initialValue: "planetscale",
