@@ -3,8 +3,6 @@ import { planetscale } from '@lucia-auth/adapter-mysql';
 import lucia from 'lucia-auth';
 import { nextjs } from 'lucia-auth/middleware';
 
-const isDevelopment = process.env.NODE_ENV === 'development';
-
 /**
  * This is the Lucia Auth initializer. From here, you can define
  * how Lucia connects with your database, session expiry and
