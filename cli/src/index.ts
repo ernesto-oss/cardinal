@@ -48,18 +48,12 @@ export type ProjectOptions = Awaited<ReturnType<typeof runCli>>;
 async function main() {
   intro(`Let's create your new monorepo project with ${color.bold(color.magenta("Cardinal"))} ✨`);
 
-  /* Get user package manager */
   const pkgManager = getUserPkgManager();
-
-  /* Run CLI prompts and get information about what packages will be included on the scaffolded project */
   const projectOptions = await runCli();
-
-  /* Parses the app name and directory from the user input */
   const [scopedAppName, appPath] = parseNameAndPath(projectOptions.appDir);
 
   console.log(projectOptions, scopedAppName, appPath);
 
-  /* Bootstraps all the template files into the project directory */
   await createProject({
     pkgManager,
     projectName: scopedAppName,
