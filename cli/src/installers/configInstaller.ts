@@ -15,30 +15,24 @@ export const configInstaller = ({
   projectDir: string;
   projectName: string;
 }) => {
-  const { frontendFramework, authentication, databaseProvider } = projectOptions;
+  const { frontendFramework, databaseProvider } = projectOptions;
   const configTemplateRoot = path.join(TEMPLATE_DIR, "config");
-  const configTemplate =
-    frontendFramework === "next" && databaseProvider && authentication
-      ? path.join(configTemplateRoot, "with-next-auth-database")
-      : frontendFramework === "next" && databaseProvider
-      ? path.join(configTemplateRoot, "with-next-database")
-      : null;
+  const configDestination = path.join(projectDir, "packages/config");
 
-  const projectWorkspaceDir = path.join(projectOptions.appDir, "packages/config");
+  const copyFile = (fileName: string) =>
+    fs.copySync(path.join(configTemplateRoot, fileName), path.join(configDestination, fileName));
 
-  const configDestination = path.join(projectWorkspaceDir);
+  const copyAndRenameFile = (origin: string, destinationFile: string) =>
+    fs.copySync(path.join(configTemplateRoot, origin), path.join(configDestination, destinationFile));
 
-  if (configTemplate) {
-    fs.copySync(configTemplate, configDestination);
+  copyFile("tsconfig.json");
 
-    const databasePackageJson = fs.readJSONSync(path.join(configTemplate, "package.json")) as PackageJson;
-    databasePackageJson.name = "@acme/config";
-    const sortedPackageJson = sortPackageJson(databasePackageJson);
+  if (frontendFramework === "next") copyAndRenameFile("env-with-next.ts", "env.ts");
+  if (frontendFramework === "next" && databaseProvider) copyAndRenameFile("env-with-next-database.ts", "env.ts");
 
-    fs.outputJsonSync(path.join(configDestination, "package.json"), sortedPackageJson, {
-      spaces: 2,
-    });
-
-    fs.removeSync(path.join(configDestination, "node_modules"));
-  }
+  const configPackageJson = fs.readJsonSync(path.join(configTemplateRoot, "package.json")) as PackageJson;
+  const sortedPackageJson = sortPackageJson(configPackageJson);
+  fs.outputJsonSync(path.join(configDestination, "package.json"), sortedPackageJson, {
+    spaces: 2,
+  });
 };
