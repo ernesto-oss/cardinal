@@ -20,28 +20,32 @@ export const rootInstaller = ({
   pkgManager: PackageManager;
 }) => {
   const templateRoot = path.join(TEMPLATE_DIR);
-  const projectRootDestination = projectDir;
+  const projectDestination = projectDir;
 
-  fs.copySync(path.join(templateRoot, "tsconfig.json"), path.join(projectRootDestination, "tsconfig.json"));
-  fs.copySync(path.join(templateRoot, ".eslintrc.cjs"), path.join(projectRootDestination, ".eslintrc.cjs"));
-  fs.copySync(path.join(templateRoot, ".gitignore"), path.join(projectRootDestination, ".gitignore"));
-  fs.copySync(path.join(templateRoot, ".prettierignore"), path.join(projectRootDestination, ".prettierignore"));
-  fs.copySync(path.join(templateRoot, ".prettierrc.js"), path.join(projectRootDestination, ".prettierrc.js"));
-  fs.copySync(path.join(templateRoot, ".npmrc"), path.join(projectRootDestination, ".npmrc"));
+  const copyFile = async (fileName: string) =>
+    fs.copySync(path.join(templateRoot, fileName), path.join(projectDestination, fileName));
+  
+  copyFile("tsconfig.json");
+  copyFile(".eslintrc.cjs");
+  copyFile(".gitignore");
+  copyFile(".prettierignore");
+  copyFile(".npmrc");
+  copyFile(".prettierrc.js");
 
   const rootPackageJson = fs.readJsonSync(path.join(templateRoot, "package.json")) as PackageJson;
   rootPackageJson.name = projectName;
 
   if (pkgManager === "pnpm") {
     const workspaceYaml = yaml.dump({ packages: ["packages/**"] });
-    fs.outputFileSync(path.join(projectRootDestination, "pnpm-workspace.yaml"), workspaceYaml);
+    fs.outputFileSync(path.join(projectDestination, "pnpm-workspace.yaml"), workspaceYaml);
   }
-  if (pkgManager === "npm" || pkgManager === "yarn") rootPackageJson.workspaces = ["packages/**"];
+
+  if (pkgManager === "npm" || pkgManager === "yarn"){ 
+    rootPackageJson.workspaces = ["packages/**"]; 
+  } 
 
   const sortedPackageJson = sortPackageJson(rootPackageJson);
-  fs.outputJsonSync(path.join(projectRootDestination, "package.json"), sortedPackageJson, {
+  fs.outputJsonSync(path.join(projectDestination, "package.json"), sortedPackageJson, {
     spaces: 2,
   });
-
-  fs.removeSync(path.join(projectRootDestination, "node_modules"));
 };
