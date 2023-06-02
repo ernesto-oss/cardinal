@@ -1,0 +1,17 @@
+{
+  "name": "@acme/auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@acme/config": "file:../config",
+    "@acme/database": "file:../database",
+    "@lucia-auth/adapter-mysql": "^1.1.1",
+    "@lucia-auth/adapter-sqlite": "^1.1.1",
+    "lucia-auth": "1.7.0",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "next": "13.4.4"
+  }
+}
