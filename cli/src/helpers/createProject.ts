@@ -1,7 +1,14 @@
 import { spinner as spinnerPrompt } from "@clack/prompts";
 
 import { type ProjectOptions } from "@/index.js";
-import { authInstaller, configInstaller, databaseInstaller, rootInstaller } from "@/installers/index.js";
+import {
+  authInstaller,
+  configInstaller,
+  databaseInstaller,
+  graphQLInstaller,
+  nextjsInstaller,
+  rootInstaller,
+} from "@/installers/index.js";
 import { PackageManager } from "@/utils/getUserPackageManager.js";
 
 interface CreateProjectOptions {
@@ -22,6 +29,12 @@ export const createProject = async ({ projectName, projectDir, projectOptions, p
     databaseInstaller({ pkgManager, projectDir, projectName, projectOptions });
 
   if (projectOptions.authentication) authInstaller({ projectDir, projectName, projectOptions });
+
+  if (projectOptions.backendType === "graphql")
+    graphQLInstaller({ pkgManager, projectDir, projectName, projectOptions });
+
+  if (projectOptions.frontendFramework === "next")
+    nextjsInstaller({ pkgManager, projectDir, projectName, projectOptions });
 
   spinner.stop("Finished scaffolding monorepo");
 };
