@@ -2,4 +2,4 @@
 "create-cardinal-app": minor
 ---
 
-(cli) introduce root installer for dotfiles and root monorepo scaffolding
+(cli) add root installer for dotfiles and root monorepo scaffolding
