@@ -22,8 +22,10 @@ export const rootInstaller = ({
   const copyFile = (fileName: string) =>
     fs.copySync(path.join(templateRoot, fileName), path.join(projectDestination, fileName));
 
-  copyFile("tsconfig.json");
-  copyFile(".eslintrc.cjs");
+  const copyAndRename = (origin: string, destinationFile: string) =>
+    fs.copySync(path.join(templateRoot, origin), path.join(projectDestination, destinationFile));
+
+  copyAndRename("_tsconfig.json", "tsconfig.json");
   copyFile(".gitignore");
   copyFile(".prettierignore");
   copyFile(".npmrc");

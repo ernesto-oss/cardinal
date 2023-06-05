@@ -35,7 +35,7 @@ export const nextjsInstaller = ({
     fs.copySync(path.join(nextTemplateRoot, origin), path.join(nextDestination, destinationFile));
 
   /* Copy root config files */
-  copyFile(".eslintrc.js");
+  copyAndRename("_eslintrc.js", "eslintrc.js")
   copyFile("next-env.d.ts");
   copyFile("postcss.config.js");
   copyFile("tailwind.config.js");

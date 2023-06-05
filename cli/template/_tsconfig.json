@@ -16,6 +16,5 @@
     "jsx": "preserve",
     "incremental": true,
     "noImplicitAny": false
-  },
-  "include": [".eslintrc.cjs"]
+  }
 }
