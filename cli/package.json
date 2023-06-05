@@ -18,7 +18,7 @@
     "build": "tsup",
     "clean": "rimraf dist .turbo node_modules",
     "dev": "tsup --watch",
-    "format": "pnpm prettier --plugin-search-dir=. **/*.{cjs,mjs,ts,tsx,md,json} -u --no-error-on-unmatched-pattern --check --loglevel error",
+    "format": "pnpm prettier --plugin-search-dir=. **/*.{cjs,mjs,ts,tsx,md,json} -u --no-error-on-unmatched-pattern --check --loglevel silent",
     "format:write": "pnpm format -w",
     "lint": "eslint . -c .eslintrc.cjs",
     "lint:fix": "pnpm lint --fix",

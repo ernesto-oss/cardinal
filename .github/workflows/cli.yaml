@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - run: pnpm turbo run lint:cli
+      - run: pnpm lint:cli
 
   prettier:
     runs-on: ubuntu-latest
