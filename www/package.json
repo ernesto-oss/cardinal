@@ -1,16 +1,16 @@
 {
 	"name": "@cardinal/web",
-	"type": "module",
 	"version": "2.0.0",
 	"private": true,
+	"type": "module",
 	"scripts": {
-		"dev": "astro dev",
-		"start": "astro dev",
-		"build": "astro build",
-		"preview": "astro preview",
+		"algolia": "docker run -it --name cardinal_algolia --env-file=./algolia/.env -e \"CONFIG=$(cat ./algolia/config.json | jq -r tostring)\" algolia/docsearch-scraper",
 		"astro": "astro",
+		"build": "astro build",
+		"dev": "astro dev",
 		"format": "prettier --write \"**/*.{astro,html,js,jsx,md,mdx,ts,tsx}\"",
-		"algolia": "docker run -it --name cardinal_algolia --env-file=./algolia/.env -e \"CONFIG=$(cat ./algolia/config.json | jq -r tostring)\" algolia/docsearch-scraper"
+		"preview": "astro preview",
+		"start": "astro dev"
 	},
 	"dependencies": {
 		"@algolia/client-search": "^4.17.1",
