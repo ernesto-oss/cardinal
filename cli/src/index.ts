@@ -26,7 +26,7 @@ export const runCli = async () => {
     deployProvider: async () => await promptDeployProvider(),
   });
 
-  const databaseProvider = await promptDatabaseProvider(infraPromptGroup.deployProvider);
+  const databaseProvider = await promptDatabaseProvider();
 
   let authentication;
   if (databaseProvider !== "none") {
@@ -46,13 +46,15 @@ export const runCli = async () => {
 export type ProjectOptions = Awaited<ReturnType<typeof runCli>>;
 
 async function main() {
-  intro(`Let's create your new monorepo project with ${color.bold(color.magenta("Cardinal"))} ✨`);
+  intro(`Let's create your new fullstack project with ${color.bold(color.magenta("Cardinal"))} ✨
+   ${color.dim(`Need help choosing your stack? Head to https://cardinal.ernestoresende.com/docs/en/recommendations`)}
+   ${color.hidden("")}
+   ${color.bold(color.cyan(`Choose options with the arrrow keys, confirm with <Enter>`))}
+  `);
 
   const pkgManager = getUserPkgManager();
   const projectOptions = await runCli();
   const [scopedAppName, appPath] = parseNameAndPath(projectOptions.appDir);
-
-  console.log(projectOptions, scopedAppName, appPath);
 
   await createProject({
     pkgManager,
@@ -66,8 +68,11 @@ async function main() {
     Next steps:
     ${color.dim(`
     cd ${appPath}
-    ${pkgManager} start
+    ${pkgManager} install
     `)}
+
+    For more information, read the documentation at
+    https://cardinal.ernestoresende.com
   `);
 
   /* Small time-gap after showing the final success message so the return to regular terminal control doesn't look too jarring */
