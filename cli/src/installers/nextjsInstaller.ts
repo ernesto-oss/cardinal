@@ -1,5 +1,7 @@
 import path from "path";
+import { inspect } from "util";
 import fs from "fs-extra";
+import { type NextConfig } from "next";
 import { sortPackageJson } from "sort-package-json";
 import { type PackageJson, type TsConfigJson } from "type-fest";
 
@@ -37,7 +39,6 @@ export const nextjsInstaller = ({
   /* Copy root config files */
   copyFile(".eslintrc.js");
   copyFile("next-env.d.ts");
-  copyFile("next.config.mjs");
   copyFile("postcss.config.js");
   copyFile("tailwind.config.js");
 
@@ -45,20 +46,47 @@ export const nextjsInstaller = ({
   fs.copySync(path.join(nextTemplateRoot, "base"), path.join(nextDestination));
 
   if (authentication) {
+    /* Auth related */
     copyAndRename("extras/app/(auth)", "app/(auth)");
+    copyAndRename("extras/app/(entry)/protected/loading.tsx", "app/(entry)/protected/loading.tsx");
     copyAndRename("extras/app/api/auth", "app/api/auth");
+
+    /* Additional components */
     copyAndRename("extras/components", "components");
   }
 
   if (backendType === "graphql") {
     copyAndRename("extras/app/api/graphql", "app/api/graphql");
+    copyAndRename("extras/app/(entry)/page-with-graphql.tsx", "app/(entry)/page.tsx");
+    copyAndRename("extras/utils/graphql.ts", "utils/graphql.ts");
+
+    authentication
+      ? copyAndRename("extras/app/(entry)/protected/page-with-graphql.tsx", "app/(entry)/protected/page.tsx")
+      : null;
   }
 
   /* Write `tsconfig.json` */
   const templateDatabaseTsConfig = fs.readJsonSync(path.join(nextTemplateRoot, "tsconfig.json")) as TsConfigJson;
   templateDatabaseTsConfig.extends = "../../tsconfig.json";
-  templateDatabaseTsConfig.include = ["src/index.ts"];
+  templateDatabaseTsConfig.include = ["next.env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"];
   fs.outputJsonSync(path.join(nextDestination, "tsconfig.json"), templateDatabaseTsConfig, { spaces: 2 });
+
+  /* Supply the correct dependencies to nextConfig.transpilePackages */
+  let transpilePackages = ["@acme/config"] as AvailableNextjsDependenciesKeys[];
+  if (authentication) transpilePackages.push("@acme/auth");
+  if (backendType !== "rsc") transpilePackages.push("@acme/api");
+  const nextConfig = { reactStrictMode: true, transpilePackages } as NextConfig;
+
+  const nextConfigWritableFile = fs.createWriteStream(path.join(nextDestination, "next.config.mjs"), {
+    encoding: "utf-8",
+  });
+
+  /* TODO: This is ugly is fuck and can probably be wrapped in a helper `createWritableFile` later */
+  nextConfigWritableFile.write(`/** @type {import("next").NextConfig} */`);
+  nextConfigWritableFile.write(`\n`);
+  nextConfigWritableFile.write(`const config = ${inspect(nextConfig)};`);
+  nextConfigWritableFile.write(`\n \n`);
+  nextConfigWritableFile.end(`export default config;`);
 
   /* Set correct dependencies on `package.json` */
   const templateNextjsPackageJson = fs.readJsonSync(path.join(nextTemplateRoot, "package.json")) as PackageJson;
