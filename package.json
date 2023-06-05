@@ -2,9 +2,8 @@
   "name": "@cardinal/root",
   "type": "module",
   "version": "0.0.0",
-  "description": "",
+  "description": "Cardinal is a CLI tool that helps you quickstart a full-stack monorepo project. You choose the parts you want, we put it together.",
   "author": "Ernesto Resende <dev@ernestoresende.com>",
-  "packageManager": "pnpm@7.13.0",
   "license": "MIT",
   "scripts": {
     "build:cli": "turbo --filter=create-cardinal-app build",
@@ -15,15 +14,15 @@
     "dev:www": "turbo --filter=www dev",
     "build": "turbo build",
     "typecheck": "turbo typecheck",
-    "clean": "turbo clean && rimraf node_modules"
-  },
-  "devDependencies": {
-    "@types/node": "^20.2.3",
-    "rimraf": "^5.0.1",
-    "turbo": "^1.9.9",
-    "typescript": "^5.0.4"
+    "clean": "turbo clean && rimraf node_modules",
+    "format:cli": "turbo --filter=create-cardinal-app format"
   },
   "dependencies": {
-    "@changesets/cli": "^2.26.1"
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.1",
+    "@types/node": "^20.2.5",
+    "rimraf": "^5.0.1",
+    "turbo": "^1.10.1",
+    "typescript": "^5.1.3"
   }
 }
