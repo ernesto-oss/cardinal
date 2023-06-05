@@ -1,13 +1,13 @@
 import { cancel, isCancel, select, text } from "@clack/prompts";
 import color from "picocolors";
 
-import type {
-  BackendType,
-  DatabaseProvider,
-  DeploymentProvider,
-  FrontendFramework,
-  Option,
-  SelectOptions,
+import {
+  type BackendType,
+  type DatabaseProvider,
+  // type DeploymentProvider,
+  type FrontendFramework,
+  type Option,
+  type SelectOptions,
 } from "@/types/index.js";
 import { validateAppDirectory } from "@/utils/checks.js";
 
@@ -82,11 +82,11 @@ export async function promptBackendType(frontendFramework: FrontendFramework) {
   return backendType;
 }
 
-export const promptDeployProvider = async () => {
-  const options: Option<DeploymentProvider>[] = [
-    { value: "vercel", label: "Vercel", hint: "Deploy your application stack on Vercel" },
-    // { value: "aws", label: "AWS", hint: "Deploy your application stack to AWS with SST" },
-  ];
+export const promptDeployProvider = () => {
+  // const options: Option<DeploymentProvider>[] = [
+  //   { value: "vercel", label: "Vercel", hint: "Deploy your application stack on Vercel" },
+  //   { value: "aws", label: "AWS", hint: "Deploy your application stack to AWS with SST" },
+  // ];
 
   // const deployProvider = await select({
   //   message: `Where do you want to deploy your application?

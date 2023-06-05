@@ -15,12 +15,10 @@ import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
 export const graphQLInstaller = ({
   projectDir,
-  projectName,
   projectOptions,
   pkgManager,
 }: {
   projectDir: string;
-  projectName: string;
   projectOptions: ProjectOptions;
   pkgManager: PackageManager;
 }) => {
@@ -62,8 +60,8 @@ export const graphQLInstaller = ({
 
   /* Set correct dependencies on `package.json` */
   const templateGraphQLPackageJson = fs.readJsonSync(path.join(graphqlTemplateRoot, "package.json")) as PackageJson;
-  let graphqlDependencies = ["@pothos/core", "graphql"] as AvailableGraphqlDependenciesKeys[];
-  let graphqlDevDependencies = ["@types/node"] as AvailableGraphqlDependenciesKeys[];
+  const graphqlDependencies = ["@pothos/core", "graphql"] as AvailableGraphqlDependenciesKeys[];
+  const graphqlDevDependencies = ["@types/node"] as AvailableGraphqlDependenciesKeys[];
 
   if (frontendFramework === "next") {
     graphqlDevDependencies.push("next");

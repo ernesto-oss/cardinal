@@ -8,7 +8,7 @@ import {
   promptAuthentication,
   promptBackendType,
   promptDatabaseProvider,
-  promptDeployProvider,
+  // promptDeployProvider,
   promptFrontendFramework,
 } from "@/cli/index.js";
 import { createProject } from "@/helpers/createProject.js";
@@ -23,7 +23,7 @@ export const runCli = async () => {
 
   const infraPromptGroup = await group({
     backendType: async () => await promptBackendType(corePromptGroup.frontendFramework),
-    deployProvider: async () => await promptDeployProvider(),
+    // deployProvider: async() => promptDeployProvider(),
   });
 
   const databaseProvider = await promptDatabaseProvider();
@@ -37,7 +37,7 @@ export const runCli = async () => {
     appDir: corePromptGroup.appDir,
     frontendFramework: corePromptGroup.frontendFramework,
     backendType: infraPromptGroup.backendType,
-    deployProvider: infraPromptGroup.deployProvider,
+    deployProvider: "vercel",
     databaseProvider,
     authentication,
   };
@@ -56,7 +56,7 @@ async function main() {
   const projectOptions = await runCli();
   const [scopedAppName, appPath] = parseNameAndPath(projectOptions.appDir);
 
-  await createProject({
+  createProject({
     pkgManager,
     projectName: scopedAppName,
     projectDir: appPath,

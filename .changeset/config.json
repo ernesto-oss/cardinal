@@ -9,5 +9,6 @@
   "access": "public",
   "baseBranch": "main",
   "fixed": [["create-cardinal-app"]],
-  "ignore": ["@cardinal/web"]
+  "ignore": ["@cardinal/web"],
+  "changedFilePatterns": ["src/**", "template/**"]
 }

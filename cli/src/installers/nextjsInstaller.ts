@@ -19,12 +19,10 @@ export const nextjsInstaller = ({
   pkgManager,
   projectOptions,
   projectDir,
-  projectName,
 }: {
   pkgManager: PackageManager;
   projectOptions: ProjectOptions;
   projectDir: string;
-  projectName: string;
 }) => {
   const { backendType, authentication } = projectOptions;
   const nextTemplateRoot = path.join(TEMPLATE_DIR, "next");
@@ -72,7 +70,7 @@ export const nextjsInstaller = ({
   fs.outputJsonSync(path.join(nextDestination, "tsconfig.json"), templateDatabaseTsConfig, { spaces: 2 });
 
   /* Supply the correct dependencies to nextConfig.transpilePackages */
-  let transpilePackages = ["@acme/config"] as AvailableNextjsDependenciesKeys[];
+  const transpilePackages = ["@acme/config"] as AvailableNextjsDependenciesKeys[];
   if (authentication) transpilePackages.push("@acme/auth");
   if (backendType !== "rsc") transpilePackages.push("@acme/api");
   const nextConfig = { reactStrictMode: true, transpilePackages } as NextConfig;
@@ -90,7 +88,7 @@ export const nextjsInstaller = ({
 
   /* Set correct dependencies on `package.json` */
   const templateNextjsPackageJson = fs.readJsonSync(path.join(nextTemplateRoot, "package.json")) as PackageJson;
-  let nextDependencies = [
+  const nextDependencies = [
     "@acme/config",
     "autoprefixer",
     "clsx",
@@ -102,7 +100,7 @@ export const nextjsInstaller = ({
     "react-icons",
   ] as AvailableNextjsDependenciesKeys[];
 
-  let nextDevDependencies = [
+  const nextDevDependencies = [
     "@types/node",
     "@types/react",
     "@types/react-dom",

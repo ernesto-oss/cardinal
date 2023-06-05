@@ -17,12 +17,10 @@ export const databaseInstaller = ({
   pkgManager,
   projectOptions,
   projectDir,
-  projectName,
 }: {
   pkgManager: PackageManager;
   projectOptions: ProjectOptions;
   projectDir: string;
-  projectName: string;
 }) => {
   const { authentication, databaseProvider } = projectOptions;
   const databaseTemplateRoot = path.join(TEMPLATE_DIR, "database");
@@ -50,8 +48,8 @@ export const databaseInstaller = ({
 
   /* Set correct dependencies on `package.json` */
   const templateDatabasePackageJson = fs.readJsonSync(path.join(databaseTemplateRoot, "package.json")) as PackageJson;
-  let databaseDependencies = ["drizzle-orm", "@acme/config"] as AvailableDatabaseDependenciesKeys[];
-  let databaseDevDependencies = ["drizzle-kit"] as AvailableDatabaseDependenciesKeys[];
+  const databaseDependencies = ["drizzle-orm", "@acme/config"] as AvailableDatabaseDependenciesKeys[];
+  const databaseDevDependencies = ["drizzle-kit"] as AvailableDatabaseDependenciesKeys[];
 
   if (databaseProvider === "planetscale") databaseDependencies.push("@planetscale/database");
 

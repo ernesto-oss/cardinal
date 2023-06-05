@@ -5,26 +5,23 @@ import { sortPackageJson } from "sort-package-json";
 import { type PackageJson } from "type-fest";
 
 import { TEMPLATE_DIR } from "@/consts.js";
-import { type ProjectOptions } from "@/index.js";
 import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
 export const rootInstaller = ({
   projectDir,
   projectName,
-  projectOptions,
   pkgManager,
 }: {
   projectDir: string;
   projectName: string;
-  projectOptions: ProjectOptions;
   pkgManager: PackageManager;
 }) => {
   const templateRoot = path.join(TEMPLATE_DIR);
   const projectDestination = projectDir;
 
-  const copyFile = async (fileName: string) =>
+  const copyFile = (fileName: string) =>
     fs.copySync(path.join(templateRoot, fileName), path.join(projectDestination, fileName));
-  
+
   copyFile("tsconfig.json");
   copyFile(".eslintrc.cjs");
   copyFile(".gitignore");
@@ -40,9 +37,9 @@ export const rootInstaller = ({
     fs.outputFileSync(path.join(projectDestination, "pnpm-workspace.yaml"), workspaceYaml);
   }
 
-  if (pkgManager === "npm" || pkgManager === "yarn"){ 
-    rootPackageJson.workspaces = ["packages/**"]; 
-  } 
+  if (pkgManager === "npm" || pkgManager === "yarn") {
+    rootPackageJson.workspaces = ["packages/**"];
+  }
 
   const sortedPackageJson = sortPackageJson(rootPackageJson);
   fs.outputJsonSync(path.join(projectDestination, "package.json"), sortedPackageJson, {

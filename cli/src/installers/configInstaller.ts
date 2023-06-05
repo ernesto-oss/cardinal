@@ -9,11 +9,9 @@ import { type ProjectOptions } from "@/index.js";
 export const configInstaller = ({
   projectOptions,
   projectDir,
-  projectName,
 }: {
   projectOptions: ProjectOptions;
   projectDir: string;
-  projectName: string;
 }) => {
   const { frontendFramework, databaseProvider } = projectOptions;
   const configTemplateRoot = path.join(TEMPLATE_DIR, "config");

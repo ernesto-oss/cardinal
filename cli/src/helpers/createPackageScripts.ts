@@ -46,12 +46,21 @@ export function createPackageScripts<T extends string>(opts: {
   commandSuffix?: string;
 }) {
   const { packageManager, packageJson, scripts, scriptsMap, commandSuffix } = opts;
+  const isDevelopment = process.env.NODE_ENV === "development";
+  const packageManagerOverrideFlag = process.env.PACKAGE_MANAGER_OVERRIDE;
+
+  function getPackageManagerPrefix() {
+    if (isDevelopment) {
+      return packageManagerOverrideFlag as string;
+    } else {
+      const packageManagerPrefix = packageManager === "npm" ? "npm run" : packageManager === "yarn" ? "yarn" : "pnpm";
+      return packageManagerPrefix;
+    }
+  }
 
   scripts.forEach((scriptKey) => {
     const scriptCommand = scriptsMap[scriptKey];
-
-    // const packageManagerPrefix = packageManager === "npm" ? "npm run" : packageManager === "yarn" ? "yarn" : "pnpm";
-    const packageManagerPrefix = "pnpm";
+    const packageManagerPrefix = getPackageManagerPrefix();
     const formattedScriptCommand = scriptCommand.replace(/<pkgCommand>/g, packageManagerPrefix);
 
     packageJson.scripts![scriptKey] = `${formattedScriptCommand}${commandSuffix ? `:${commandSuffix}` : ""}`;

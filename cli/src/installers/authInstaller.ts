@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs-extra";
 import { sortPackageJson } from "sort-package-json";
-import { TsConfigJson, type PackageJson } from "type-fest";
+import { type TsConfigJson, type PackageJson } from "type-fest";
 
 import { TEMPLATE_DIR } from "@/consts.js";
 import {
@@ -14,11 +14,9 @@ import { type ProjectOptions } from "@/index.js";
 export const authInstaller = ({
   projectOptions,
   projectDir,
-  projectName,
 }: {
   projectOptions: ProjectOptions;
   projectDir: string;
-  projectName: string;
 }) => {
   const { databaseProvider, frontendFramework } = projectOptions;
   const authTemplateRoot = path.join(TEMPLATE_DIR, "auth");
@@ -48,8 +46,8 @@ export const authInstaller = ({
   /* Set correct dependencies on `package.json` */
   const templateAuthPackageJson = fs.readJsonSync(path.join(authTemplateRoot, "package.json")) as PackageJson;
 
-  let authDependencies = ["@acme/config", "@acme/database", "lucia-auth", "zod"] as AvailableAuthDependenciesKeys[];
-  let authDevDependencies = [] as AvailableAuthDependenciesKeys[];
+  const authDependencies = ["@acme/config", "@acme/database", "lucia-auth", "zod"] as AvailableAuthDependenciesKeys[];
+  const authDevDependencies = [] as AvailableAuthDependenciesKeys[];
 
   if (databaseProvider === "planetscale") authDependencies.push("@lucia-auth/adapter-mysql");
   if (frontendFramework === "next") authDevDependencies.push("next");
