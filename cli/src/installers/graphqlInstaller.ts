@@ -45,6 +45,7 @@ export const graphQLInstaller = ({
       copyAndRename("src/index-with-next-auth.ts", "src/index.ts");
       copyAndRename("src/builder-with-auth.ts", "src/builder.ts");
       copyAndRename("src/schema-with-auth.ts", "src/schema.ts");
+      copyFile("src/types/protected.ts");
     } else {
       // copyAndRename("src/builder.ts", "src/builder.ts");
       copyAndRename("src/index-with-next.ts", "src/index.ts");
@@ -73,8 +74,16 @@ export const graphQLInstaller = ({
 
   if (databaseProvider !== "none") graphqlDependencies.push("@acme/database");
 
-  if (deployProvider !== "aws")
-    graphqlDevDependencies.push("@genql/cli", "@graphql-codegen/cli", "@graphql-codegen/schema-ast", "chokidar-cli");
+  if (deployProvider !== "aws") {
+    graphqlDependencies.push("react")
+    graphqlDevDependencies.push(
+      "@types/react",
+      "@genql/cli",
+      "@graphql-codegen/cli",
+      "@graphql-codegen/schema-ast",
+      "chokidar-cli",
+    );
+  }
 
   /* Wipe "dependencies" field from `package.json` in order to replace with the
   correct dependency map */

@@ -2,7 +2,6 @@ import { NextRequest } from 'next/server';
 import { type Session } from '@acme/auth';
 import SchemaBuilder from '@pothos/core';
 import ScopeAuthPlugin from '@pothos/plugin-scope-auth';
-import { DateTimeResolver } from 'graphql-scalars';
 import type { YogaInitialContext } from 'graphql-yoga';
 
 /**
@@ -44,19 +43,6 @@ export const builder = new SchemaBuilder<{
     request: NextRequest & YogaInitialContext;
     session: Session | null;
   };
-
-  /** SCALARS
-   *
-   * Here you can inject custom GraphQL scalars to suit your needs. In this instance, we use the common
-   * `DateTime` scalar as an example. Later in this file, we also register the custom scalar to the schema.
-   * @see: https://pothos-graphql.dev/docs/guide/scalars
-   */
-  Scalars: {
-    DateTime: {
-      Input: Date;
-      Output: Date;
-    };
-  };
 }>({
   /**
    * This is where you will register some of the Pothos plugins you configured earlier.
@@ -85,9 +71,3 @@ export const builder = new SchemaBuilder<{
  * */
 builder.queryType();
 // builder.mutationType();
-
-/**
- * Register custom scalars here. The scalars registered here can be used to define fields on the schema entities.
- * @see: https://pothos-graphql.dev/docs/guide/scalars#scalars
- * */
-builder.addScalarType('DateTime', DateTimeResolver, {});
