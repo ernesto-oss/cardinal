@@ -1,7 +1,7 @@
 export type FrontendFramework = "next" | "react";
-export type BackendType = "rest" | "trpc" | "graphql" | "rsc";
-export type DatabaseProvider = "planetscale" | "sqlite" | "none";
-type DeploymentProvider = "aws" | "vercel";
+export type BackendType = "rest" | "graphql" | "rsc";
+export type DatabaseProvider = "planetscale" | "none";
+export type DeploymentProvider = "vercel";
 
 export type Primitive = Readonly<FrontendFramework | BackendType | DatabaseProvider | DeploymentProvider>;
 

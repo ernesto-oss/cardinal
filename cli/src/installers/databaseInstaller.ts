@@ -9,9 +9,9 @@ import {
   databaseDependencyMap,
   type AvailableDatabaseDependenciesKeys,
 } from "@/helpers/addPackageDependency.js";
-import { coreScriptsMap, databaseScriptsMap, createPackageScripts } from '@/helpers/createPackageScripts.js'
+import { coreScriptsMap, createPackageScripts, databaseScriptsMap } from "@/helpers/createPackageScripts.js";
 import { type ProjectOptions } from "@/index.js";
-import { type PackageManager } from '@/utils/getUserPackageManager.js';
+import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
 export const databaseInstaller = ({
   pkgManager,
@@ -41,11 +41,7 @@ export const databaseInstaller = ({
   if (databaseProvider === "planetscale") {
     copyAndRenameFile("src/index-with-planetscale.ts", "src/index.ts");
     authentication ? copyAndRenameFile("src/schema-with-auth-planetscale.ts", "src/schema.ts") : null;
-  } else if (databaseProvider === "sqlite") {
-    copyAndRenameFile("src/index-with-sqlite.ts", "src/index.ts");
-    authentication ? copyAndRenameFile("src/schema-with-auth-sqlite.ts", "src/schema.ts") : null;
   }
-
   /* Write `tsconfig.json` */
   const templateDatabaseTsConfig = fs.readJsonSync(path.join(databaseTemplateRoot, "tsconfig.json")) as TsConfigJson;
   templateDatabaseTsConfig.extends = "../../tsconfig.json";
@@ -58,10 +54,6 @@ export const databaseInstaller = ({
   let databaseDevDependencies = ["drizzle-kit"] as AvailableDatabaseDependenciesKeys[];
 
   if (databaseProvider === "planetscale") databaseDependencies.push("@planetscale/database");
-  if (databaseProvider === "sqlite") {
-    databaseDependencies.push("better-sqlite3");
-    databaseDevDependencies.push("@types/better-sqlite3");
-  }
 
   /* Wipe "dependencies" field from `package.json` in order to replace with the
   correct dependency map */
@@ -89,20 +81,14 @@ export const databaseInstaller = ({
     scriptsMap: scriptsMap,
     packageManager: pkgManager,
     commandSuffix: databaseProvider === "planetscale" ? "mysql" : "sqlite",
-    scripts: [
-      "db-introspect"
-    ]
-  })
+    scripts: ["db-introspect"],
+  });
 
   const withAddedScripts = createPackageScripts<keyof typeof scriptsMap>({
     packageJson: withSuffixedScripts,
     scriptsMap: scriptsMap,
     packageManager: pkgManager,
-    scripts: [
-      "with-env",
-      "db-drop",
-      "db-migration",
-    ]
+    scripts: ["with-env", "db-drop", "db-migration"],
   });
 
   const sortedPackageJson = sortPackageJson(withAddedScripts);

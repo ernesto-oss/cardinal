@@ -28,7 +28,10 @@ export const configInstaller = ({
   copyFile("tsconfig.json");
 
   if (frontendFramework === "next") copyAndRenameFile("env-with-next.ts", "env.ts");
-  if (frontendFramework === "next" && databaseProvider) copyAndRenameFile("env-with-next-database.ts", "env.ts");
+  if (frontendFramework === "next")
+    databaseProvider === "none"
+      ? copyAndRenameFile("env-with-next.ts", "env.ts")
+      : copyAndRenameFile("env-with-next-database.ts", "env.ts");
 
   const configPackageJson = fs.readJsonSync(path.join(configTemplateRoot, "package.json")) as PackageJson;
   const sortedPackageJson = sortPackageJson(configPackageJson);

@@ -9,9 +9,11 @@ export const graphqlDependencyMap = {
   "graphql-yoga": "^3.9.1",
 
   /* Code generation */
-  "@genql/cli": "3.x",
+  "@genql/cli": "3.0.5",
   "@graphql-codegen/cli": "^3.3.1",
   "@graphql-codegen/schema-ast": "^3.0.1",
+  react: "^18.2.0",
+  "@types/react": "^18.2.7",
 
   /* Dev dependencies */
   "@types/node": "^20.2.5",
@@ -26,10 +28,6 @@ export const databaseDependencyMap = {
 
   /* Adapters */
   "@planetscale/database": "~1.7.0",
-  "better-sqlite3": "~8.4.0",
-
-  /* Dev dependencies */
-  "@types/better-sqlite3": "~7.6.4",
 };
 
 export const authDependencyMap = {
@@ -40,7 +38,6 @@ export const authDependencyMap = {
 
   /* Adapters */
   "@lucia-auth/adapter-mysql": "^1.1.1",
-  "@lucia-auth/adapter-sqlite": "^1.1.1",
 
   /* Dev dependencies */
   next: "13.4.4",

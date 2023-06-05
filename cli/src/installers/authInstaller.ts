@@ -36,7 +36,6 @@ export const authInstaller = ({
 
   /* Copy relevant files for the correct database driver */
   if (databaseProvider === "planetscale") copyAndRenameFile("src/index-with-next-planetscale.ts", "src/index.ts");
-  if (databaseProvider === "sqlite") copyAndRenameFile("src/index-with-next-sqlite.ts", "src/index.ts");
   if (frontendFramework === "next")
     copyAndRenameFile("src/providers/with-next-credentials.ts", "src/providers/credentials.ts");
 
@@ -53,7 +52,6 @@ export const authInstaller = ({
   let authDevDependencies = [] as AvailableAuthDependenciesKeys[];
 
   if (databaseProvider === "planetscale") authDependencies.push("@lucia-auth/adapter-mysql");
-  if (databaseProvider === "sqlite") authDependencies.push("@lucia-auth/adapter-sqlite");
   if (frontendFramework === "next") authDevDependencies.push("next");
 
   /* Wipe "dependencies" field from `package.json` in order to replace with the
