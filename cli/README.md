@@ -46,6 +46,10 @@ pnpm create-cardinal-app@latest
 
 You can find detailed information about the available tech stacks, recommendations on how to choose and use your stack, and addtional resources about the included tools [in the docs](https://cardinal.ernestoresende.com/docs/en/introduction).
 
+## Contribution
+
+Please refer to the [contribution guide](CONTRIBUTION.md) for how to setup the development environment for Cardinal and how to contribute with the project.
+
 ## License
 
 Licensed under the [MIT license](https://raw.githubusercontent.com/ernesto-oss/cardinal/main/LICENSE.md").
