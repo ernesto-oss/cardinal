@@ -11,7 +11,8 @@ export const coreScriptsMap = {
 export const graphQLScriptsMap = {
   /* Core scripts used by graphql-codegen */
   "codegen:schema": "graphql-codegen --config codegen.ts",
-  "codegen:client": "npx @genql/cli --output ./genql --schema ./schema.graphql --esm",
+  "codegen:client":
+    "npx @genql/cli --output ./genql --schema ./schema.graphql --esm",
   codegen: "<pkgCommand> codegen:schema && <pkgCommand> codegen:client",
   dev: 'chokidar "**/*.ts" --silent --initial -i "node_modules" -i "genql" -c "<pkgCommand> codegen"',
 };
@@ -45,25 +46,30 @@ export function createPackageScripts<T extends string>(opts: {
   packageJson: PackageJson;
   commandSuffix?: string;
 }) {
-  const { packageManager, packageJson, scripts, scriptsMap, commandSuffix } = opts;
-  const isDevelopment = process.env.NODE_ENV === "development";
-  const packageManagerOverrideFlag = process.env.PACKAGE_MANAGER_OVERRIDE;
+  const { packageManager, packageJson, scripts, scriptsMap, commandSuffix } =
+    opts;
 
   function getPackageManagerPrefix() {
-    if (isDevelopment) {
-      return packageManagerOverrideFlag as string;
-    } else {
-      const packageManagerPrefix = packageManager === "npm" ? "npm run" : packageManager === "yarn" ? "yarn" : "pnpm";
-      return packageManagerPrefix;
-    }
+    const packageManagerPrefix =
+      packageManager === "npm"
+        ? "npm run"
+        : packageManager === "yarn"
+        ? "yarn"
+        : "pnpm";
+    return packageManagerPrefix;
   }
 
   scripts.forEach((scriptKey) => {
     const scriptCommand = scriptsMap[scriptKey];
     const packageManagerPrefix = getPackageManagerPrefix();
-    const formattedScriptCommand = scriptCommand.replace(/<pkgCommand>/g, packageManagerPrefix);
+    const formattedScriptCommand = scriptCommand.replace(
+      /<pkgCommand>/g,
+      packageManagerPrefix,
+    );
 
-    packageJson.scripts![scriptKey] = `${formattedScriptCommand}${commandSuffix ? `:${commandSuffix}` : ""}`;
+    packageJson.scripts![scriptKey] = `${formattedScriptCommand}${
+      commandSuffix ? `:${commandSuffix}` : ""
+    }`;
   });
 
   return packageJson;
