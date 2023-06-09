@@ -1,6 +1,6 @@
 # Welcome to the Cardinal contributing guide
 
-Thank you for investing your time to contribute to this project!
+Thank you for investing your time to contribute to Cardinal!
 
 In this guide you will get an overview of the contribution workflow from opening an issue, creating a PR, reviewing and merging the PR.
 
@@ -15,15 +15,15 @@ To get an overview of the project, read the root [README](README.md). Bellow, ar
 
 ## What can I contribute with?
 
-Before delving deeper on the collaborarion worflow, let's talk about what kind of contributions can be made. Make sure to refer to the [create-cardinal-app]() to understand how the CLI, installers and template scaffolding works in `create-cardinal-app`.
+Before delving deeper on the collaborarion worflow, let's talk about what kind of contributions can be made. Make sure to refer to the [create-cardinal-app architecture discussion]() to understand how the CLI, installers and template scaffolding works in `create-cardinal-app`.
 
 There are three main things you can usually contribute with:
 
-- **Docs**: If you have any ideas that would improve the documentation for Cardinal (typo correction, fact checking, benchmarks or guides);
+- **Docs**: If you have any ideas that would improve the documentation for Cardinal (typo correction, fact checking, benchmarks, updates or guides);
 
 - **Templates and installers**: If you would like to add a currently unsupported feature (a new database type, framework, or deployment provider), you'll probably be submitting a new template, installer, and new CLI prompts. Keep in mind that they should not change the underlying dependencies that handle a specific part of the stack (eg.: you should not change Drizzle for other ORM solution for any templates under `templates/database`);
 
-- **Bug fixes/reports**: If you think you've found a bug or unexpected behavior in the CLI application, or the scaffolded apps, you're welcome to raise a issue and/or PR with a bug description/fix.
+- **Bug fixes/reports**: If you think you've found a bug or unexpected behavior in the CLI application, or the scaffolded apps, you're welcome to raise a issue and/or PR with a bug description and/or fix.
 
 Ideas for improving the overall architecture of the CLI app will always be welcome, but we ask that you raise a issue and/or a discussion with an overview of the proposed ideas first in order to ensure a proper debate over the proposal.
 
@@ -52,7 +52,7 @@ To quickly setup `create-cardinal-app` for local testing:
 - `pnpm dev` - Start the development script which will build `create-cardinal-app` in development mode (non-minified, for easier debugging). 
 
 > **Warning**
-> Make a sure to take a look at the `dev` script in `cli/package.json`. The `PACKAGE_MANAGER_OVERRIDE` environment variable is necessary because, by default, execution of global scripts is defered to `npm`, even when they are installed using `pnpm`. Since the scripts in the scaffolded app are the same used to run the `create-cardinal-app` CLI, this will ensure that the scripts inside the scaffolded app use the correct package manager.
+> Make a sure to take a look at the `dev` script in `cli/package.json`. The `PACKAGE_MANAGER_OVERRIDE` environment variable is necessary because, by default, execution of global scripts is defered to `npm`, even when they are installed using `pnpm`. Since the scripts in the scaffolded app are determined by the package manager used to run the `create-cardinal-app` CLI, this will ensure that the scripts inside the scaffolded app use the correct package manager.
 
 - `pnpm link global` - Link the current module to the global pnpm store.
 
