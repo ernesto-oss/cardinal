@@ -22,7 +22,8 @@ export const runCli = async () => {
   });
 
   const infraPromptGroup = await group({
-    backendType: async () => await promptBackendType(corePromptGroup.frontendFramework),
+    backendType: async () =>
+      await promptBackendType(corePromptGroup.frontendFramework),
     // deployProvider: async() => promptDeployProvider(),
   });
 
@@ -46,10 +47,16 @@ export const runCli = async () => {
 export type ProjectOptions = Awaited<ReturnType<typeof runCli>>;
 
 async function main() {
-  intro(`Let's create your new fullstack project with ${color.bold(color.magenta("Cardinal"))} ✨
-   ${color.dim(`Need help choosing your stack? Head to https://cardinal.ernestoresende.com/docs/en/recommendations`)}
+  intro(`Let's create your new fullstack project with ${color.bold(
+    color.magenta("Cardinal"),
+  )} ✨
+   ${color.dim(
+     `Need help choosing your stack? Head to https://cardinal.ernestoresende.com/docs/en/recommendations`,
+   )}
    ${color.hidden("")}
-   ${color.bold(color.cyan(`Choose options with the arrrow keys, confirm with <Enter>`))}
+   ${color.bold(
+     color.cyan(`Choose options with the arrrow keys, confirm with <Enter>`),
+   )}
   `);
 
   const pkgManager = getUserPkgManager();
@@ -64,7 +71,9 @@ async function main() {
   });
 
   outro(`
-    ${color.bold(color.green("✅Success!"))} Project created in ${color.magenta(appPath)}
+    ${color.bold(color.green("✅Success!"))} Project created in ${color.magenta(
+    appPath,
+  )}
     Next steps:
     ${color.dim(`
     cd ${appPath}
@@ -84,7 +93,11 @@ main().catch((err) => {
   if (err instanceof Error) {
     console.error(err);
   } else {
-    color.red(color.bold("An unknown error has ocurred. Please open an issue on GitHub with the issue bellow:"));
+    color.red(
+      color.bold(
+        "An unknown error has ocurred. Please open an issue on GitHub with the issue bellow:",
+      ),
+    );
     console.log(err);
   }
   process.exit(1);

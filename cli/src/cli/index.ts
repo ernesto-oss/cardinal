@@ -11,9 +11,12 @@ import {
 } from "@/types/index.js";
 import { validateAppDirectory } from "@/utils/checks.js";
 
-const cancellationMessage = "Installation stopped. Come back when you're ready to try again.";
+const cancellationMessage =
+  "Installation stopped. Come back when you're ready to try again.";
 const promptHelper = (message: string) =>
-  `${color.hidden("###")}${color.bold(color.bgCyan(" HINT "))} ${color.dim(message)}`;
+  `${color.hidden("###")}${color.bold(color.bgCyan(" HINT "))} ${color.dim(
+    message,
+  )}`;
 
 function handlePromptCancellation(target: unknown) {
   if (isCancel(target)) {
@@ -25,7 +28,9 @@ function handlePromptCancellation(target: unknown) {
 export async function promptAppDirectory() {
   const name = await text({
     message: `Where should we create your project?
-    ${promptHelper(`This is where your monorepo will be scaffolded relative to your current working directory`)}
+    ${promptHelper(
+      `This is where your monorepo will be scaffolded relative to your current working directory`,
+    )}
     `,
     initialValue: "./my-cardinal-app",
     placeholder: "./my-cardinal-app",
@@ -42,12 +47,22 @@ export async function promptAppDirectory() {
 export async function promptFrontendFramework() {
   const frontendFramework = await select({
     message: `What is your frontend framework of choice?
-    ${promptHelper(`This is the framework you'll use to author your web application`)}
+    ${promptHelper(
+      `This is the framework you'll use to author your web application`,
+    )}
     `,
     initialValue: "next",
     options: [
-      { value: "next", label: "Next.js", hint: "Next.js 13 with React Server Components" },
-      { value: "react", label: "React w/Vite", hint: "Client-side React with Vite" },
+      {
+        value: "next",
+        label: "Next.js",
+        hint: "Next.js 13 with React Server Components",
+      },
+      {
+        value: "react",
+        label: "React w/Vite",
+        hint: "Client-side React with Vite",
+      },
     ],
   } as SelectOptions<Option<FrontendFramework>[], FrontendFramework>);
 
@@ -72,7 +87,9 @@ export async function promptBackendType(frontendFramework: FrontendFramework) {
 
   const backendType = await select({
     message: `What is your backend type of choice?
-    ${promptHelper(`The architectural style you'll be using to build your backend service`)}
+    ${promptHelper(
+      `The architectural style you'll be using to build your backend service`,
+    )}
     `,
     initialValue: "rest",
     options,
@@ -101,12 +118,16 @@ export const promptDeployProvider = () => {
   // handlePromptCancellation(deployProvider);
   // return deployProvider;
 
-  return "vercel"
+  return "vercel";
 };
 
 export async function promptDatabaseProvider() {
   const options: Option<DatabaseProvider>[] = [
-    { value: "planetscale", label: "Planetscale", hint: "Drizzle ORM with Planetscale's Serverless Driver" },
+    {
+      value: "planetscale",
+      label: "Planetscale",
+      hint: "Drizzle ORM with Planetscale's Serverless Driver",
+    },
     {
       value: "none",
       label: "No database",
@@ -116,7 +137,9 @@ export async function promptDatabaseProvider() {
 
   const databaseProvider = await select({
     message: `What kind of database do you want?
-    ${promptHelper(`This will setup the proper tools for you to communicate with a database of your choice`)}
+    ${promptHelper(
+      `This will setup the proper tools for you to communicate with a database of your choice`,
+    )}
     `,
     initialValue: "planetscale",
     options,
@@ -129,7 +152,9 @@ export async function promptDatabaseProvider() {
 export async function promptAuthentication() {
   const authentication = await select({
     message: `Would you like to enable authentication features for your app?
-    ${promptHelper(`This will setup a basic auth system that can be extended with the OAuth providers of your choice`)}
+    ${promptHelper(
+      `This will setup a basic auth system that can be extended with the OAuth providers of your choice`,
+    )}
     `,
     initialValue: true,
     options: [
