@@ -1,4 +1,5 @@
-const validationRegExp = /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
+const validationRegExp =
+  /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
 
 export const validateAppDirectory = (input: string) => {
   const paths = input.split("/");
@@ -17,4 +18,3 @@ export const validateAppDirectory = (input: string) => {
     return "App name must consist of only lowercase alphanumeric characters, '-', and '_'";
   }
 };
-

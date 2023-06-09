@@ -18,20 +18,29 @@ interface CreateProjectOptions {
   pkgManager: PackageManager;
 }
 
-export const createProject = ({ projectName, projectDir, projectOptions, pkgManager }: CreateProjectOptions) => {
+export const createProject = ({
+  projectName,
+  projectDir,
+  projectOptions,
+  pkgManager,
+}: CreateProjectOptions) => {
   const spinner = spinnerPrompt();
   spinner.start("Scaffolding your project with selected options");
 
   rootInstaller({ pkgManager, projectDir, projectName });
   configInstaller({ projectDir, projectOptions });
 
-  if (projectOptions.databaseProvider !== "none") databaseInstaller({ pkgManager, projectDir, projectOptions });
+  if (projectOptions.databaseProvider !== "none")
+    databaseInstaller({ pkgManager, projectDir, projectOptions });
 
-  if (projectOptions.authentication) authInstaller({ projectDir, projectOptions });
+  if (projectOptions.authentication)
+    authInstaller({ projectDir, projectOptions });
 
-  if (projectOptions.backendType === "graphql") graphQLInstaller({ pkgManager, projectDir, projectOptions });
+  if (projectOptions.backendType === "graphql")
+    graphQLInstaller({ pkgManager, projectDir, projectOptions });
 
-  if (projectOptions.frontendFramework === "next") nextjsInstaller({ pkgManager, projectDir, projectOptions });
+  if (projectOptions.frontendFramework === "next")
+    nextjsInstaller({ pkgManager, projectDir, projectOptions });
 
   spinner.stop("Finished scaffolding monorepo");
 };
