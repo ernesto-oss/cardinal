@@ -1,0 +1,16 @@
+{
+  "name": "@acme/auth-planetscale-next",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@acme/config": "file:../../config",
+    "@acme/database": "file:../../database/database-planetscale-auth",
+    "@lucia-auth/adapter-mysql": "^1.1.1",
+    "lucia-auth": "1.7.0",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "next": "13.4.4"
+  }
+}

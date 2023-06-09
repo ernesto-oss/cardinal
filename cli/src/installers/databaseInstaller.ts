@@ -9,7 +9,12 @@ import {
   databaseDependencyMap,
   type AvailableDatabaseDependenciesKeys,
 } from "@/helpers/addPackageDependency.js";
-import { coreScriptsMap, createPackageScripts, databaseScriptsMap } from "@/helpers/createPackageScripts.js";
+import {
+  coreScriptsMap,
+  createPackageScripts,
+  databaseScriptsMap,
+} from "@/helpers/createPackageScripts.js";
+import { removeArtifacts } from "@/helpers/removeArtifacts.js";
 import { type ProjectOptions } from "@/index.js";
 import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
@@ -26,50 +31,66 @@ export const databaseInstaller = ({
   const databaseTemplateRoot = path.join(TEMPLATE_DIR, "database");
   const databaseDestination = path.join(projectDir, "packages/database");
 
-  const copyFile = (fileName: string) =>
-    fs.copySync(path.join(databaseTemplateRoot, fileName), path.join(databaseDestination, fileName));
+  const copyDir = (fileName: string) =>
+    fs.copySync(
+      path.join(databaseTemplateRoot, fileName),
+      databaseDestination,
+      { filter: removeArtifacts },
+    );
 
-  const copyAndRenameFile = (origin: string, destinationFile: string) =>
-    fs.copySync(path.join(databaseTemplateRoot, origin), path.join(databaseDestination, destinationFile));
+  if (databaseProvider === "planetscale")
+    authentication
+      ? copyDir("database-planetscale-auth")
+      : copyDir("database-planetscale");
 
-  /* Copy the main drizzle configuration file */
-  copyFile("drizzle.config.ts");
-
-  /* Copy relevant files for the correct database driver */
-  if (databaseProvider === "planetscale") {
-    copyAndRenameFile("src/index-with-planetscale.ts", "src/index.ts");
-    authentication ? copyAndRenameFile("src/schema-with-auth-planetscale.ts", "src/schema.ts") : null;
-  }
   /* Write `tsconfig.json` */
-  const templateDatabaseTsConfig = fs.readJsonSync(path.join(databaseTemplateRoot, "tsconfig.json")) as TsConfigJson;
+  const templateDatabaseTsConfig = fs.readJsonSync(
+    path.join(databaseTemplateRoot, "tsconfig.json"),
+  ) as TsConfigJson;
+  templateDatabaseTsConfig.compilerOptions = {};
   templateDatabaseTsConfig.extends = "../../tsconfig.json";
-  templateDatabaseTsConfig.include = ["src/index.ts"];
-  fs.outputJsonSync(path.join(databaseDestination, "tsconfig.json"), templateDatabaseTsConfig, { spaces: 2 });
+  templateDatabaseTsConfig.include = ["index.ts"];
+  fs.outputJsonSync(
+    path.join(databaseDestination, "tsconfig.json"),
+    templateDatabaseTsConfig,
+    { spaces: 2 },
+  );
 
   /* Set correct dependencies on `package.json` */
-  const templateDatabasePackageJson = fs.readJsonSync(path.join(databaseTemplateRoot, "package.json")) as PackageJson;
-  const databaseDependencies = ["drizzle-orm", "@acme/config"] as AvailableDatabaseDependenciesKeys[];
-  const databaseDevDependencies = ["drizzle-kit"] as AvailableDatabaseDependenciesKeys[];
+  const templateDatabasePackageJson = fs.readJsonSync(
+    path.join(databaseTemplateRoot, "package.json"),
+  ) as PackageJson;
+  const databaseDependencies = [
+    "drizzle-orm",
+    "@acme/config",
+  ] as AvailableDatabaseDependenciesKeys[];
+  const databaseDevDependencies = [
+    "drizzle-kit",
+  ] as AvailableDatabaseDependenciesKeys[];
 
-  if (databaseProvider === "planetscale") databaseDependencies.push("@planetscale/database");
+  if (databaseProvider === "planetscale")
+    databaseDependencies.push("@planetscale/database");
 
   /* Wipe "dependencies" field from `package.json` in order to replace with the
   correct dependency map */
   templateDatabasePackageJson.dependencies = {};
+  templateDatabasePackageJson.name = "@acme/database"
 
-  const withAddedDependencies = addPackageDependency<AvailableDatabaseDependenciesKeys>({
-    dependencyMap: databaseDependencyMap,
-    packageJson: templateDatabasePackageJson,
-    dependencies: databaseDependencies,
-    devDependency: false,
-  });
+  const withAddedDependencies =
+    addPackageDependency<AvailableDatabaseDependenciesKeys>({
+      dependencyMap: databaseDependencyMap,
+      packageJson: templateDatabasePackageJson,
+      dependencies: databaseDependencies,
+      devDependency: false,
+    });
 
-  const withAddedDevDependencies = addPackageDependency<AvailableDatabaseDependenciesKeys>({
-    dependencyMap: databaseDependencyMap,
-    packageJson: withAddedDependencies,
-    dependencies: databaseDevDependencies,
-    devDependency: true,
-  });
+  const withAddedDevDependencies =
+    addPackageDependency<AvailableDatabaseDependenciesKeys>({
+      dependencyMap: databaseDependencyMap,
+      packageJson: withAddedDependencies,
+      dependencies: databaseDevDependencies,
+      devDependency: true,
+    });
 
   /* Set `package.json` scripts */
   const scriptsMap = { ...databaseScriptsMap, ...coreScriptsMap };
@@ -91,7 +112,16 @@ export const databaseInstaller = ({
 
   const sortedPackageJson = sortPackageJson(withAddedScripts);
 
-  fs.outputJsonSync(path.join(databaseDestination, "package.json"), sortedPackageJson, {
-    spaces: 2,
-  });
+  fs.outputJsonSync(
+    path.join(databaseDestination, "package.json"),
+    sortedPackageJson,
+    {
+      spaces: 2,
+    },
+  );
+
+  if (process.env.NODE_ENV === "development") {
+    fs.removeSync(path.join(databaseDestination, "pnpm-lock.yaml"));
+    fs.removeSync(path.join(databaseDestination, "node_modules"));
+  }
 };

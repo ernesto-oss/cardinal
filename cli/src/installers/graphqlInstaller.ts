@@ -9,7 +9,12 @@ import {
   graphqlDependencyMap,
   type AvailableGraphqlDependenciesKeys,
 } from "@/helpers/addPackageDependency.js";
-import { coreScriptsMap, createPackageScripts, graphQLScriptsMap } from "@/helpers/createPackageScripts.js";
+import {
+  coreScriptsMap,
+  createPackageScripts,
+  graphQLScriptsMap,
+} from "@/helpers/createPackageScripts.js";
+import { removeArtifacts } from "@/helpers/removeArtifacts.js";
 import { type ProjectOptions } from "@/index.js";
 import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
@@ -22,58 +27,64 @@ export const graphQLInstaller = ({
   projectOptions: ProjectOptions;
   pkgManager: PackageManager;
 }) => {
-  const { frontendFramework, databaseProvider, deployProvider, authentication } = projectOptions;
-  const graphqlTemplateRoot = path.join(TEMPLATE_DIR, "api/graphql");
+  const {
+    frontendFramework,
+    databaseProvider,
+    deployProvider,
+    authentication,
+  } = projectOptions;
+  const graphqlTemplateRoot = path.join(TEMPLATE_DIR, "graphql");
   const graphQLDestination = path.join(projectDir, "packages/api");
 
-  const copyFile = (fileName: string) =>
-    fs.copySync(path.join(graphqlTemplateRoot, fileName), path.join(graphQLDestination, fileName));
-
-  const copyAndRename = (origin: string, destinationFile: string) =>
-    fs.copySync(path.join(graphqlTemplateRoot, origin), path.join(graphQLDestination, destinationFile));
-
-  /* Copy root config files */
-  copyFile("codegen.ts");
-
-  /* Greeting query is present on every instance */
-  copyFile("src/types/greeting.ts");
+  const copyDir = (fileName: string) =>
+    fs.copySync(path.join(graphqlTemplateRoot, fileName), graphQLDestination, {
+      filter: removeArtifacts,
+    });
 
   if (frontendFramework === "next") {
-    if (authentication) {
-      copyAndRename("src/index-with-next-auth.ts", "src/index.ts");
-      copyAndRename("src/builder-with-auth.ts", "src/builder.ts");
-      copyAndRename("src/schema-with-auth.ts", "src/schema.ts");
-      copyFile("src/types/protected.ts");
-    } else {
-      // copyAndRename("src/builder.ts", "src/builder.ts");
-      copyAndRename("src/index-with-next.ts", "src/index.ts");
-      copyFile("src/builder.ts");
-      copyFile("src/schema.ts");
-    }
+    databaseProvider === "planetscale" && authentication
+      ? copyDir("graphql-next-planetscale-auth")
+      : null;
+    databaseProvider === "planetscale" && !authentication
+      ? copyDir("graphql-next-planetscale")
+      : null;
   }
 
   /* Write `tsconfig.json` */
-  const templateDatabaseTsConfig = fs.readJsonSync(path.join(graphqlTemplateRoot, "tsconfig.json")) as TsConfigJson;
-  templateDatabaseTsConfig.extends = "../../tsconfig.json";
-  templateDatabaseTsConfig.include = ["src/index.ts"];
-  fs.outputJsonSync(path.join(graphQLDestination, "tsconfig.json"), templateDatabaseTsConfig, { spaces: 2 });
+  const templateGraphqlTsConfig = fs.readJsonSync(
+    path.join(graphqlTemplateRoot, "tsconfig.json"),
+  ) as TsConfigJson;
+  templateGraphqlTsConfig.compilerOptions = {};
+  templateGraphqlTsConfig.extends = "../../tsconfig.json";
+  templateGraphqlTsConfig.include = ["index.ts"];
+  fs.outputJsonSync(
+    path.join(graphQLDestination, "tsconfig.json"),
+    templateGraphqlTsConfig,
+    { spaces: 2 },
+  );
 
   /* Set correct dependencies on `package.json` */
-  const templateGraphQLPackageJson = fs.readJsonSync(path.join(graphqlTemplateRoot, "package.json")) as PackageJson;
-  const graphqlDependencies = ["@pothos/core", "graphql"] as AvailableGraphqlDependenciesKeys[];
-  const graphqlDevDependencies = ["@types/node"] as AvailableGraphqlDependenciesKeys[];
+  const templateGraphQLPackageJson = fs.readJsonSync(
+    path.join(graphqlTemplateRoot, "package.json"),
+  ) as PackageJson;
+  const graphqlDependencies = [
+    "@pothos/core",
+    "graphql",
+  ] as AvailableGraphqlDependenciesKeys[];
+  const graphqlDevDependencies = [] as AvailableGraphqlDependenciesKeys[];
 
   if (frontendFramework === "next") {
     graphqlDevDependencies.push("next");
     graphqlDependencies.push("graphql-yoga");
   }
 
-  if (authentication) graphqlDependencies.push("@acme/auth", "@pothos/plugin-scope-auth");
+  if (authentication)
+    graphqlDependencies.push("@acme/auth", "@pothos/plugin-scope-auth");
 
   if (databaseProvider !== "none") graphqlDependencies.push("@acme/database");
 
   if (deployProvider !== "aws") {
-    graphqlDependencies.push("react")
+    graphqlDependencies.push("react");
     graphqlDevDependencies.push(
       "@types/react",
       "@genql/cli",
@@ -85,22 +96,25 @@ export const graphQLInstaller = ({
 
   /* Wipe "dependencies" field from `package.json` in order to replace with the
   correct dependency map */
+  templateGraphQLPackageJson.name = "@acme/api"
   templateGraphQLPackageJson.dependencies = {};
   templateGraphQLPackageJson.devDependencies = {};
 
-  const withAddedDependencies = addPackageDependency<AvailableGraphqlDependenciesKeys>({
-    dependencyMap: graphqlDependencyMap,
-    packageJson: templateGraphQLPackageJson,
-    dependencies: graphqlDependencies,
-    devDependency: false,
-  });
+  const withAddedDependencies =
+    addPackageDependency<AvailableGraphqlDependenciesKeys>({
+      dependencyMap: graphqlDependencyMap,
+      packageJson: templateGraphQLPackageJson,
+      dependencies: graphqlDependencies,
+      devDependency: false,
+    });
 
-  const withAddedDevDependencies = addPackageDependency<AvailableGraphqlDependenciesKeys>({
-    dependencyMap: graphqlDependencyMap,
-    packageJson: withAddedDependencies,
-    dependencies: graphqlDevDependencies,
-    devDependency: true,
-  });
+  const withAddedDevDependencies =
+    addPackageDependency<AvailableGraphqlDependenciesKeys>({
+      dependencyMap: graphqlDependencyMap,
+      packageJson: withAddedDependencies,
+      dependencies: graphqlDevDependencies,
+      devDependency: true,
+    });
 
   /* Set `package.json` scripts */
   const scriptsMap = { ...graphQLScriptsMap, ...coreScriptsMap };
@@ -108,12 +122,23 @@ export const graphQLInstaller = ({
     packageJson: withAddedDevDependencies,
     scriptsMap: scriptsMap,
     packageManager: pkgManager,
-    scripts: ["with-env", "dev", "typecheck", "codegen:client", "codegen:schema", "codegen"],
+    scripts: [
+      "with-env",
+      "dev",
+      "typecheck",
+      "codegen:client",
+      "codegen:schema",
+      "codegen",
+    ],
   });
 
   const sortedPackageJson = sortPackageJson(withAddedScripts);
 
-  fs.outputJsonSync(path.join(graphQLDestination, "package.json"), sortedPackageJson, {
-    spaces: 2,
-  });
+  fs.outputJsonSync(
+    path.join(graphQLDestination, "package.json"),
+    sortedPackageJson,
+    {
+      spaces: 2,
+    },
+  );
 };

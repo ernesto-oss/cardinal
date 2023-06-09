@@ -19,24 +19,27 @@ export const rootInstaller = ({
   const templateRoot = path.join(TEMPLATE_DIR);
   const projectDestination = projectDir;
 
-  const copyFile = (fileName: string) =>
-    fs.copySync(path.join(templateRoot, fileName), path.join(projectDestination, fileName));
-
   const copyAndRename = (origin: string, destinationFile: string) =>
-    fs.copySync(path.join(templateRoot, origin), path.join(projectDestination, destinationFile));
+    fs.copySync(
+      path.join(templateRoot, origin),
+      path.join(projectDestination, destinationFile),
+    );
 
   copyAndRename("_tsconfig.json", "tsconfig.json");
-  copyFile(".gitignore");
-  copyFile(".prettierignore");
-  copyFile(".npmrc");
-  copyFile(".prettierrc.js");
+  copyAndRename("_.gitignore", ".gitignore");
 
-  const rootPackageJson = fs.readJsonSync(path.join(templateRoot, "package.json")) as PackageJson;
+  const rootPackageJson = fs.readJsonSync(
+    path.join(templateRoot, "package.json"),
+  ) as PackageJson;
   rootPackageJson.name = projectName;
 
   if (pkgManager === "pnpm") {
     const workspaceYaml = yaml.dump({ packages: ["packages/**"] });
-    fs.outputFileSync(path.join(projectDestination, "pnpm-workspace.yaml"), workspaceYaml);
+    fs.outputFileSync(
+      path.join(projectDestination, "pnpm-workspace.yaml"),
+      workspaceYaml,
+    );
+    copyAndRename("_.npmrc", ".npmrc");
   }
 
   if (pkgManager === "npm" || pkgManager === "yarn") {
@@ -44,7 +47,11 @@ export const rootInstaller = ({
   }
 
   const sortedPackageJson = sortPackageJson(rootPackageJson);
-  fs.outputJsonSync(path.join(projectDestination, "package.json"), sortedPackageJson, {
-    spaces: 2,
-  });
+  fs.outputJsonSync(
+    path.join(projectDestination, "package.json"),
+    sortedPackageJson,
+    {
+      spaces: 2,
+    },
+  );
 };

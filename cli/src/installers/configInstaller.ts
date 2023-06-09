@@ -18,22 +18,35 @@ export const configInstaller = ({
   const configDestination = path.join(projectDir, "packages/config");
 
   const copyFile = (fileName: string) =>
-    fs.copySync(path.join(configTemplateRoot, fileName), path.join(configDestination, fileName));
+    fs.copySync(
+      path.join(configTemplateRoot, fileName),
+      path.join(configDestination, fileName),
+    );
 
   const copyAndRenameFile = (origin: string, destinationFile: string) =>
-    fs.copySync(path.join(configTemplateRoot, origin), path.join(configDestination, destinationFile));
+    fs.copySync(
+      path.join(configTemplateRoot, origin),
+      path.join(configDestination, destinationFile),
+    );
 
   copyFile("tsconfig.json");
 
-  if (frontendFramework === "next") copyAndRenameFile("env-with-next.ts", "env.ts");
+  if (frontendFramework === "next")
+    copyAndRenameFile("env-with-next.ts", "env.ts");
   if (frontendFramework === "next")
     databaseProvider === "none"
       ? copyAndRenameFile("env-with-next.ts", "env.ts")
       : copyAndRenameFile("env-with-next-database.ts", "env.ts");
 
-  const configPackageJson = fs.readJsonSync(path.join(configTemplateRoot, "package.json")) as PackageJson;
+  const configPackageJson = fs.readJsonSync(
+    path.join(configTemplateRoot, "package.json"),
+  ) as PackageJson;
   const sortedPackageJson = sortPackageJson(configPackageJson);
-  fs.outputJsonSync(path.join(configDestination, "package.json"), sortedPackageJson, {
-    spaces: 2,
-  });
+  fs.outputJsonSync(
+    path.join(configDestination, "package.json"),
+    sortedPackageJson,
+    {
+      spaces: 2,
+    },
+  );
 };

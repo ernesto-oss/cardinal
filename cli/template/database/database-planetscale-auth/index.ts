@@ -1,3 +1,6 @@
+import { env } from '@acme/config/env';
+import { connect } from '@planetscale/database';
+import { drizzle } from 'drizzle-orm/planetscale-serverless';
 import { mysqlTable, varchar, tinyint, serial } from "drizzle-orm/mysql-core"
 
 export const authKey = mysqlTable("auth_key", {
@@ -19,3 +22,11 @@ export const authUser = mysqlTable("auth_user", {
 	id: varchar("id", { length: 15 }).primaryKey().notNull(),
 	email: varchar("email", { length: 191 }),
 });
+
+export const connection = connect({
+  host: 'aws.connect.psdb.cloud',
+  username: env.DATABASE_USERNAME,
+  password: env.DATABASE_PASSWORD,
+});
+
+export const database = drizzle(connection);

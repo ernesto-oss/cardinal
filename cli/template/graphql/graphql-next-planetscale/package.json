@@ -1,5 +1,5 @@
 {
-  "name": "@acme/api",
+  "name": "@acme/graphql-next-planetscale",
   "version": "1.0.0",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -15,7 +15,7 @@
     "@pothos/core": "^3.24.0"
   },
   "devDependencies": {
-    "@genql/cli": "3.x",
+    "@genql/cli": "3.0.5",
     "@graphql-codegen/cli": "^3.3.1",
     "@graphql-codegen/schema-ast": "^3.0.1",
     "@types/node": "^20.2.5",
@@ -23,10 +23,8 @@
     "next": "13.4.4"
   },
   "dependencies": {
-    "@acme/auth": "file:../../auth/with-next-planetscale",
-    "@acme/database": "file:../../database/with-auth-planetscale",
+    "@acme/database": "file:../../database/database-planetscale",
     "@pothos/core": "^3.30.0",
-    "@pothos/plugin-scope-auth": "^3.19.2",
     "graphql": "^16.6.0",
     "graphql-yoga": "^3.9.1"
   }
