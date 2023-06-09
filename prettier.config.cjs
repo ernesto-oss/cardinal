@@ -1,8 +1,7 @@
 /** @type {import('prettier').Config} */
 module.exports = {
-  plugins: ["@ianvs/prettier-plugin-sort-imports"],
   arrowParens: "always",
-  printWidth: 120,
+  printWidth: 80,
   singleQuote: false,
   semi: true,
   trailingComma: "all",
@@ -24,4 +23,5 @@ module.exports = {
     "",
     "^[./]",
   ],
+  plugins: [require("@ianvs/prettier-plugin-sort-imports")],
 };
