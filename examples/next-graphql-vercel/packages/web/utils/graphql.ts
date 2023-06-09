@@ -41,8 +41,7 @@ export async function defaultFetcher({
 }: {
   operation: GraphqlOperation | GraphqlOperation[];
   fetchOptions?: RequestInit;
-})
-{
+}) {
   const response = await fetch(`${getBaseUrl()}/api/graphql`, {
     ...getDefaultGraphqlHeaders(operation),
     ...fetchOptions,
@@ -57,14 +56,13 @@ export async function protectedFetcher({
 }: {
   operation: GraphqlOperation | GraphqlOperation[];
   fetchOptions?: RequestInit;
-})
-{
+}) {
   const response = await fetch(`${getBaseUrl()}/api/graphql`, {
     ...getDefaultGraphqlHeaders(operation),
     ...fetchOptions,
     headers: {
       Authorization: `Bearer ${cookies().get('auth_session')?.value}`,
-    }
+    },
   });
 
   return await response.json();

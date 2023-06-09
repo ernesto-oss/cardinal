@@ -1,4 +1,4 @@
-import { env } from '@acme/config/env'
+import { env } from '@acme/config/env';
 
 export type SiteConfig = {
   name: string;

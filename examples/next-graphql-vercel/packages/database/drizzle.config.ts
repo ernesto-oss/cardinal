@@ -1,5 +1,5 @@
-import type { Config } from 'drizzle-kit'
-import { env } from '@acme/config/env'
+import { env } from '@acme/config/env';
+import type { Config } from 'drizzle-kit';
 
 export default {
   schema: './src/schema.ts',

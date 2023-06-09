@@ -46,7 +46,7 @@ export default async function IndexPage() {
       <div className="flex w-full flex-col items-center justify-between">
         <div className="flex max-w-5xl flex-col items-center justify-center px-6">
           <QueryBox>
-            <pre className="font-mono semibold text-slate-300">
+            <pre className="semibold font-mono text-slate-300">
               {JSON.stringify(data)}
             </pre>
           </QueryBox>
