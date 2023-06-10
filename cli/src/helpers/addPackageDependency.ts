@@ -1,11 +1,12 @@
 import { type PackageJson } from "type-fest";
 
-import authDependencyMapJson from "./dependencyMaps/authDependencyMap.json" assert { type: "json" };
-import coreDependencyMapJson from "./dependencyMaps/coreDependencyMap.json" assert { type: "json" };
-import databaseDependencyMapJson from "./dependencyMaps/databaseDependencyMaps.json" assert { type: "json" };
-import graphqlDependencyMapJson from "./dependencyMaps/graphqlDependencyMap.json" assert { type: "json" };
-import nextDependencyMapJson from "./dependencyMaps/nextDependencyMap.json" assert { type: "json" };
 import { type DependencyMap } from "@/types/index.js";
+
+import authDependencyMapJson from "./dependencyMaps/authDependencyMap.json";
+import coreDependencyMapJson from "./dependencyMaps/coreDependencyMap.json";
+import databaseDependencyMapJson from "./dependencyMaps/databaseDependencyMaps.json";
+import graphqlDependencyMapJson from "./dependencyMaps/graphqlDependencyMap.json";
+import nextDependencyMapJson from "./dependencyMaps/nextDependencyMap.json";
 
 export const coreDependencyMap = coreDependencyMapJson;
 export const graphqlDependencyMap = graphqlDependencyMapJson;

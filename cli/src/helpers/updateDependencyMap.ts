@@ -2,7 +2,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { ConfirmPrompt, isCancel } from "@clack/core";
 import { cancel } from "@clack/prompts";
-import { Command } from "commander";
+import { Command } from "@commander-js/extra-typings";
 import fs from "fs-extra";
 import { run as runUpdater } from "npm-check-updates";
 import color from "picocolors";
@@ -164,10 +164,11 @@ const nextPackageFile = { dependencies: nextjsDependencyMap };
 
 const program = new Command();
 
-program.requiredOption("-d, --dependencyCategory <value>");
-program.option("--CI");
-program.parse(process.argv);
-const options = program.opts();
+const mainProgram = program
+  .option("--CI")
+  .requiredOption("-d, --dependencyCategory <value>");
+
+const options = mainProgram.opts();
 
 const packageData =
   options.dependencyCategory === "next"
@@ -212,7 +213,7 @@ await runUpdater({
       await getDiffAndPromptUpgrade({
         previousDepMap: dependencyMap,
         updatedDepMap: updatedObject,
-        depCategory: options.dependencyCategory,
+        depCategory: options.dependencyCategory as DependencyCategory,
         shouldSkipPrompt: options.CI,
       });
   } else {
