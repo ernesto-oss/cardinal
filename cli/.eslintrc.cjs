@@ -7,7 +7,7 @@ const config = {
   extends: [
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
   ],
   parserOptions: {
     ecmaVersion: "latest",
@@ -16,6 +16,7 @@ const config = {
     project: "./tsconfig.json",
   },
   rules: {
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/no-unused-vars": [

@@ -65,21 +65,19 @@ export const authInstaller = ({
   templateAuthPackageJson.dependencies = {};
   templateAuthPackageJson.name = "@acme/auth";
 
-  const withAddedDependencies =
-    addPackageDependency({
-      dependencyMap: authDependencyMap,
-      packageJson: templateAuthPackageJson,
-      dependencies: authDependencies,
-      devDependency: false,
-    });
+  const withAddedDependencies = addPackageDependency({
+    dependencyMap: authDependencyMap,
+    packageJson: templateAuthPackageJson,
+    dependencies: authDependencies,
+    devDependency: false,
+  });
 
-  const withAddedDevDependencies =
-    addPackageDependency({
-      dependencyMap: authDependencyMap,
-      packageJson: withAddedDependencies,
-      dependencies: authDevDependencies,
-      devDependency: true,
-    });
+  const withAddedDevDependencies = addPackageDependency({
+    dependencyMap: authDependencyMap,
+    packageJson: withAddedDependencies,
+    dependencies: authDevDependencies,
+    devDependency: true,
+  });
 
   const sortedPackageJson = sortPackageJson(withAddedDevDependencies);
 

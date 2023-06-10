@@ -74,7 +74,7 @@ export const databaseInstaller = ({
   /* Wipe "dependencies" field from `package.json` in order to replace with the
   correct dependency map */
   templateDatabasePackageJson.dependencies = {};
-  templateDatabasePackageJson.name = "@acme/database"
+  templateDatabasePackageJson.name = "@acme/database";
 
   const withAddedDependencies =
     addPackageDependency<AvailableDatabaseDependenciesKeys>({

@@ -7,7 +7,7 @@ import fs from "fs-extra";
 import { run as runUpdater } from "npm-check-updates";
 import color from "picocolors";
 
-import { DependencyMap } from "../types/index.js";
+import { type DependencyMap } from "../types/index.js";
 import {
   authDependencyMap,
   coreDependencyMap,
@@ -199,7 +199,7 @@ await runUpdater({
   upgrade: true,
   packageData,
   reject: "@genql/cli",
-}).then((updated) => {
+}).then(async (updated) => {
   const updatedObject = {
     ...dependencyMap,
     ...updated,
@@ -209,7 +209,7 @@ await runUpdater({
     if (Object.keys(updated).length === 0)
       console.log("Nothing to update in this dependency map :)");
     else
-      getDiffAndPromptUpgrade({
+      await getDiffAndPromptUpgrade({
         previousDepMap: dependencyMap,
         updatedDepMap: updatedObject,
         depCategory: options.dependencyCategory,

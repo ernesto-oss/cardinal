@@ -96,7 +96,7 @@ export const graphQLInstaller = ({
 
   /* Wipe "dependencies" field from `package.json` in order to replace with the
   correct dependency map */
-  templateGraphQLPackageJson.name = "@acme/api"
+  templateGraphQLPackageJson.name = "@acme/api";
   templateGraphQLPackageJson.dependencies = {};
   templateGraphQLPackageJson.devDependencies = {};
 
