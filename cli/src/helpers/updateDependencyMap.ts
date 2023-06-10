@@ -1,6 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
-import { ConfirmPrompt } from "@clack/core";
+import { ConfirmPrompt, isCancel } from "@clack/core";
+import { cancel } from "@clack/prompts";
 import { Command } from "commander";
 import fs from "fs-extra";
 import { run as runUpdater } from "npm-check-updates";
@@ -142,6 +143,11 @@ async function getDiffAndPromptUpgrade(opts: {
     ${color.bold(color.green("Should this dependency map be updated?"))}
     `,
     });
+
+    if (isCancel(updatePrompt)) {
+      cancel("Update cancelled");
+      process.exit(0);
+    }
 
     if (updatePrompt)
       fs.writeJSONSync(dependencyMap, updatedDependencyMap, { spaces: 2 });
