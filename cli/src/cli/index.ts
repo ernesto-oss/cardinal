@@ -1,16 +1,22 @@
-import { select, text, cancel, isCancel } from "@clack/prompts";
+import { cancel, isCancel, select, text } from "@clack/prompts";
+import color from "picocolors";
 
-import { validateAppDirectory } from "@/utils/checks.js";
-import type {
-  SelectOptions,
-  Option,
-  FrontendFramework,
-  BackendType,
-  DeploymentProvider,
-  DatabaseProvider,
+import {
+  type BackendType,
+  type DatabaseProvider,
+  // type DeploymentProvider,
+  type FrontendFramework,
+  type Option,
+  type SelectOptions,
 } from "@/types/index.js";
+import { validateAppDirectory } from "@/utils/checks.js";
 
-const cancellationMessage = "Installation stopped. Come back when you're ready to try again.";
+const cancellationMessage =
+  "Installation stopped. Come back when you're ready to try again.";
+const promptHelper = (message: string) =>
+  `${color.hidden("###")}${color.bold(color.bgCyan(" HINT "))} ${color.dim(
+    message,
+  )}`;
 
 function handlePromptCancellation(target: unknown) {
   if (isCancel(target)) {
@@ -19,13 +25,13 @@ function handlePromptCancellation(target: unknown) {
   }
 }
 
-/**
- * Prompts and validates the directory where the
- * projet is going to be installed
- */
 export async function promptAppDirectory() {
   const name = await text({
-    message: "Where should we create your project?",
+    message: `Where should we create your project?
+    ${promptHelper(
+      `This is where your monorepo will be scaffolded relative to your current working directory`,
+    )}
+    `,
     initialValue: "./my-cardinal-app",
     placeholder: "./my-cardinal-app",
     defaultValue: "./my-cardinal-app",
@@ -38,16 +44,25 @@ export async function promptAppDirectory() {
   return name;
 }
 
-/**
- * Prompts and returns the user selected frontend framework
- */
 export async function promptFrontendFramework() {
   const frontendFramework = await select({
+    message: `What is your frontend framework of choice?
+    ${promptHelper(
+      `This is the framework you'll use to author your web application`,
+    )}
+    `,
     initialValue: "next",
-    message: "What is your frontend framework of choice?",
     options: [
-      { value: "next", label: "Next.js", hint: "Next.js 13 with React Server Components" },
-      { value: "react", label: "React w/Vite", hint: "Client-side React with Vite" },
+      {
+        value: "next",
+        label: "Next.js",
+        hint: "Next.js 13 with React Server Components",
+      },
+      {
+        value: "react",
+        label: "React w/Vite",
+        hint: "Client-side React with Vite",
+      },
     ],
   } as SelectOptions<Option<FrontendFramework>[], FrontendFramework>);
 
@@ -55,26 +70,11 @@ export async function promptFrontendFramework() {
   return frontendFramework;
 }
 
-/**
- * Prompts and returns the user selected backend type validated agains the previously choosen frameworks
- */
 export async function promptBackendType(frontendFramework: FrontendFramework) {
   const options: Option<BackendType>[] = [
-    {
-      value: "rest",
-      label: "REST",
-      hint: `${frontendFramework === "next" ? "REST endpoints from Next.js Route Handlers" : undefined}`,
-    },
-    {
-      value: "graphql",
-      label: "GraphQL",
-      hint: `${frontendFramework === "next" ? "GraphQL endpoint served from a Next.js Route Handler" : undefined}`,
-    },
-    {
-      value: "trpc",
-      label: "tRPC",
-      hint: `${frontendFramework === "next" ? "tRPC server from a Next.js Route Handler" : undefined}`,
-    },
+    { value: "rest", label: "REST" },
+    { value: "graphql", label: "GraphQL" },
+    // { value: "trpc", label: "tRPC" },
   ];
 
   if (frontendFramework === "next") {
@@ -86,8 +86,12 @@ export async function promptBackendType(frontendFramework: FrontendFramework) {
   }
 
   const backendType = await select({
+    message: `What is your backend type of choice?
+    ${promptHelper(
+      `The architectural style you'll be using to build your backend service`,
+    )}
+    `,
     initialValue: "rest",
-    message: "What is your backend type of choice?",
     options,
   } as SelectOptions<Option<BackendType>[], BackendType>);
 
@@ -95,52 +99,49 @@ export async function promptBackendType(frontendFramework: FrontendFramework) {
   return backendType;
 }
 
-export const promptDeployProvider = async () => {
-  const options: Option<DeploymentProvider>[] = [
-    { value: "vercel", label: "Vercel", hint: "Deploy your application stack on Vercel" },
-    { value: "aws", label: "AWS", hint: "Deploy your application stack to AWS with SST" },
-  ];
+export const promptDeployProvider = () => {
+  // const options: Option<DeploymentProvider>[] = [
+  //   { value: "vercel", label: "Vercel", hint: "Deploy your application stack on Vercel" },
+  //   { value: "aws", label: "AWS", hint: "Deploy your application stack to AWS with SST" },
+  // ];
 
-  const deployProvider = await select({
-    initialValue: "vercel",
-    message: "Where do you want to deploy your application?",
-    options,
-  } as SelectOptions<Option<DeploymentProvider>[], DeploymentProvider>);
+  // const deployProvider = await select({
+  //   message: `Where do you want to deploy your application?
+  //   ${promptHelper(
+  //     `Choose a cloud service provider where your stack is gonna be deployed. We will configure IaaC and/or provide you with key documentation when needed`,
+  //   )}
+  //   `,
+  //   initialValue: "vercel",
+  //   options,
+  // } as SelectOptions<Option<DeploymentProvider>[], DeploymentProvider>);
 
-  handlePromptCancellation(deployProvider);
-  return deployProvider;
+  // handlePromptCancellation(deployProvider);
+  // return deployProvider;
+
+  return "vercel";
 };
 
-export async function promptDatabaseProvider(deployProvider: DeploymentProvider) {
+export async function promptDatabaseProvider() {
   const options: Option<DatabaseProvider>[] = [
-    { value: "planetscale", label: "Planetscale", hint: "Drizzle ORM connected to Planetscale's Serverless Driver" },
-    { value: "sqlite", label: "SQLite", hint: "Dizzle ORM connected to a local SQLite file" },
+    {
+      value: "planetscale",
+      label: "Planetscale",
+      hint: "Drizzle ORM with Planetscale's Serverless Driver",
+    },
+    {
+      value: "none",
+      label: "No database",
+      hint: "No database will be setup. You can setup your own database configuration later.",
+    },
   ];
 
-  if (deployProvider === "aws") {
-    options.push(
-      {
-        value: "mysql",
-        label: "MySQL",
-        hint: `${deployProvider === "aws" ? "Drizzle ORM connected to a MySQL database on Amazon RDS" : undefined}`,
-      },
-      {
-        value: "postgres",
-        label: "Postgres",
-        hint: `${deployProvider === "aws" ? "Drizzle ORM connected to a Postgres database on AWS RDS" : undefined}`,
-      },
-    );
-  }
-
-  options.push({
-    value: "none",
-    label: "No database",
-    hint: "None of the provided database options will be setup. You can setup your own database configuration later.",
-  });
-
   const databaseProvider = await select({
+    message: `What kind of database do you want?
+    ${promptHelper(
+      `This will setup the proper tools for you to communicate with a database of your choice`,
+    )}
+    `,
     initialValue: "planetscale",
-    message: "What kind of database do you want?",
     options,
   } as SelectOptions<Option<DatabaseProvider>[], DatabaseProvider>);
 
@@ -150,8 +151,12 @@ export async function promptDatabaseProvider(deployProvider: DeploymentProvider)
 
 export async function promptAuthentication() {
   const authentication = await select({
+    message: `Would you like to enable authentication features for your app?
+    ${promptHelper(
+      `This will setup a basic auth system that can be extended with the OAuth providers of your choice`,
+    )}
+    `,
     initialValue: true,
-    message: "Would you like to enable authentication features for your app?",
     options: [
       { value: true, label: "Yes" },
       { value: false, label: "No" },

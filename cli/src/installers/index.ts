@@ -1,24 +1,6 @@
-import type { PackageManager } from "@/utils/getUserPackageManager.js";
-
-export const availablePackages = [
-  "prisma",
-  "next-auth",
-  "tailwind",
-] as const;
-
-export type AvailablePackages = (typeof availablePackages)[number];
-
-// export type PkgInstallerMap = {
-//   [pkg in AvailablePackages]: {
-//     inUse: boolean;
-//   };
-// };
-
-export interface InstallerOptions {
-  projectDir: string;
-  pkgManager: PackageManager;
-  packages?: AvailablePackages[];
-  projectName?: string;
-}
-
-export type Installer = (opts: InstallerOptions) => void;
+export { rootInstaller } from "./rootInstaller.js";
+export { databaseInstaller } from "./databaseInstaller.js";
+export { configInstaller } from "./configInstaller.js";
+export { authInstaller } from "./authInstaller.js";
+export { graphQLInstaller } from "./graphqlInstaller.js";
+export { nextjsInstaller } from "./nextjsInstaller.js";

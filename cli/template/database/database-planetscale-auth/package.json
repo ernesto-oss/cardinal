@@ -1,0 +1,25 @@
+{
+  "name": "@acme/database-planetscale-auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "types": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf .turbo node_modules",
+    "with-env": "dotenv -e ../../.env",
+    "db-migration": "pnpm with-env drizzle-kit generate",
+    "db-introspect": "pnpm with-env drizzle-kit introspect:sqlite",
+    "db-drop": "pnpm with-env drizzle-kit drop --out=drizzle"
+  },
+  "dependencies": {
+    "@acme/config": "file:../../config",
+    "better-sqlite3": "^8.4.0",
+    "drizzle-orm": "^0.26.1",
+    "@planetscale/database": "~1.7.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.4",
+    "dotenv-cli": "^7.2.1",
+    "drizzle-kit": "^0.18.1"
+  }
+}

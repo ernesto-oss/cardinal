@@ -6,8 +6,12 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "typecheck": {
-      "outputs": []
+    "typecheck": {},
+    "format": {
+      "cache": false
+    },
+    "lint": {
+      "cache": false
     }
   }
 }

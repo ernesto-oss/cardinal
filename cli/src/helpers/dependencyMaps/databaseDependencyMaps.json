@@ -1,0 +1,6 @@
+{
+  "@acme/config": "workspace:*",
+  "drizzle-orm": "^0.26.3",
+  "drizzle-kit": "^0.18.1",
+  "@planetscale/database": "~1.7.0"
+}

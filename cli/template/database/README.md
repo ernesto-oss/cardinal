@@ -1,0 +1,1 @@
+`database-<databaseType>-<authentication>-`
