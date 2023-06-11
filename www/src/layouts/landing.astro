@@ -15,9 +15,15 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 <html dir={data.dir} lang={SITE.defaultLanguage}>
   <head>
     <HeadCommon />
-    <HeadSEO {...data} canonicalUrl={canonicalUrl} />
+    <HeadSEO
+      title="Cardinal - From idea to full-stack app in record time"
+      description="Cardinal is a CLI tool that helps you quickstart a full-stack monorepo project. You choose the parts you want, we put it together"
+      canonicalUrl={canonicalUrl}
+      lang="en-us"
+      dir="ltr"
+    />
   </head>
-  <body class="bg-chinese-black font-body">
+  <body class="bg-slate-950 font-body">
     <Navbar />
     <slot />
     <Footer />
