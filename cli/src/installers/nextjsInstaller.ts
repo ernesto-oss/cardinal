@@ -38,14 +38,8 @@ export const nextjsInstaller = ({
       filter: removeArtifacts,
     });
 
-  const copyAndRename = (origin: string, destinationFile: string) =>
-    fs.copySync(
-      path.join(nextTemplateRoot, origin),
-      path.join(nextDestination, destinationFile),
-    );
-
   if (backendType === "graphql") {
-    authentication ? copyDir("next-graphql-auth") : copyDir("next-graphql")
+    authentication ? copyDir("next-graphql-auth") : copyDir("next-graphql");
   }
 
   /* Write `tsconfig.json` */
