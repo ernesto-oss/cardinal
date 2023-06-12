@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
@@ -9,15 +9,6 @@
       {
         "name": "next"
       }
-    ],
-    "strictNullChecks": true
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "../../codegen.ts",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": []
+    ]
+  }
 }

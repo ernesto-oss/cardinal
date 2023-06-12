@@ -16,6 +16,7 @@ import {
   createPackageScripts,
   nextScriptsMap,
 } from "@/helpers/createPackageScripts.js";
+import { removeArtifacts } from "@/helpers/removeArtifacts.js";
 import { type ProjectOptions } from "@/index.js";
 import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
@@ -32,62 +33,22 @@ export const nextjsInstaller = ({
   const nextTemplateRoot = path.join(TEMPLATE_DIR, "next");
   const nextDestination = path.join(projectDir, "packages/web");
 
-  const copyFile = (fileName: string) =>
-    fs.copySync(
-      path.join(nextTemplateRoot, fileName),
-      path.join(nextDestination, fileName),
-    );
-
-  const copyAndRename = (origin: string, destinationFile: string) =>
-    fs.copySync(
-      path.join(nextTemplateRoot, origin),
-      path.join(nextDestination, destinationFile),
-    );
-
-  /* Copy root config files */
-  copyAndRename("_eslintrc.js", "eslintrc.js");
-  copyFile("next-env.d.ts");
-  copyFile("postcss.config.js");
-  copyFile("tailwind.config.js");
-
-  /* Copy the base directory with files that will be present regardless of template options */
-  fs.copySync(path.join(nextTemplateRoot, "base"), path.join(nextDestination));
-
-  if (authentication) {
-    /* Auth related */
-    copyAndRename("extras/app/(auth)", "app/(auth)");
-    copyAndRename(
-      "extras/app/(entry)/protected/loading.tsx",
-      "app/(entry)/protected/loading.tsx",
-    );
-    copyAndRename("extras/app/api/auth", "app/api/auth");
-
-    /* Additional components */
-    copyAndRename("extras/components", "components");
-  }
+  const copyDir = (fileName: string) =>
+    fs.copySync(path.join(nextTemplateRoot, fileName), nextDestination, {
+      filter: removeArtifacts,
+    });
 
   if (backendType === "graphql") {
-    copyAndRename("extras/app/api/graphql", "app/api/graphql");
-    copyAndRename(
-      "extras/app/(entry)/page-with-graphql.tsx",
-      "app/(entry)/page.tsx",
-    );
-    copyAndRename("extras/utils/graphql.ts", "utils/graphql.ts");
-
-    authentication
-      ? copyAndRename(
-          "extras/app/(entry)/protected/page-with-graphql.tsx",
-          "app/(entry)/protected/page.tsx",
-        )
-      : null;
+    authentication ? copyDir("next-graphql-auth") : copyDir("next-graphql");
   }
 
   /* Write `tsconfig.json` */
-  const templateDatabaseTsConfig = fs.readJsonSync(
+  const templateNextTsConfig = fs.readJsonSync(
     path.join(nextTemplateRoot, "tsconfig.json"),
   ) as TsConfigJson;
-  templateDatabaseTsConfig.extends = "../../tsconfig.json";
-  templateDatabaseTsConfig.include = [
+  templateNextTsConfig.extends = "../../tsconfig.json";
+  templateNextTsConfig.exclude = ["node_modules"];
+  templateNextTsConfig.include = [
     "next.env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
@@ -95,7 +56,7 @@ export const nextjsInstaller = ({
   ];
   fs.outputJsonSync(
     path.join(nextDestination, "tsconfig.json"),
-    templateDatabaseTsConfig,
+    templateNextTsConfig,
     { spaces: 2 },
   );
 
@@ -154,6 +115,7 @@ export const nextjsInstaller = ({
   if (authentication)
     nextDependencies.push(
       "@acme/auth",
+      "react-hook-form",
       "@hookform/resolvers",
       "@radix-ui/react-label",
       "zod",
