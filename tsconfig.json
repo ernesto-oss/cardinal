@@ -2,7 +2,7 @@
   "include": ["cli/.eslintrc.cjs"],
   "compilerOptions": {
     /* Compilation options */
-    "target": "ES2020",
+    "target": "ESNExt",
     "lib": ["DOM", "DOM.Iterable", "ES2020"],
     "module": "ESNext",
     "moduleResolution": "nodenext",
