@@ -54,11 +54,11 @@ export async function promptFrontendFramework() {
         label: "Next.js",
         hint: "Next.js 13 with React Server Components",
       },
-      {
-        value: "react",
-        label: "React w/Vite",
-        hint: "Client-side React with Vite",
-      },
+      // {
+      //   value: "react",
+      //   label: "React w/Vite",
+      //   hint: "Client-side React with Vite",
+      // },
     ],
   } as SelectOptions<Option<FrontendFramework>[], FrontendFramework>);
 
