@@ -5,7 +5,7 @@ import { type DependencyMap } from "@/types/index.js";
 import authDependencyMapJson from "./dependencyMaps/authDependencyMap.json";
 import configDependencyMapJson from "./dependencyMaps/configDependencyMap.json";
 import coreDependencyMapJson from "./dependencyMaps/coreDependencyMap.json";
-import databaseDependencyMapJson from "./dependencyMaps/databaseDependencyMaps.json";
+import databaseDependencyMapJson from "./dependencyMaps/databaseDependencyMap.json";
 import graphqlDependencyMapJson from "./dependencyMaps/graphqlDependencyMap.json";
 import nextDependencyMapJson from "./dependencyMaps/nextDependencyMap.json";
 

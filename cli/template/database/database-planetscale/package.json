@@ -14,7 +14,7 @@
   "dependencies": {
     "@acme/config": "file:../../config",
     "better-sqlite3": "^8.4.0",
-    "drizzle-orm": "^0.26.1",
+    "drizzle-orm": "^0.26.5",
     "@planetscale/database": "~1.7.0"
   },
   "devDependencies": {

@@ -7,10 +7,10 @@
     "@acme/config": "file:../../config",
     "@acme/database": "file:../../database/database-planetscale-auth",
     "@lucia-auth/adapter-mysql": "^1.1.1",
-    "lucia-auth": "1.7.0",
+    "lucia-auth": "1.8.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "next": "13.4.4"
+    "next": "13.4.5"
   }
 }

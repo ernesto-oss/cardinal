@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "license": "MIT",
   "devDependencies": {
-    "@types/eslint": "^8.40.0",
-    "@typescript-eslint/eslint-plugin": "^5.59.8",
-    "@typescript-eslint/parser": "^5.59.8",
-    "eslint-config-next": "^13.4.4",
+    "@types/eslint": "^8.40.2",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint-config-next": "^13.4.5",
     "eslint-config-prettier": "^8.8.0",
-    "eslint-config-turbo": "^1.9.8",
+    "eslint-config-turbo": "^1.10.3",
     "eslint-plugin-react": "7.32.2"
   },
   "dependencies": {
-    "@t3-oss/env-core": "^0.3.1",
+    "@t3-oss/env-core": "^0.4.0",
     "zod": "^3.21.4"
   }
 }
