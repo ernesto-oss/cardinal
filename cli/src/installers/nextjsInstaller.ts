@@ -123,7 +123,9 @@ export const nextjsInstaller = ({
 
   /* Wipe "dependencies" field from `package.json` in order to replace with the
   correct dependency map */
+  templateNextjsPackageJson.name = "@acme/web";
   templateNextjsPackageJson.dependencies = {};
+  templateNextjsPackageJson.devDependencies = {};
 
   const withAddedDependencies =
     addPackageDependency<AvailableNextjsDependenciesKeys>({

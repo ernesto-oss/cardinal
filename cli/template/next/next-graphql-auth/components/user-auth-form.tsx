@@ -1,20 +1,21 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { useRouter } from 'next/navigation';
-import { type ErrorMessage } from '@acme/auth';
-import { credentialsAuthSchema } from '@acme/auth/validation/credentials';
-import { zodResolver } from '@hookform/resolvers/zod';
-import clsx from 'clsx';
-import { useForm } from 'react-hook-form';
+import * as React from "react";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import clsx from "clsx";
+import { useForm } from "react-hook-form";
 import {
   IoLogoGithub as Github,
   IoLogoGoogle as Google,
-} from 'react-icons/io5';
-import { z } from 'zod';
+} from "react-icons/io5";
+import type { z } from "zod";
 
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { type ErrorMessage } from "@acme/auth";
+import { credentialsAuthSchema } from "@acme/auth/validation/credentials";
+
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type FormData = z.infer<typeof credentialsAuthSchema>;
 
