@@ -42,7 +42,6 @@ export const rootInstaller = ({
   if (frontendFramework === "next")
     copyAndRename("_.eslintrc-next.js", ".eslintrc.js");
 
-
   const rootPackageJson = fs.readJsonSync(
     path.join(templateRoot, "package.json"),
   ) as PackageJson;
