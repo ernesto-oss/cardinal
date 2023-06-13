@@ -1,6 +1,6 @@
 {
   "name": "create-cardinal-app",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Cardinal is a CLI tool that helps you quickstart a full-stack monorepo project. You choose the parts you want, we put it together.",
   "repository": {
     "type": "git",
@@ -18,7 +18,6 @@
     "CHANGELOG.md",
     "README.md"
   ],
-  
   "bin": {
     "create-cardinal-app": "./dist/index.js"
   },
