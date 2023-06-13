@@ -1,6 +1,6 @@
-import { cancel, isCancel, select, text } from "@clack/prompts";
 import color from "picocolors";
 
+import { cancel, isCancel, select, text } from "@/cli/prompts.js";
 import {
   type BackendType,
   type DatabaseProvider,
@@ -14,7 +14,7 @@ import { validateAppDirectory } from "@/utils/checks.js";
 const cancellationMessage =
   "Installation stopped. Come back when you're ready to try again.";
 const promptHelper = (message: string) =>
-  `${color.hidden("###")}${color.bold(color.bgCyan(" HINT "))} ${color.dim(
+  `${color.bold(color.bgCyan("HINT"))} ${color.dim(
     message,
   )}`;
 
@@ -32,9 +32,7 @@ export async function promptAppDirectory() {
       `This is where your monorepo will be scaffolded relative to your current working directory`,
     )}
     `,
-    initialValue: "./my-cardinal-app",
     placeholder: "./my-cardinal-app",
-    defaultValue: "./my-cardinal-app",
     validate(value) {
       return validateAppDirectory(value);
     },
@@ -74,7 +72,6 @@ export async function promptBackendType(frontendFramework: FrontendFramework) {
   const options: Option<BackendType>[] = [
     { value: "rest", label: "REST" },
     { value: "graphql", label: "GraphQL" },
-    // { value: "trpc", label: "tRPC" },
   ];
 
   if (frontendFramework === "next") {

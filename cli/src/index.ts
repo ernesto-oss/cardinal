@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { setTimeout as sleep } from "node:timers/promises";
-import { group, intro, outro } from "@clack/prompts";
 import color from "picocolors";
 
 import {
@@ -11,6 +10,7 @@ import {
   // promptDeployProvider,
   promptFrontendFramework,
 } from "@/cli/index.js";
+import { group, intro, outro } from "@/cli/prompts.js";
 import { createProject } from "@/helpers/createProject.js";
 import { getUserPkgManager } from "@/utils/getUserPackageManager.js";
 import { parseNameAndPath } from "@/utils/parseNameAndPath.js";
@@ -47,17 +47,23 @@ export const runCli = async () => {
 export type ProjectOptions = Awaited<ReturnType<typeof runCli>>;
 
 async function main() {
-  intro(`Let's create your new fullstack project with ${color.bold(
-    color.magenta("Cardinal"),
-  )} ✨
-   ${color.dim(
-     `Need help choosing your stack? Head to https://cardinal.ernestoresende.com/docs/en/recommendations`,
-   )}
-   ${color.hidden("")}
-   ${color.bold(
-     color.cyan(`Choose options with the arrrow keys, confirm with <Enter>`),
-   )}
-  `);
+  intro(
+    `Let's create your new fullstack project with ${color.bold(
+      color.magenta("Cardinal"),
+    )} ✨`,
+  );
+
+  process.stdout.write(
+    `${color.dim(
+      "Need help choosing your stack? Head to https://cardinal.ernestoresende.com/docs/en/recommendations",
+    )}\n \n`,
+  );
+
+  process.stdout.write(
+    `${color.bold(
+      color.cyan(`Choose options with the arrow keys, confirm with <Enter>`),
+    )} \n \n`,
+  );
 
   const pkgManager = getUserPkgManager();
   const projectOptions = await runCli();
