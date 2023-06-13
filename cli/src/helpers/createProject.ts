@@ -1,5 +1,4 @@
-import { spinner as spinnerPrompt } from '@/cli/prompts.js'
-
+import { spinner as spinnerPrompt } from "@/cli/prompts.js";
 import { type ProjectOptions } from "@/index.js";
 import {
   authInstaller,

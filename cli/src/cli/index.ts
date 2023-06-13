@@ -14,9 +14,7 @@ import { validateAppDirectory } from "@/utils/checks.js";
 const cancellationMessage =
   "Installation stopped. Come back when you're ready to try again.";
 const promptHelper = (message: string) =>
-  `${color.bold(color.bgCyan("HINT"))} ${color.dim(
-    message,
-  )}`;
+  `${color.bold(color.bgCyan("HINT"))} ${color.dim(message)}`;
 
 function handlePromptCancellation(target: unknown) {
   if (isCancel(target)) {

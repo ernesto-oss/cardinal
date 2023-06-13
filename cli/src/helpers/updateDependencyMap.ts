@@ -1,15 +1,16 @@
 import path from "path";
-import { fileURLToPath } from "url";
 import { ConfirmPrompt, isCancel } from "@clack/core";
-import { cancel } from "@clack/prompts";
 import { Command } from "@commander-js/extra-typings";
 import fs from "fs-extra";
 import { run as runUpdater } from "npm-check-updates";
 import color from "picocolors";
 
+import { cancel } from "@/cli/prompts.js";
+
 import { type DependencyMap } from "../types/index.js";
 import {
   authDependencyMap,
+  configDependencyMap,
   coreDependencyMap,
   databaseDependencyMap,
   graphqlDependencyMap,
@@ -22,7 +23,8 @@ export type DependencyCategory =
   | "auth"
   | "core"
   | "database"
-  | "graphql";
+  | "graphql"
+  | "config";
 
 export type Index = {
   [key: string]: string;
@@ -74,8 +76,6 @@ async function getDiffAndPromptUpgrade(opts: {
   shouldSkipPrompt?: boolean;
 }) {
   const { updatedDepMap, previousDepMap, depCategory, shouldSkipPrompt } = opts;
-  const __filename = fileURLToPath(import.meta.url);
-  const dirname = path.dirname(__filename);
 
   const dependencyMapJsonFilename =
     depCategory === "auth"
@@ -88,10 +88,12 @@ async function getDiffAndPromptUpgrade(opts: {
       ? "databaseDependencyMap.json"
       : depCategory === "graphql"
       ? "graphqlDependencyMap.json"
+      : depCategory === "config"
+      ? "configDependencyMap.json"
       : "";
 
   const dependencyMap = path.join(
-    dirname,
+    __dirname,
     "dependencyMaps",
     dependencyMapJsonFilename,
   );
@@ -161,12 +163,14 @@ const corePackageFile = { dependencies: coreDependencyMap };
 const databasePackageFile = { dependencies: databaseDependencyMap };
 const graphqlPackageFile = { dependencies: graphqlDependencyMap };
 const nextPackageFile = { dependencies: nextjsDependencyMap };
+const configPackageFile = { dependencies: configDependencyMap };
 
 const program = new Command();
 
 const mainProgram = program
   .option("--CI")
-  .requiredOption("-d, --dependencyCategory <value>");
+  .requiredOption("-d, --dependencyCategory <value>")
+  .parse(process.argv);
 
 const options = mainProgram.opts();
 
@@ -181,6 +185,8 @@ const packageData =
     ? databasePackageFile
     : options.dependencyCategory === "graphql"
     ? graphqlPackageFile
+    : options.dependencyCategory === "next"
+    ? configPackageFile
     : undefined;
 
 const dependencyMap =
@@ -194,6 +200,8 @@ const dependencyMap =
     ? databaseDependencyMap
     : options.dependencyCategory === "graphql"
     ? graphqlDependencyMap
+    : options.dependencyCategory === "config"
+    ? configDependencyMap
     : undefined;
 
 await runUpdater({
