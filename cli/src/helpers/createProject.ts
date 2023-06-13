@@ -1,5 +1,4 @@
-import { spinner as spinnerPrompt } from "@clack/prompts";
-
+import { spinner as spinnerPrompt } from "@/cli/prompts.js";
 import { type ProjectOptions } from "@/index.js";
 import {
   authInstaller,
@@ -27,7 +26,7 @@ export const createProject = ({
   const spinner = spinnerPrompt();
   spinner.start("Scaffolding your project with selected options");
 
-  rootInstaller({ pkgManager, projectDir, projectName });
+  rootInstaller({ pkgManager, projectDir, projectName, projectOptions });
   configInstaller({ projectDir, projectOptions });
 
   if (projectOptions.databaseProvider !== "none")

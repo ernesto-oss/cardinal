@@ -5,17 +5,26 @@ import { sortPackageJson } from "sort-package-json";
 import { type PackageJson } from "type-fest";
 
 import { TEMPLATE_DIR } from "@/consts.js";
+import {
+  addPackageDependency,
+  coreDependencyMap,
+  type AvailableCoreDependenciesKeys,
+} from "@/helpers/addPackageDependency.js";
+import { type ProjectOptions } from "@/index.js";
 import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
 export const rootInstaller = ({
   projectDir,
   projectName,
   pkgManager,
+  projectOptions,
 }: {
   projectDir: string;
   projectName: string;
   pkgManager: PackageManager;
+  projectOptions: ProjectOptions;
 }) => {
+  const { frontendFramework } = projectOptions;
   const templateRoot = path.join(TEMPLATE_DIR);
   const projectDestination = projectDir;
 
@@ -27,12 +36,21 @@ export const rootInstaller = ({
 
   copyAndRename("_tsconfig.json", "tsconfig.json");
   copyAndRename("_.gitignore", ".gitignore");
+  copyAndRename("_turbo-next.json", "turbo.json");
+  copyAndRename("prettier.config.cjs", "prettier.config.cjs");
+
+  if (frontendFramework === "next")
+    copyAndRename("_.eslintrc-next.js", ".eslintrc.js");
 
   const rootPackageJson = fs.readJsonSync(
     path.join(templateRoot, "package.json"),
   ) as PackageJson;
   rootPackageJson.name = projectName;
+  rootPackageJson.dependencies = {};
+  rootPackageJson.devDependencies = {};
 
+  /* When the package manager is pnpm, write the root yaml file with
+  the workspace definitions */
   if (pkgManager === "pnpm") {
     const workspaceYaml = yaml.dump({ packages: ["packages/**"] });
     fs.outputFileSync(
@@ -42,11 +60,31 @@ export const rootInstaller = ({
     copyAndRename("_.npmrc", ".npmrc");
   }
 
+  /* When the package manager is npm or yarn, just write to the
+  "workspaces" field of package.json */
   if (pkgManager === "npm" || pkgManager === "yarn") {
     rootPackageJson.workspaces = ["packages/**"];
   }
 
-  const sortedPackageJson = sortPackageJson(rootPackageJson);
+  const rootDependencies = [
+    "turbo",
+    "prettier",
+    "eslint",
+    "typescript",
+    "@types/node",
+    "@types/eslint",
+    "@types/prettier",
+  ] as AvailableCoreDependenciesKeys[];
+
+  const withAddedDependencies = addPackageDependency({
+    dependencyMap: coreDependencyMap,
+    packageJson: rootPackageJson,
+    dependencies: rootDependencies,
+    devDependency: false,
+  });
+
+  const sortedPackageJson = sortPackageJson(withAddedDependencies);
+
   fs.outputJsonSync(
     path.join(projectDestination, "package.json"),
     sortedPackageJson,
