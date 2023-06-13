@@ -53,6 +53,7 @@ export const authInstaller = ({
     "@acme/config",
     "@acme/database",
     "lucia-auth",
+    "zod",
   ] as AvailableAuthDependenciesKeys[];
   const authDevDependencies = [] as AvailableAuthDependenciesKeys[];
 
