@@ -56,7 +56,7 @@ export const rootInstaller = ({
   /* When the package manager is pnpm, write the root yaml file with
   the workspace definitions */
   if (pkgManager === "pnpm") {
-    const workspaceYaml = yaml.dump({ packages: ["packages/**"] });
+    const workspaceYaml = yaml.dump({ packages: ["packages/*"] });
     fs.outputFileSync(
       path.join(projectDestination, "pnpm-workspace.yaml"),
       workspaceYaml,
@@ -67,7 +67,7 @@ export const rootInstaller = ({
   /* When the package manager is npm or yarn, just write to the
   "workspaces" field of package.json */
   if (pkgManager === "npm" || pkgManager === "yarn") {
-    rootPackageJson.workspaces = ["packages/**"];
+    rootPackageJson.workspaces = ["packages/*"];
   }
 
   const rootDependencies = [
