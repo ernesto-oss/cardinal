@@ -8,6 +8,12 @@ export const coreScriptsMap = {
   typecheck: "tsc --noEmit",
 };
 
+export const rootScripts = {
+  lint: "turbo lint",
+  build: "turbo build",
+  dev: "turbo dev --parallel --color",
+};
+
 export const graphQLScriptsMap = {
   /* Core scripts used by graphql-codegen */
   "codegen:schema": "graphql-codegen --config codegen.ts",

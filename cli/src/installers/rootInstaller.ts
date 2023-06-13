@@ -10,6 +10,10 @@ import {
   coreDependencyMap,
   type AvailableCoreDependenciesKeys,
 } from "@/helpers/addPackageDependency.js";
+import {
+  createPackageScripts,
+  rootScripts,
+} from "@/helpers/createPackageScripts.js";
 import { type ProjectOptions } from "@/index.js";
 import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
@@ -83,7 +87,16 @@ export const rootInstaller = ({
     devDependency: false,
   });
 
-  const sortedPackageJson = sortPackageJson(withAddedDependencies);
+  /* Set `package.json` scripts */
+  const scriptsMap = { ...rootScripts };
+  const withAddedScripts = createPackageScripts<keyof typeof scriptsMap>({
+    packageJson: withAddedDependencies,
+    scriptsMap: scriptsMap,
+    packageManager: pkgManager,
+    scripts: ["dev", "lint", "build"],
+  });
+
+  const sortedPackageJson = sortPackageJson(withAddedScripts);
 
   fs.outputJsonSync(
     path.join(projectDestination, "package.json"),
