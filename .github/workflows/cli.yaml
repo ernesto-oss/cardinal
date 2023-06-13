@@ -1,8 +1,9 @@
 name: Cardinal CLI CI Checks
 on:
   pull_request:
-    branches: ["*"]
-  merge_group:
+    branches: 
+      - '**'
+      - '!changeset-release/**'
 
 jobs:
   lint:
