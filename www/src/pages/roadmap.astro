@@ -1,0 +1,153 @@
+---
+import Layout from "@/layouts/landing.astro";
+import { clsx } from "clsx";
+
+type RoadmapEntries = {
+  title: string;
+  description: string;
+  version: string;
+  current: boolean;
+  past: boolean;
+};
+
+const roadmapEntries = [
+  {
+    title: "Next.js, GraphQL, Planetscale and authentication",
+    description:
+      "Add Next.js and GraphQL templates. Templates can be configured with an optional database (Planetscale), and an optional authentication layer (Lucia)",
+    version: "v0.2.x",
+    current: true,
+    past: false,
+  },
+  {
+    title: "AWS deployments with SST",
+    description:
+      "Add AWS as a deployment provider option. Projects that choose AWS to deploy their stack will be scaffolded with SST",
+    version: "v0.3.x",
+    current: false,
+    past: false,
+  },
+  {
+    title: "REST and tRPC API's",
+    description: "Add REST and tRPC API function handlers.",
+    version: "v0.4.x",
+    current: false,
+    past: false,
+  },
+  {
+    title: "More database options",
+    description:
+      "Add more database options to be used with Drizzle ORM (MySQL, Postgres), and database adapters for Lucia (MySQL, Postgres)",
+    version: "v0.5.x",
+    current: false,
+    past: false,
+  },
+  {
+    title: "Client-side React w/Vite",
+    description:
+      "Add frameworkless React as frontend option. Projects that choose React will be scaffolded with React + Vite",
+    version: "v0.6.x",
+    current: false,
+    past: false,
+  },
+  {
+    title: "Cloudflare deployments with Wrangler",
+    description:
+      "Add Cloudflare as a deployment provider option. Projects that choose Cloudflare to deploy their stack will be scaffolded with sane defaults for Wrangler",
+    version: "v0.7.x",
+    current: false,
+    past: false,
+  },
+] as RoadmapEntries[];
+---
+
+<Layout>
+  <main>
+    <div class="flex justify-center">
+      <div class="flex flex-col items-center w-full max-w-2xl pt-32 pb-16 sm:px-8 px-4">
+        <div class="glow w-full relative flex flex-col items-center"></div>
+        <h1
+          class="pb-6 bg-gradient-to-b from-slate-50 to-slate-400 bg-clip-text text-center text-xl font-bold text-transparent sm:text-4xl"
+        >
+          What's next for Cardinal?
+        </h1>
+        <p class="pb-12 w-full max-w-[580px] text-center leading-relaxed text-slate-400">
+          This is the list of things we're working on, and what we intend to release in future versions. This list can
+          change as the project development evolves
+        </p>
+        <section class="grid text-slate-300 pb-20">
+          {
+            roadmapEntries.map((entry) => (
+              <div class="flex gap-6 sm:gap-12">
+                <div class="flex w-full max-w-[80px] translate-y-4 items-start justify-end gap-6">
+                  <div class="flex flex-col items-end">
+                    <h2
+                      class={clsx({
+                        "-translate-y-1/4 text-sm": true,
+                        "font-bold text-eletric-pink": entry.current,
+                        "text-eletric-pink": entry.past,
+                      })}
+                    >
+                      {entry.version}
+                    </h2>
+                    {entry.current && <span class="text-right text-xs">Current release</span>}
+                  </div>
+                  <div class="flex h-full">
+                    <div
+                      class={clsx({
+                        "z-10 flex h-full w-1 rounded-sm": true,
+                        "bg-slate-800": !entry.past,
+                        "bg-eletric-pink": entry.past,
+                      })}
+                    />
+                    {entry.current && (
+                      <div class="absolute z-10 h-4 w-4 -translate-x-1/3 -translate-y-1/4 rounded-full bg-eletric-pink" />
+                    )}
+                  </div>
+                </div>
+
+                <div class="mb-6 flex w-full flex-col gap-2 rounded-md border-2 border-slate-200/5 bg-slate-400/10 px-4 py-4 backdrop-blur">
+                  <h3 class="text-base font-bold sm:text-lg">{entry.title}</h3>
+                  <p class="text-sm">{entry.description}</p>
+                </div>
+              </div>
+            ))
+          }
+        </section>
+        <div class="text-slate-300 w-full flex flex-col gap-2 rounded-md bg-slate-700/20 px-10 py-8">
+          <h3 class="font-bold text-2xl">That's not all!</h3>
+          <p>
+            We're always open to new ideas and feedback over <a
+              class="underline font-bold decoration-pink-600 decoration-2 hover:decoration-4 dark:decoration-pink-500"
+              href="https://github.com/ernesto-oss/cardinal"
+              target="_blank"
+              rel="noopener noreferrer">here</a
+            >. If you feel like there's something missing in Cardinal, or you would like to contribute with ongoing
+            feature development, you're welcome to open a PR or issue. Refer to the <a
+              class="underline font-bold decoration-pink-600 decoration-2 hover:decoration-4 dark:decoration-pink-500"
+              href="https://github.com/ernesto-oss/cardinal/blob/main/CONTRIBUTING.md"
+              target="_blank"
+              rel="noopener noreferrer">Contribution Guidelines</a
+            > for more information.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+<style>
+  :root {
+    --primary-glow: radial-gradient(rgba(244, 42, 138, 0.23), rgba(0, 0, 0, 0));
+  }
+
+  .glow::after {
+    content: "";
+    top: -80px;
+    position: absolute;
+    background: var(--primary-glow);
+    width: 100%;
+    height: 230px;
+    z-index: -1;
+    filter: blur(60px);
+  }
+</style>
