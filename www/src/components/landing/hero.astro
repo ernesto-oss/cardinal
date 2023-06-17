@@ -4,24 +4,23 @@ import { CLIInstallButton } from "@/components/landing/cliInstallButton";
 import { CtaButtons } from "@/components/landing/ctaButtons";
 
 import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
-import CardinalLogoGradient from "@/assets/brand/cardinal-logo-gradient.svg";
 ---
 
 <main class="flex justify-center">
+  <div class="dotted-background"></div>
   <div class="flex w-full max-w-4xl flex-col items-center px-8 py-32">
     <div class="center relative flex flex-col items-center justify-center gap-8 pb-8">
-      <div class="cardinal p-5 sm:p-6">
-        <Image class="h-14 w-14 sm:h-20 sm:w-20" alt="" src={CardinalIcon} />
+      <div class="cardinal p-4 sm:p-6">
+        <Image class="h-14 w-14 sm:h-16 sm:w-16" alt="" src={CardinalIcon} />
       </div>
-      <Image class="z-10" alt="" src={CardinalLogoGradient} />
     </div>
-    <div class="flex w-full max-w-2xl flex-col items-center gap-8 pb-12">
+    <div class="flex w-full max-w-3xl flex-col items-center gap-8 pb-12">
       <h1
-        class="bg-gradient-to-b from-slate-50 to-slate-300 bg-clip-text text-center text-3xl font-bold text-transparent sm:text-5xl"
+        class="bg-gradient-to-b from-slate-50 to-slate-400 bg-clip-text text-center text-3xl font-bold text-transparent sm:text-6xl"
       >
         The monorepo starter for full-stack applications
       </h1>
-      <p class="w-full max-w-[580px] text-center leading-loose text-slate-300">
+      <p class="w-full max-w-[580px] text-center leading-relaxed text-slate-300">
         Cardinal is a CLI tool that helps you quickstart a full-stack monorepo project. You choose the parts you want,
         we put it together.
       </p>
@@ -36,10 +35,24 @@ import CardinalLogoGradient from "@/assets/brand/cardinal-logo-gradient.svg";
 </main>
 <style>
   :root {
-    --primary-glow: radial-gradient(rgba(244, 42, 138, 0.25), rgba(0, 0, 0, 0));
+    --primary-glow: radial-gradient(rgba(244, 42, 138, 0.23), rgba(0, 0, 0, 0));
     --tile-start-rgb: 239, 245, 249;
     --tile-end-rgb: 228, 232, 233;
     --tile-border: conic-gradient(#ffffff80, #ffffff40, #ffffff30, #ffffff20, #ffffff10, #ffffff10, #ffffff80);
+  }
+
+  .dotted-background {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26px' height='26px' viewBox='0 0 26 26' fill='none'%3E%3Ccircle cx='22' cy='22' r='1' fill='rgba(115,115,115,0.25)' /%3E%3C/svg%3E%0A");
+    align-items: stretch;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    mask-image: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
   }
 
   .cardinal {
@@ -70,18 +83,25 @@ import CardinalLogoGradient from "@/assets/brand/cardinal-logo-gradient.svg";
     inset: 0;
     padding: 1px;
     border-radius: 12px;
-    background: linear-gradient(50deg, #3c0629 -15.85%, #020005 50%);
+    background: linear-gradient(10deg, #460a27 -15.85%, #0f000b 50%);
     background-clip: content-box;
   }
 
   .center::after {
     content: "";
+    top: 5px;
     position: absolute;
     background: var(--primary-glow);
-    width: 300px;
-    height: 300px;
-    z-index: 1;
-    filter: blur(30px);
+    width: 800px;
+    height: 340px;
+    z-index: -1;
+    filter: blur(100px);
+  }
+
+  @media (max-width: 900px) {
+    .center::after {
+      width: 350px;
+    }
   }
 
   @keyframes rotate {

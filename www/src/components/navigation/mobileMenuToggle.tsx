@@ -45,13 +45,16 @@ export const MobileMenuToggle: React.FC<{ homepage: boolean; children?: React.Re
           </button>
         </DialogTrigger>
         {homepage && (
-          <DialogContent className="fixed top-4 right-4 z-50 grid w-full max-w-xs gap-4 rounded-lg rounded-b-lg bg-neutral-900 p-6 shadow-lg animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-top-2">
+          <DialogContent className="fixed right-4 top-4 z-50 grid w-full max-w-xs gap-4 rounded-lg rounded-b-lg bg-slate-900 p-6 shadow-lg animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-top-2">
             <ul className="flex flex-col gap-6 text-lg font-semibold text-slate-300">
               <li className="transition duration-150 hover:text-slate-50">
                 <a href="/docs/en/introduction">Docs</a>
               </li>
               <li className="transition duration-150 hover:text-slate-50">
                 <a href="#">Features</a>
+              </li>
+              <li className="transition duration-150 hover:text-slate-50">
+                <a href="/roadmap">Roadmap</a>
               </li>
             </ul>
             <DialogClose className="h-6 w-6 text-slate-50" />
