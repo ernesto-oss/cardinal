@@ -20,34 +20,37 @@ const homepage = !isDocsPage;
 <nav
   class={clsx({
     "fixed z-10 w-full": true,
-    "bg-chinese-black/10": homepage,
+    "transition duration-200 boder-b border-transparent backdrop-blur-2xl": homepage,
     "": !homepage,
   })}
 >
   <div
     class={clsx({
       "relative flex h-16 items-center justify-center": true,
-      "backdrop-blur-xl h-16": homepage,
+      "h-16": homepage,
     })}
   >
     {
       !isDocsPage && (
         <div class="flex h-full w-full max-w-7xl justify-between px-8">
-          <div class="flex items-center justify-center gap-4">
+          <a href="/" class="flex items-center justify-center gap-4">
             <ErOss class="w-7 text-slate-50" homepage={homepage} />
             <div class="h-6 w-[1px] bg-slate-50" />
             <div class="flex items-center gap-2">
               <Image class="h-8 w-8" alt="" src={CardinalIcon} />
-              <CardinalLogo class="hidden sm:block w-20 text-slate-50" />
+              <CardinalLogo class="hidden w-20 text-slate-50 sm:block" />
             </div>
-          </div>
+          </a>
           <div class="flex items-center justify-center gap-8">
-            <ul class="hidden md:flex gap-8 text-sm font-semibold text-slate-300">
+            <ul class="hidden gap-8 text-sm font-semibold text-slate-300 md:flex">
               <li class="transition duration-150 hover:text-slate-50">
                 <a href="/docs/en/introduction">Docs</a>
               </li>
               <li class="transition duration-150 hover:text-slate-50">
                 <a href="#">Features</a>
+              </li>
+              <li class="transition duration-150 hover:text-slate-50">
+                <a href="/roadmap">Roadmap</a>
               </li>
             </ul>
             <div class="flex w-full max-w-lg">
@@ -60,11 +63,11 @@ const homepage = !isDocsPage;
     }
     {
       isDocsPage && (
-        <div class="h-full w-full docs-navbar">
-          <div class="flex items-center justify-end w-full h-full shadow-lg dark:shadow-docs-dark shadow-slate-50 bg-slate-50 dark:bg-docs-dark">
+        <div class="docs-navbar h-full w-full">
+          <div class="flex h-full w-full items-center justify-end bg-slate-50 shadow-lg shadow-slate-50 dark:bg-docs-dark dark:shadow-docs-dark">
             <div class="flex gap-6">
-              <div class="flex justify-center items-center">
-                <ul class="hidden md:flex gap-8 text-sm font-semibold dark:text-slate-300">
+              <div class="flex items-center justify-center">
+                <ul class="hidden gap-8 text-sm font-semibold dark:text-slate-300 md:flex">
                   <li class="transition duration-150 dark:hover:text-slate-50">
                     <a href="/">Home</a>
                   </li>
@@ -73,7 +76,7 @@ const homepage = !isDocsPage;
                   </li>
                 </ul>
               </div>
-              <div class="md:flex hidden">
+              <div class="hidden md:flex">
                 <Search homepage={homepage} client:load />
               </div>
               <ThemeToggle />
@@ -85,7 +88,26 @@ const homepage = !isDocsPage;
     }
   </div>
 </nav>
+<script>
+  const currentPath = window.location.href;
+  const isDocsPage = currentPath.includes("docs");
+  const headerElement = document.querySelector("nav") as Element;
+
+  function handlePageScroll() {
+    if (window.scrollY > 50) {
+      headerElement.classList.add("scrolled");
+    } else if (window.scrollY < 50) {
+      headerElement.classList.remove("scrolled");
+    }
+  }
+
+  if (!isDocsPage) window.addEventListener("scroll", () => handlePageScroll());
+  if (isDocsPage) window.removeEventListener("scroll", () => handlePageScroll());
+</script>
 <style is:global>
+  .scrolled {
+    @apply border-b border-dark-gunmetal bg-slate-950/30;
+  }
   .title-container {
     width: var(--sidebar-width);
     height: var(--nav-height);
