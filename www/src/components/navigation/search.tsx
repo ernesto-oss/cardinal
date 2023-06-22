@@ -1,16 +1,20 @@
-import { useState, useCallback, useRef } from "react";
-import { createPortal } from "react-dom";
-import { clsx } from "clsx";
-import { Search as SearchIcon } from "lucide-react";
-import * as docSearchReact from "@docsearch/react";
-
 import { ALGOLIA } from "@/consts";
+
 import "@/styles/docsearch.css";
 
+import * as docSearchReact from "@docsearch/react";
+import { clsx } from "clsx";
+import { Search as SearchIcon } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+
 /** FIXME: This is still kinda nasty, but DocSearch is not ESM ready. */
-const DocSearchModal = docSearchReact.DocSearchModal || (docSearchReact as any).default.DocSearchModal;
+const DocSearchModal =
+  docSearchReact.DocSearchModal ||
+  (docSearchReact as any).default.DocSearchModal;
 const useDocSearchKeyboardEvents =
-  docSearchReact.useDocSearchKeyboardEvents || (docSearchReact as any).default.useDocSearchKeyboardEvents;
+  docSearchReact.useDocSearchKeyboardEvents ||
+  (docSearchReact as any).default.useDocSearchKeyboardEvents;
 
 const Search: React.FC<{ homepage: boolean }> = ({ homepage }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,17 +53,17 @@ const Search: React.FC<{ homepage: boolean }> = ({ homepage }) => {
         ref={searchButtonRef}
         onClick={onOpen}
         className={clsx({
-          "flex cursor-pointer items-center justify-between gap-12 rounded-md px-4 py-2 text-sm transition duration-100":
+          "flex cursor-pointer items-center justify-between gap-12 rounded-md md:px-4 py-2 text-sm transition duration-100":
             true,
           "text-slate-50 hover:bg-slate-300/10 md:bg-slate-300/10": homepage,
-          "w-full bg-slate-400/20 hover:bg-slate-400/30": !homepage,
+          "w-full md:bg-slate-400/20 hover:bg-slate-400/30": !homepage,
         })}
       >
         <div className="flex gap-3">
           <SearchIcon size={18} />
           <span
             className={clsx({
-              "hidden md:block": homepage,
+              "hidden md:block": true,
             })}
           >
             Search docs
@@ -68,8 +72,7 @@ const Search: React.FC<{ homepage: boolean }> = ({ homepage }) => {
         <span
           className={clsx({
             "font-body text-xs font-bold": true,
-            "hidden md:block": homepage,
-            // "hidden md:block": !homepage,
+            "hidden md:block": true,
           })}
         >
           Ctrl K

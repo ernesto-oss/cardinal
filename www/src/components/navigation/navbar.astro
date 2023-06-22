@@ -1,13 +1,14 @@
 ---
-import { clsx } from "clsx";
 import { Image } from "@astrojs/image/components";
-import ThemeToggle from "@/components/navigation/toggleThemeButton.astro";
-import Search from "@/components/navigation/search";
-import MobileMenuToggle from "@/components/navigation/mobileMenuToggle";
+import { clsx } from "clsx";
 
-import ErOss from "@/assets/brand/ErOss.astro";
 import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
 import CardinalLogo from "@/assets/brand/CardinalLogo.astro";
+import ErOss from "@/assets/brand/ErOss.astro";
+import Sidebar from "@/components/docs/sidebar.astro";
+import MobileMenuToggle from "@/components/navigation/mobileMenuToggle";
+import Search from "@/components/navigation/search";
+import ThemeToggle from "@/components/navigation/toggleThemeButton.astro";
 
 type Props = {
   isDocsPage?: boolean;
@@ -15,12 +16,14 @@ type Props = {
 
 const { isDocsPage } = Astro.props;
 const homepage = !isDocsPage;
+const currentPage = Astro.url.pathname;
 ---
 
 <nav
   class={clsx({
     "fixed z-10 w-full": true,
-    "transition duration-200 boder-b border-transparent backdrop-blur-2xl": homepage,
+    "transition duration-200 boder-b border-transparent backdrop-blur-2xl":
+      homepage,
     "": !homepage,
   })}
 >
@@ -44,7 +47,7 @@ const homepage = !isDocsPage;
           <div class="flex items-center justify-center gap-8">
             <ul class="hidden gap-8 text-sm font-semibold text-slate-300 md:flex">
               <li class="transition duration-150 hover:text-slate-50">
-                <a href="/docs/en/introduction">Docs</a>
+                <a href="/docs/introduction">Docs</a>
               </li>
               <li class="transition duration-150 hover:text-slate-50">
                 <a href="#">Features</a>
@@ -53,7 +56,7 @@ const homepage = !isDocsPage;
                 <a href="/roadmap">Roadmap</a>
               </li>
             </ul>
-            <div class="flex w-full max-w-lg">
+            <div class="flex gap-4 w-full max-w-lg">
               <Search homepage={homepage} client:load />
               <MobileMenuToggle homepage={homepage} client:visible />
             </div>
@@ -63,24 +66,37 @@ const homepage = !isDocsPage;
     }
     {
       isDocsPage && (
-        <div class="docs-navbar h-full w-full">
-          <div class="flex h-full w-full items-center justify-end bg-slate-50 shadow-lg shadow-slate-50 dark:bg-docs-dark dark:shadow-docs-dark">
-            <div class="flex gap-6">
+        <div class="docs-navbar h-full w-full px-8">
+          <div class="flex h-full w-full items-center justify-between bg-slate-50 shadow-lg shadow-slate-50 dark:bg-docs-dark dark:shadow-docs-dark md:justify-end">
+            <a href="/" class="flex items-center gap-2 md:hidden">
+              <Image class="h-8 w-8" alt="" src={CardinalIcon} />
+              <CardinalLogo class="hidden w-20 sm:block" />
+            </a>
+            <div class="flex gap-4">
               <div class="flex items-center justify-center">
                 <ul class="hidden gap-8 text-sm font-semibold dark:text-slate-300 md:flex">
                   <li class="transition duration-150 dark:hover:text-slate-50">
                     <a href="/">Home</a>
                   </li>
                   <li class="transition duration-150 hover:text-slate-50">
-                    <a href="/docs/en/introduction">Docs</a>
+                    <a href="/roadmap">Roadmap</a>
                   </li>
                 </ul>
               </div>
               <div class="hidden md:flex">
                 <Search homepage={homepage} client:load />
               </div>
-              <ThemeToggle />
-              <MobileMenuToggle homepage={homepage} client:visible />
+              <div class="flex items-center rounded-md bg-slate-400/10 p-2 hover:bg-slate-400/20">
+                <ThemeToggle />
+              </div>
+              <div class="flex md:hidden">
+                <Search homepage={homepage} client:load />
+              </div>
+              <MobileMenuToggle homepage={homepage} client:visible>
+                <div class="pt-10">
+                  <Sidebar currentPage={currentPage} />
+                </div>
+              </MobileMenuToggle>
             </div>
           </div>
         </div>
@@ -102,7 +118,8 @@ const homepage = !isDocsPage;
   }
 
   if (!isDocsPage) window.addEventListener("scroll", () => handlePageScroll());
-  if (isDocsPage) window.removeEventListener("scroll", () => handlePageScroll());
+  if (isDocsPage)
+    window.removeEventListener("scroll", () => handlePageScroll());
 </script>
 <style is:global>
   .scrolled {
@@ -113,21 +130,26 @@ const homepage = !isDocsPage;
     height: var(--nav-height);
     padding: 0 32px;
   }
-  .docs-navbar {
-    @apply px-8;
-  }
-  @media (min-width: 960px) {
+  @media (min-width: 768px) {
     .docs-navbar {
       padding-left: var(--sidebar-width);
     }
   }
   @media (min-width: 1440px) {
     .title-container {
-      padding-left: max(32px, calc((100% - (var(--layout-max-width) - 64px)) / 2));
-      width: calc((100% - (var(--layout-max-width) - 64px)) / 2 + var(--sidebar-width) - 32px);
+      padding-left: max(
+        32px,
+        calc((100% - (var(--layout-max-width) - 64px)) / 2)
+      );
+      width: calc(
+        (100% - (var(--layout-max-width) - 64px)) / 2 + var(--sidebar-width) -
+          32px
+      );
     }
     .docs-navbar {
-      padding-left: calc((100vw - var(--layout-max-width)) / 2 + var(--sidebar-width));
+      padding-left: calc(
+        (100vw - var(--layout-max-width)) / 2 + var(--sidebar-width)
+      );
       padding-right: calc((100vw - var(--layout-max-width)) / 2 + 32px);
     }
   }
