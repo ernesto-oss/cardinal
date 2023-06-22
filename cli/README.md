@@ -55,7 +55,7 @@ npx create-cardinal-app@latest
 
 ## Docs
 
-You can find detailed information about the available tech stacks, recommendations on how to choose and use your stack, and addtional resources about the included tools [in the docs](https://cardinal.ernestoresende.com/docs/en/introduction).
+You can find detailed information about the available tech stacks, recommendations on how to choose and use your stack, and addtional resources about the included tools [in the docs](https://cardinal.ernestoresende.com/docs/introduction).
 
 ## Contribution
 
