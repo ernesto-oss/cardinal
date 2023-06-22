@@ -20,28 +20,6 @@ export const ALGOLIA = {
   appId: "ESHYC2PSBV",
   apiKey: "efb9b3623dd00e90072a861f27f58357",
 };
-
-export const KNOWN_LANGUAGES = {
-  en: "English",
-} as const;
-export const KNOWN_LANGUAGE_CODES = Object.values(KNOWN_LANGUAGES);
-export type KnownLanguageCode = keyof typeof KNOWN_LANGUAGES;
-
-export type OuterHeaders = "Overview" | "Usage" | "Development Workflow";
-
-export type SidebarItem<TCode extends KnownLanguageCode = KnownLanguageCode> = {
-  text: string;
-  link: `docs/${TCode}/${string}`;
-};
-
-export type SidebarItemLink = SidebarItem["link"];
-
-export type Sidebar = {
-  [TCode in KnownLanguageCode]: {
-    [THeader in OuterHeaders]?: SidebarItem<TCode>[];
-  };
-};
-
 export const SIDEBAR: Sidebar = {
   en: {
     Overview: [

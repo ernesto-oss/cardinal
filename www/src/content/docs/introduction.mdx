@@ -4,6 +4,7 @@ description: "An open-source CLI tool to help you scaffold your next full-stack 
 ---
 
 import Components from "@/components/docs/mdx/components.tsx";
+
 export const components = Components;
 
 Cardinal is a CLI tool designed to help you quickstart your next full-stack application on a monorepo project structure. It is the result of many years having to deal with tedious boilerplate work and making the different moving pieces of a full-stack application actually work together.
@@ -14,13 +15,13 @@ On a modern full-stack application, there are a ton of things that require consi
 - What backend type is gonna be used to send data to the client?
 - Where is this backend going to be served from?
 - Where is the application going to be deployed?
-- How do I correctly build/bundle/deploy my application?
+- How do I correctly build/bundle/deploy my application for said deployment provider?
 
-Piecing all these questions together into a cohesive solution is not an easy task. Some technologies don't exactly talk well with each other. Cardinal helps you solve these questions by putting together predefined libraries, project structures and configurations so you can focus on building your app.
+Piecing all these questions together into a cohesive solution is not an easy task. Some technologies don't exactly talk well with each other, which creates developer burden. Cardinal helps you solve these questions by putting together a project with predefined libraries, project structure and sane configurations so you can focus on building your app.
 
 ## Core principles
 
-Cardinal tries to solve a specific set of problems. Having a well defined support scope helps the project be easily maintanable and future-proof. Because of this, it's important to know that:
+Cardinal tries to solve some specific set of problems. Having a well defined support scope helps the project be easily maintanable and future-proof. Because of this, it's important to know that:
 
 ### Typesafety is not optional
 
@@ -28,7 +29,7 @@ TypeScript is considered a core foundation of any template bootstraped by Cardin
 
 ### Bring your own batteries
 
-Cardinal isn't trying to prescribe how you should write your applications. While we do have to make some choices on regards to what libraries to use in order to enable some of the chosen paths (eg. data-fetching), we fully expect you to bring your prefered libraries for state management, components, etc.
+Cardinal isn't trying to prescribe how you should write your applications. While we do have to make some choices on regards to what libraries to use in order to enable some of the chosen paths (eg. data-fetching, database, authentication), we fully expect you to bring your prefered libraries for things like state management, component libraries, etc.
 
 ### Serverless focused deployment paths
 
@@ -38,12 +39,12 @@ Adopting serverless architectures aligns with our vision of removing complexity 
 
 ### Interactive CLI
 
-When you run the `create cardinal-app@latest` command, an interactive CLI will guide you into setting up your project. The anwsers you give will be used to scaffold modules and configuration files based on your choices.
+When you run the `create-cardinal-app@latest` command, an interactive CLI will guide you into setting up your project. The anwsers you give will be used to scaffold modules and configuration files based on your choices.
 
 ### The modules you want
 
-Based on your selection of frameworks and backend types, we provide you with optional compatible modules for database, authentication and styling.
+Based on your selection of frameworks and backend types, we provide you with optional compatible modules for database and authentication.
 
 ### Deployment paths
 
-When necessary, we scaffold the necessary configuration for you to deploy your application and services on your chosen cloud provider.
+When necessary, we scaffold the necessary configuration and/or README instructions for you to deploy your application and services on your chosen cloud provider.
