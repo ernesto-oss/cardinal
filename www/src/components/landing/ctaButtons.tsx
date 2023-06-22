@@ -5,7 +5,7 @@ export const CtaButtons = () => {
     <>
       <a
         className="flex cursor-pointer items-center rounded-md bg-slate-50 px-4 py-2 text-sm font-semibold text-chinese-black transition duration-150 hover:bg-slate-200"
-        href="/docs/en/introduction"
+        href="/docs/introduction"
       >
         Get Started
       </a>

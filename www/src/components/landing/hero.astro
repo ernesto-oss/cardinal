@@ -1,28 +1,32 @@
 ---
 import { Image } from "@astrojs/image/components";
-import { CLIInstallButton } from "@/components/landing/cliInstallButton";
-import { CtaButtons } from "@/components/landing/ctaButtons";
 
 import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
+import { CLIInstallButton } from "@/components/landing/cliInstallButton";
+import { CtaButtons } from "@/components/landing/ctaButtons";
 ---
 
 <main class="flex justify-center">
   <div class="dotted-background"></div>
-  <div class="flex w-full max-w-4xl flex-col items-center px-8 py-32">
-    <div class="center relative flex flex-col items-center justify-center gap-8 pb-8">
+  <div class="flex w-full max-w-6xl flex-col items-center px-8 py-32">
+    <div
+      class="center relative flex flex-col items-center justify-center gap-8 pb-8"
+    >
       <div class="cardinal p-4 sm:p-6">
         <Image class="h-14 w-14 sm:h-16 sm:w-16" alt="" src={CardinalIcon} />
       </div>
     </div>
-    <div class="flex w-full max-w-3xl flex-col items-center gap-8 pb-12">
+    <div class="flex w-full max-w-[870px] flex-col items-center gap-8 pb-12">
       <h1
-        class="bg-gradient-to-b from-slate-50 to-slate-400 bg-clip-text text-center text-3xl font-bold text-transparent sm:text-6xl"
+        class="bg-gradient-to-b from-slate-50 to-slate-400 bg-clip-text text-center text-3xl font-black text-transparent sm:text-7xl"
       >
         The monorepo starter for full-stack applications
       </h1>
-      <p class="w-full max-w-[580px] text-center leading-relaxed text-slate-300">
-        Cardinal is a CLI tool that helps you quickstart a full-stack monorepo project. You choose the parts you want,
-        we put it together.
+      <p
+        class="w-full max-w-[580px] text-center leading-relaxed text-slate-300"
+      >
+        Cardinal is a CLI tool that helps you quickstart a full-stack monorepo
+        project. You choose the parts you want, we put it together.
       </p>
     </div>
     <div class="pb-8">
@@ -38,7 +42,15 @@ import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
     --primary-glow: radial-gradient(rgba(244, 42, 138, 0.23), rgba(0, 0, 0, 0));
     --tile-start-rgb: 239, 245, 249;
     --tile-end-rgb: 228, 232, 233;
-    --tile-border: conic-gradient(#ffffff80, #ffffff40, #ffffff30, #ffffff20, #ffffff10, #ffffff10, #ffffff80);
+    --tile-border: conic-gradient(
+      #ffffff80,
+      #ffffff40,
+      #ffffff30,
+      #ffffff20,
+      #ffffff10,
+      #ffffff10,
+      #ffffff80
+    );
   }
 
   .dotted-background {
@@ -52,7 +64,12 @@ import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
     align-items: stretch;
     background-position-x: 50%;
     background-position-y: 50%;
-    mask-image: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 40%,
+      rgba(0, 0, 0, 1) 80%,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
 
   .cardinal {

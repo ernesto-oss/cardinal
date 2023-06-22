@@ -1,5 +1,5 @@
-import * as React from "react";
 import { BookOpen, ChevronDown, ChevronUp } from "lucide-react";
+import * as React from "react";
 
 const DeepDive: React.FC<{
   title: string;
@@ -8,11 +8,21 @@ const DeepDive: React.FC<{
   const [open, setOpen] = React.useState<boolean>(false);
 
   return (
-    <details open={open} {...props} className="pointer-events-none mb-6 rounded-lg bg-indigo-700/20 py-6 px-8">
+    <details
+      open={open}
+      {...props}
+      className="list-none pointer-events-none mb-6 rounded-lg bg-indigo-700/20 px-8 py-6"
+    >
       <summary className="flex flex-col">
         <div className="flex gap-2 pb-4">
-          <BookOpen size={24} strokeWidth={3} className="text-indigo-600 dark:text-indigo-400" />
-          <h5 className="text-xl font-bold text-indigo-600 dark:text-indigo-400">Deep dive</h5>
+          <BookOpen
+            size={24}
+            strokeWidth={3}
+            className="text-indigo-600 dark:text-indigo-400"
+          />
+          <h5 className="text-xl font-bold text-indigo-600 dark:text-indigo-400">
+            Deep dive
+          </h5>
         </div>
         <h4 className="pb-6 text-base font-bold">{title}</h4>
         <div className="pb-4">

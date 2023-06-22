@@ -1,13 +1,15 @@
-import { useState, useEffect, useRef } from "react";
 import type { MarkdownHeading } from "astro";
 import { unescape } from "html-escaper";
+import { useEffect, useRef, useState } from "react";
 
 type ItemOffsets = {
   id: string;
   topOffset: number;
 };
 
-const TableOfContents: React.FC<{ headings: MarkdownHeading[] }> = ({ headings = [] }) => {
+const TableOfContents: React.FC<{ headings: MarkdownHeading[] }> = ({
+  headings = [],
+}) => {
   const toc = useRef<HTMLUListElement>();
   const onThisPageID = "on-this-page-heading";
   const itemOffsets = useRef<ItemOffsets[]>([]);
@@ -50,10 +52,15 @@ const TableOfContents: React.FC<{ headings: MarkdownHeading[] }> = ({ headings =
       threshold: 1,
     };
 
-    const headingsObserver = new IntersectionObserver(setCurrent, observerOptions);
+    const headingsObserver = new IntersectionObserver(
+      setCurrent,
+      observerOptions,
+    );
 
     // Observe all the headings in the main page content.
-    document.querySelectorAll("article :is(h1,h2,h3)").forEach((h) => headingsObserver.observe(h));
+    document
+      .querySelectorAll("article :is(h1,h2,h3)")
+      .forEach((h) => headingsObserver.observe(h));
 
     // Stop observing when the component is unmounted.
     return () => headingsObserver.disconnect();
@@ -67,7 +74,7 @@ const TableOfContents: React.FC<{ headings: MarkdownHeading[] }> = ({ headings =
     <nav className="border-l border-slate-200 px-4 dark:border-slate-50/10">
       <h2
         id={onThisPageID}
-        className="hidden pb-4 font-semibold text-slate-900 dark:text-slate-100 xl:block text-lg"
+        className="hidden pb-4 text-lg font-semibold text-slate-900 dark:text-slate-100 xl:block"
       >
         On this page
       </h2>

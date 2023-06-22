@@ -1,6 +1,7 @@
 ---
-import Layout from "@/layouts/landing.astro";
 import { clsx } from "clsx";
+
+import Layout from "@/layouts/landing.astro";
 
 type RoadmapEntries = {
   title: string;
@@ -64,18 +65,23 @@ const roadmapEntries = [
 <Layout>
   <main>
     <div class="flex justify-center">
-      <div class="flex flex-col items-center w-full max-w-2xl pt-32 pb-16 sm:px-8 px-4">
-        <div class="glow w-full relative flex flex-col items-center"></div>
+      <div
+        class="flex w-full max-w-2xl flex-col items-center px-4 pb-16 pt-32 sm:px-8"
+      >
+        <div class="glow relative flex w-full flex-col items-center"></div>
         <h1
-          class="pb-6 bg-gradient-to-b from-slate-50 to-slate-400 bg-clip-text text-center text-xl font-bold text-transparent sm:text-4xl"
+          class="bg-gradient-to-b from-slate-50 to-slate-400 bg-clip-text pb-6 text-center text-xl font-bold text-transparent sm:text-4xl"
         >
           What's next for Cardinal?
         </h1>
-        <p class="pb-12 w-full max-w-[580px] text-center leading-relaxed text-slate-400">
-          This is the list of things we're working on, and what we intend to release in future versions. This list can
-          change as the project development evolves
+        <p
+          class="w-full max-w-[580px] pb-12 text-center leading-relaxed text-slate-400"
+        >
+          This is the list of things we're working on, and what we intend to
+          release in future versions. This list can change as the project
+          development evolves
         </p>
-        <section class="grid text-slate-300 pb-20">
+        <section class="grid pb-20 text-slate-300">
           {
             roadmapEntries.map((entry) => (
               <div class="flex gap-6 sm:gap-12">
@@ -90,7 +96,9 @@ const roadmapEntries = [
                     >
                       {entry.version}
                     </h2>
-                    {entry.current && <span class="text-right text-xs">Current release</span>}
+                    {entry.current && (
+                      <span class="text-right text-xs">Current release</span>
+                    )}
                   </div>
                   <div class="flex h-full">
                     <div
@@ -114,17 +122,20 @@ const roadmapEntries = [
             ))
           }
         </section>
-        <div class="text-slate-300 w-full flex flex-col gap-2 rounded-md bg-slate-700/20 px-10 py-8">
-          <h3 class="font-bold text-2xl">That's not all!</h3>
+        <div
+          class="flex w-full flex-col gap-2 rounded-md bg-slate-700/20 px-10 py-8 text-slate-300"
+        >
+          <h3 class="text-2xl font-bold">That's not all!</h3>
           <p>
             We're always open to new ideas and feedback over <a
-              class="underline font-bold decoration-pink-600 decoration-2 hover:decoration-4 dark:decoration-pink-500"
+              class="font-bold underline decoration-pink-600 decoration-2 hover:decoration-4 dark:decoration-pink-500"
               href="https://github.com/ernesto-oss/cardinal"
               target="_blank"
               rel="noopener noreferrer">here</a
-            >. If you feel like there's something missing in Cardinal, or you would like to contribute with ongoing
-            feature development, you're welcome to open a PR or issue. Refer to the <a
-              class="underline font-bold decoration-pink-600 decoration-2 hover:decoration-4 dark:decoration-pink-500"
+            >. If you feel like there's something missing in Cardinal, or you
+            would like to contribute with ongoing feature development, you're
+            welcome to open a PR or issue. Refer to the <a
+              class="font-bold underline decoration-pink-600 decoration-2 hover:decoration-4 dark:decoration-pink-500"
               href="https://github.com/ernesto-oss/cardinal/blob/main/CONTRIBUTING.md"
               target="_blank"
               rel="noopener noreferrer">Contribution Guidelines</a

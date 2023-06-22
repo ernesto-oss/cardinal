@@ -1,5 +1,5 @@
-import { File, AlertTriangle } from "lucide-react";
 import { clsx } from "clsx";
+import { AlertTriangle, File } from "lucide-react";
 
 const Detail: React.FC<{
   type: "note" | "warning";
@@ -9,7 +9,7 @@ const Detail: React.FC<{
     <div
       {...props}
       className={clsx({
-        "rounded-lg py-6 px-8": true,
+        "rounded-lg px-8 py-6": true,
         "bg-teal-700/20 dark:bg-teal-700/30": type === "note",
         "bg-orange-400/20 dark:bg-orange-400/30": type === "warning",
       })}
@@ -17,13 +17,21 @@ const Detail: React.FC<{
       {type === "note" && (
         <div className="flex items-center gap-2">
           <File size={24} strokeWidth={3} className="text-teal-600" />
-          <h3 className="text-xl font-bold text-teal-600 dark:text-teal-400">Note</h3>
+          <h3 className="text-xl font-bold text-teal-600 dark:text-teal-400">
+            Note
+          </h3>
         </div>
       )}
       {type === "warning" && (
         <div className="flex items-center gap-2">
-          <AlertTriangle size={24} strokeWidth={3} className="text-orange-600 dark:text-orange-400" />
-          <h3 className="text-xl font-bold text-orange-600 dark:text-orange-400">Warning</h3>
+          <AlertTriangle
+            size={24}
+            strokeWidth={3}
+            className="text-orange-600 dark:text-orange-400"
+          />
+          <h3 className="text-xl font-bold text-orange-600 dark:text-orange-400">
+            Warning
+          </h3>
         </div>
       )}
       <p>{children}</p>

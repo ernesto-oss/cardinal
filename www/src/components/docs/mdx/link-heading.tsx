@@ -7,7 +7,10 @@ export const LinkHeading: React.FC<{
 }> = ({ id, className, children }) => {
   return (
     <div className={className}>
-      <a className="inline-flex justify-center items-center text-inherit gap-2 no-underline" href={`#${id}`}>
+      <a
+        className="inline-flex items-center justify-center gap-2 text-inherit no-underline"
+        href={`#${id}`}
+      >
         {children}
         <Link size={18} />
       </a>
