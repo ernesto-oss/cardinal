@@ -1,24 +1,28 @@
 ---
-import type { SidebarItemLink } from "@/consts";
-import { getLanguageFromURL } from "@/languages";
 import { paginate } from "@/utils/pagination";
 
 const currentPage = Astro.url.pathname;
 const hasTrailing = currentPage.endsWith("/");
-const currentPageMatch = currentPage.slice(1, hasTrailing ? -1 : currentPage.length) as SidebarItemLink;
+const currentPageMatch = currentPage.slice(
+  1,
+  hasTrailing ? -1 : currentPage.length,
+);
 
-const langCode = getLanguageFromURL(currentPage);
-const { next, prev } = paginate(langCode, currentPageMatch);
+const { next, prev } = paginate(currentPageMatch);
 ---
 
-<div class="flex flex-row items-center justify-between pt-14 text-slate-800 dark:text-slate-50">
+<div
+  class="flex flex-row items-center justify-between pt-14 text-slate-800 dark:text-slate-50"
+>
   <div>
     {
       prev ? (
         <a rel="prev" href={Astro.site?.pathname + prev.link}>
           <div class="flex flex-col gap-2">
             <span class="text-sm dark:text-slate-300">Previous</span>
-            <span class="text-lg font-semibold text-pink-400 dark:text-pink-400">{prev.text}</span>
+            <span class="text-lg font-semibold text-pink-400 dark:text-pink-400">
+              {prev.label}
+            </span>
           </div>
         </a>
       ) : null
@@ -30,7 +34,9 @@ const { next, prev } = paginate(langCode, currentPageMatch);
         <a rel="next" href={Astro.site?.pathname + next.link}>
           <div class="flex flex-col gap-2">
             <span class="text-sm dark:text-slate-300">Next</span>
-            <span class="text-lg font-semibold text-pink-400 dark:text-pink-400">{next.text}</span>
+            <span class="text-lg font-semibold text-pink-400 dark:text-pink-400">
+              {next.label}
+            </span>
           </div>
         </a>
       ) : null
