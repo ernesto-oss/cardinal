@@ -14,9 +14,9 @@ module.exports = {
         behind: "-1",
       },
       fontFamily: {
-        display: ["Inter", ...fontFamily.sans],
-        body: ["Inter", ...fontFamily.sans],
-        monospace: [...fontFamily.mono],
+        display: ["Circular", ...fontFamily.sans],
+        body: ["Circular", ...fontFamily.sans],
+        monospace: ["Office Code", ...fontFamily.mono],
       },
       colors: {
         turquoise: "#35FFDB",
@@ -35,10 +35,15 @@ module.exports = {
       function extractColorVars(colorObj, colorGroup = "") {
         return Object.keys(colorObj).reduce((vars, colorKey) => {
           const value = colorObj[colorKey];
-          const cssVariable = colorKey === "DEFAULT" ? `--color${colorGroup}` : `--color${colorGroup}-${colorKey}`;
+          const cssVariable =
+            colorKey === "DEFAULT"
+              ? `--color${colorGroup}`
+              : `--color${colorGroup}-${colorKey}`;
 
           const newVars =
-            typeof value === "string" ? { [cssVariable]: value } : extractColorVars(value, `-${colorKey}`);
+            typeof value === "string"
+              ? { [cssVariable]: value }
+              : extractColorVars(value, `-${colorKey}`);
 
           return { ...vars, ...newVars };
         }, {});
