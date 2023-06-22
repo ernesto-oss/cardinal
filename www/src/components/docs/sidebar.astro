@@ -1,0 +1,128 @@
+---
+import { Image } from "@astrojs/image/components";
+
+import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
+import CardinalLogo from "@/assets/brand/CardinalLogo.astro";
+import { sidebar } from "@/utils/sidebar";
+
+type Props = {
+  currentPage: string;
+};
+
+const { currentPage } = Astro.props;
+const currentPageMatch = currentPage.endsWith("/")
+  ? currentPage.slice(1, -1)
+  : currentPage.slice(1);
+---
+
+<div
+  class="hidden border-b border-slate-300 px-8 pb-4 pt-6 dark:border-dark-gunmetal md:block"
+>
+  <a href="/" class="flex items-center gap-2">
+    <Image class="h-8 w-8" alt="" src={CardinalIcon} />
+    <CardinalLogo class="hidden w-20 sm:block" />
+  </a>
+</div>
+<div class="nav-groups overflow-auto overscroll-contain">
+  <nav class="w-full px-8 pb-8">
+    <ul class="nav-group">
+      {
+        sidebar.map((entry) => (
+          <li>
+            <h2 class="pb-2 pt-6 text-xl font-semibold text-slate-900 dark:text-slate-100">
+              {entry.label}
+            </h2>
+            <ul>
+              {entry.items.map((item) => {
+                const url = Astro.site?.pathname + item.link;
+
+                return (
+                  <li class="nav-link w-full">
+                    {item.items ? (
+                      <div class="pt-4">
+                        <div class="h-[1px] w-full bg-slate-300 dark:bg-dark-gunmetal" />
+                        <span class="block pb-2 pt-4 font-monospace text-xs font-bold tracking-wide text-slate-900 duration-100 dark:text-slate-100">
+                          {item.label.toUpperCase()}
+                        </span>
+                        {item.items.map((subItem) => (
+                          <a
+                            class="block w-full py-[0.3rem] text-base text-slate-600 hover:text-slate-800 dark:text-slate-400 hover:dark:text-slate-200 sm:text-sm"
+                            href={Astro.site?.pathname + subItem.link}
+                            aria-current={
+                              currentPageMatch === subItem.link ? "page" : false
+                            }
+                          >
+                            {subItem.label}
+                          </a>
+                        ))}
+                      </div>
+                    ) : (
+                      <a
+                        class="block w-full py-[0.3rem] text-base text-slate-600 transition duration-100 hover:text-slate-800 dark:text-slate-400 hover:dark:text-slate-200 md:text-sm"
+                        href={url}
+                        aria-current={
+                          currentPageMatch === item.link ? "page" : false
+                        }
+                      >
+                        {item.label}
+                      </a>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
+
+<script is:inline>
+  window.addEventListener("DOMContentLoaded", () => {
+    var target = document.querySelector('[aria-current="page"]');
+    if (target && target.offsetTop > window.innerHeight - 100) {
+      document.querySelector(".nav-groups").scrollTop = target.offsetTop;
+    }
+  });
+
+  const navGroup = document.querySelector(".nav-groups");
+  const navGroupScroll = localStorage.getItem("sidebar-scroll");
+  if (navGroupScroll !== null) {
+    navGroup.scrollTop = parseInt(navGroupScroll, 10);
+  }
+  window.addEventListener("beforeunload", () => {
+    localStorage.setItem("sidebar-scroll", navGroup.scrollTop);
+  });
+</script>
+
+<style is:global>
+  .nav-link [aria-current="page"] {
+    font-weight: 700;
+    @apply text-pink-600 dark:text-pink-500;
+  }
+
+  /** Account for the size of the fixed header with the Cardinal logo */
+  .nav-groups {
+    height: calc(100vh - 80px);
+  }
+
+  /** Adjust in behalf of sidebar content now being inside the mobile menu toggle */
+  @media (max-width: 768px) {
+    .nav-groups {
+      height: calc(100dvh - 40px);
+    }
+  }
+
+  /** Custom scrollbar styling targeting Chrome based browsers for the navigation sidebar */
+  .nav-groups::-webkit-scrollbar {
+    width: 4px;
+  }
+  .nav-groups::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .nav-groups::-webkit-scrollbar-thumb {
+    background-color: #5f5c6d;
+    border-radius: 10px;
+  }
+</style>
