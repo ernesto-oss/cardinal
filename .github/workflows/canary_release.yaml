@@ -57,19 +57,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_ENV: "production"
-
-      - name: Get ID of latest Github release
-        id: releaseId
-        if: steps.changeset.outputs.published == 'true'
-        run: |
-          releaseId="$(gh release view --json id -R ernesto-oss/cardinal --jq '.id')"
-          echo 'RELEASE_ID='$releaseId >> "$GITHUB_OUTPUT"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Edit latest release to pre-release
-        if: steps.changeset.outputs.published == 'true'
-        uses: irongut/EditRelease@v1.2.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          id: ${{ steps.releaseId.outputs.releaseId }}
