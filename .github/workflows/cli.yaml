@@ -4,6 +4,7 @@ on:
     branches: 
       - '**'
       - '!changeset-release/**'
+      - '!docs/**'
 
 jobs:
   lint:
