@@ -49,7 +49,6 @@ jobs:
         id: changeset
         uses: changesets/action@v1
         with:
-          createGithubReleases: false
           commit: "chore(release-canary): version packages"
           title: "chore(release-canary): version packages"
           version: "npx changeset version --snapshot canary"
