@@ -52,7 +52,7 @@ jobs:
           commit: "chore(release-canary): version packages"
           title: "chore(release-canary): version packages"
           version: "npx changeset version --snapshot canary"
-          publish: "npx changeset publsh --no-git-tag --tag canary"
+          publish: "npx changeset publish --no-git-tag --tag canary"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
