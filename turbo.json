@@ -7,6 +7,9 @@
       "outputs": ["dist/**"]
     },
     "typecheck": {},
+    "clean": {
+      "cache": false
+    },
     "format": {
       "cache": false
     },

@@ -4,6 +4,7 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
+		"clean": "rimraf dist .turbo node_modules",
 		"algolia": "docker run -it --name cardinal_algolia --env-file=./algolia/.env -e \"CONFIG=$(cat ./algolia/config.json | jq -r tostring)\" algolia/docsearch-scraper",
 		"astro": "astro",
 		"build": "astro build",
@@ -39,6 +40,7 @@
 		"lucide-react": "^0.236.0",
 		"postcss-nesting": "^11.2.2",
 		"prettier-plugin-astro": "^0.10.0",
-		"prettier-plugin-tailwindcss": "^0.3.0"
+		"prettier-plugin-tailwindcss": "^0.3.0",
+		"rimraf": "^5.0.1"
 	}
 }

@@ -10,5 +10,9 @@
   "baseBranch": "main",
   "fixed": [["create-cardinal-app"]],
   "ignore": ["@cardinal/web"],
-  "changedFilePatterns": ["src/**", "template/**"]
+  "changedFilePatterns": ["src/**", "template/**"],
+  "snapshot": {
+    "useCalculatedVersion": true,
+    "prereleaseTemplate": "{tag}.{commit}"
+  }
 }
