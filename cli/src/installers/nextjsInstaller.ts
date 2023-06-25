@@ -33,22 +33,34 @@ export const nextjsInstaller = ({
   const nextTemplateRoot = path.join(TEMPLATE_DIR, "next");
   const nextDestination = path.join(projectDir, "packages/web");
 
-  const copyDir = (fileName: string) => {
-    fs.copySync(
-      path.join(nextTemplateRoot, fileName),
-      path.join(nextDestination),
-      { filter: removeArtifacts },
-    );
+  const getTemplateTypeDirectory = () => {
+    if (backendType === "graphql") {
+      if (authentication) return "next-graphql-auth";
+      return "next-graphql";
+    }
+
+    return "";
   };
+
+  fs.copySync(
+    path.join(nextTemplateRoot, getTemplateTypeDirectory()),
+    path.join(nextDestination),
+  );
+  // const copyDir = (fileName: string) => {
+  //   fs.copySync(
+  //     path.join(nextTemplateRoot, fileName),
+  //     path.join(nextDestination),
+  //   );
+  // };
 
   // const copyDir = (fileName: string) =>
   //   fs.copySync(path.join(nextTemplateRoot, fileName), nextDestination, {
   //     filter: removeArtifacts,
   //   });
 
-  if (backendType === "graphql") {
-    authentication ? copyDir("next-graphql-auth") : copyDir("next-graphql");
-  }
+  // if (backendType === "graphql") {
+  //   authentication ? copyDir("next-graphql-auth") : copyDir("next-graphql");
+  // }
 
   /* Write `tsconfig.json` */
   const templateNextTsConfig = fs.readJsonSync(
