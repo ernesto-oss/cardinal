@@ -1,6 +1,6 @@
 {
   "name": "create-cardinal-app",
-  "version": "0.2.2-canary.13a95b0",
+  "version": "0.2.2-canary.0905708",
   "description": "Cardinal is a CLI tool that helps you quickstart a full-stack monorepo project. You choose the parts you want, we put it together.",
   "repository": {
     "type": "git",
