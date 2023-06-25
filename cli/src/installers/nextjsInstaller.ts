@@ -33,10 +33,18 @@ export const nextjsInstaller = ({
   const nextTemplateRoot = path.join(TEMPLATE_DIR, "next");
   const nextDestination = path.join(projectDir, "packages/web");
 
-  const copyDir = (fileName: string) =>
-    fs.copySync(path.join(nextTemplateRoot, fileName), nextDestination, {
-      filter: removeArtifacts,
-    });
+  const copyDir = (fileName: string) => {
+    fs.copySync(
+      path.join(nextTemplateRoot, fileName),
+      path.join(nextDestination),
+      { filter: removeArtifacts },
+    );
+  };
+
+  // const copyDir = (fileName: string) =>
+  //   fs.copySync(path.join(nextTemplateRoot, fileName), nextDestination, {
+  //     filter: removeArtifacts,
+  //   });
 
   if (backendType === "graphql") {
     authentication ? copyDir("next-graphql-auth") : copyDir("next-graphql");
