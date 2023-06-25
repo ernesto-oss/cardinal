@@ -1,5 +1,11 @@
 # create-cardinal-app
 
+## null-canary.42c2e11
+
+### Patch Changes
+
+- [`42c2e11`](https://github.com/ernesto-oss/cardinal/commit/42c2e11c4ff2eb4efb0274e07fc34b0180ebfbd4) Thanks [@ernestoresende](https://github.com/ernestoresende)! - test installer behavior on npx/pnpm dlx
+
 ## 0.2.2-canary.0905708
 
 ### Patch Changes
