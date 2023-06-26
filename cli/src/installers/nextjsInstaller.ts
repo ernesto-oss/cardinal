@@ -44,7 +44,7 @@ export const nextjsInstaller = ({
 
   fs.copySync(
     path.join(nextTemplateRoot, getTemplateTypeDirectory()),
-    path.join(nextDestination),
+    path.join(nextDestination), { filter: removeArtifacts }
   );
 
   /* Write `tsconfig.json` */
