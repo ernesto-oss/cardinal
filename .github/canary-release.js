@@ -18,8 +18,6 @@ try {
       const oldVersion = pkg.version;
       const [major, minor, patch] = oldVersion.split(".").map(Number);
       const newVersion = `${major}.${minor}.${patch + 1}-canary.${commitHash}`;
-
-      console.log({ major, minor, patch })
       pkg.version = newVersion;
       const content = JSON.stringify(pkg, null, "\t") + "\n";
 

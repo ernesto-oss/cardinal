@@ -4,6 +4,9 @@ on:
     branches:
       - canary
 
+permissions: 
+  id-token: write
+
 jobs:
   release-canary:
     if: ${{ github.repository_owner == 'ernesto-oss' }}
@@ -59,5 +62,5 @@ jobs:
           pnpm build:cli
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
           cd ./cli
-          npm publish --access public --ignore-scripts --tag canary
+          npm publish --provenance --access public --ignore-scripts --tag canary
           
