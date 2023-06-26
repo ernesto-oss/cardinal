@@ -53,9 +53,11 @@ jobs:
         run: npm i -g npm@9.6.7 # need latest version for provenance 
 
       - name: Authenticate to npm and publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           pnpm build:cli
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
           cd ./cli
           npm publish --access public --ignore-scripts --tag canary
           
