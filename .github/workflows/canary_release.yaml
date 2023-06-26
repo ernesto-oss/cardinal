@@ -4,6 +4,9 @@ on:
     branches:
       - canary
 
+permissions: 
+  id-token: write
+
 jobs:
   release-canary:
     if: ${{ github.repository_owner == 'ernesto-oss' }}
@@ -45,31 +48,19 @@ jobs:
       - name: Build
         run: pnpm turbo --filter=create-cardinal-app build
 
-      - name: Create Version PR or Publish Canary to NPM
-        id: changeset
-        uses: changesets/action@v1
-        with:
-          commit: "chore(release-canary): version packages"
-          title: "chore(release-canary): version packages"
-          version: "npx changeset version --snapshot canary"
-          publish: "npx changeset publish --no-git-tag --tag canary"
+      ## The change made to package.json here is ephemeral, as it will only run in CI
+      - name: Bump version to canary
+        run: node .github/canary-release.js
+
+      - name: Install NPM
+        run: npm i -g npm@9.6.7 # need latest version for provenance 
+
+      - name: Authenticate to npm and publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_ENV: "production"
-
-      - name: Get ID of latest Github release
-        id: releaseId
-        if: steps.changeset.outputs.published == 'true'
         run: |
-          releaseId="$(gh release view --json id -R ernesto-oss/cardinal --jq '.id')"
-          echo 'RELEASE_ID='$releaseId >> "$GITHUB_OUTPUT"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Edit latest release to pre-release
-        if: steps.changeset.outputs.published == 'true'
-        uses: irongut/EditRelease@v1.2.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          id: ${{ steps.releaseId.outputs.releaseId }}
+          pnpm build:cli
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+          cd ./cli
+          npm publish --provenance --access public --ignore-scripts --tag canary
+          

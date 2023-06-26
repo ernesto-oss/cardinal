@@ -16,7 +16,6 @@ import {
   createPackageScripts,
   nextScriptsMap,
 } from "@/helpers/createPackageScripts.js";
-import { removeArtifacts } from "@/helpers/removeArtifacts.js";
 import { type ProjectOptions } from "@/index.js";
 import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
@@ -33,14 +32,19 @@ export const nextjsInstaller = ({
   const nextTemplateRoot = path.join(TEMPLATE_DIR, "next");
   const nextDestination = path.join(projectDir, "packages/web");
 
-  const copyDir = (fileName: string) =>
-    fs.copySync(path.join(nextTemplateRoot, fileName), nextDestination, {
-      filter: removeArtifacts,
-    });
+  const getTemplateTypeDirectory = () => {
+    if (backendType === "graphql") {
+      if (authentication) return "next-graphql-auth";
+      return "next-graphql";
+    }
 
-  if (backendType === "graphql") {
-    authentication ? copyDir("next-graphql-auth") : copyDir("next-graphql");
-  }
+    return "";
+  };
+
+  fs.copySync(
+    path.join(nextTemplateRoot, getTemplateTypeDirectory()),
+    path.join(nextDestination),
+  );
 
   /* Write `tsconfig.json` */
   const templateNextTsConfig = fs.readJsonSync(

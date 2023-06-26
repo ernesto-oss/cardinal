@@ -9,7 +9,6 @@ import {
   authDependencyMap,
   type AvailableAuthDependenciesKeys,
 } from "@/helpers/addPackageDependency.js";
-import { removeArtifacts } from "@/helpers/removeArtifacts.js";
 import { type ProjectOptions } from "@/index.js";
 
 export const authInstaller = ({
@@ -23,13 +22,19 @@ export const authInstaller = ({
   const authTemplateRoot = path.join(TEMPLATE_DIR, "auth");
   const authDestination = path.join(projectDir, "packages/auth");
 
-  const copyDir = (fileName: string) =>
-    fs.copySync(path.join(authTemplateRoot, fileName), authDestination, {
-      filter: removeArtifacts,
-    });
+  const getTemplateTypeDirectory = () => {
+    let templateTypeDirectory = "";
 
-  if (databaseProvider === "planetscale" && frontendFramework === "next")
-    copyDir("auth-planetscale-next");
+    if (databaseProvider === "planetscale" && frontendFramework === "next")
+      templateTypeDirectory = "auth-planetscale-next";
+
+    return templateTypeDirectory;
+  };
+
+  fs.copySync(
+    path.join(authTemplateRoot, getTemplateTypeDirectory()),
+    path.join(authDestination),
+  );
 
   /* Write `tsconfig.json` */
   const templateAuthTsConfig = fs.readJsonSync(

@@ -1,5 +1,3 @@
-# create-cardinal-app
-
 ## 0.2.1
 
 ### Patch Changes
