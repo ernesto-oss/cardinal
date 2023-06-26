@@ -14,7 +14,6 @@ import {
   createPackageScripts,
   graphQLScriptsMap,
 } from "@/helpers/createPackageScripts.js";
-import { removeArtifacts } from "@/helpers/removeArtifacts.js";
 import { type ProjectOptions } from "@/index.js";
 import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
@@ -36,19 +35,25 @@ export const graphQLInstaller = ({
   const graphqlTemplateRoot = path.join(TEMPLATE_DIR, "graphql");
   const graphQLDestination = path.join(projectDir, "packages/api");
 
-  const copyDir = (fileName: string) =>
-    fs.copySync(path.join(graphqlTemplateRoot, fileName), graphQLDestination, {
-      filter: removeArtifacts,
-    });
+  const getTemplateTypeDirectory = () => {
+    let templateTypeDirectory = "";
 
-  if (frontendFramework === "next") {
-    databaseProvider === "planetscale" && authentication
-      ? copyDir("graphql-next-planetscale-auth")
-      : null;
-    databaseProvider === "planetscale" && !authentication
-      ? copyDir("graphql-next-planetscale")
-      : null;
-  }
+    if (frontendFramework === "next") {
+      databaseProvider === "planetscale" && authentication
+        ? (templateTypeDirectory = "graphql-next-planetscale-auth")
+        : null;
+      databaseProvider === "planetscale" && !authentication
+        ? (templateTypeDirectory = "graphql-next-planetscale")
+        : null;
+    }
+
+    return templateTypeDirectory;
+  };
+
+  fs.copySync(
+    path.join(graphqlTemplateRoot, getTemplateTypeDirectory()),
+    path.join(graphQLDestination),
+  );
 
   /* Write `tsconfig.json` */
   const templateGraphqlTsConfig = fs.readJsonSync(

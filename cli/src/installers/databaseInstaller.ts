@@ -14,7 +14,6 @@ import {
   createPackageScripts,
   databaseScriptsMap,
 } from "@/helpers/createPackageScripts.js";
-import { removeArtifacts } from "@/helpers/removeArtifacts.js";
 import { type ProjectOptions } from "@/index.js";
 import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
@@ -31,17 +30,21 @@ export const databaseInstaller = ({
   const databaseTemplateRoot = path.join(TEMPLATE_DIR, "database");
   const databaseDestination = path.join(projectDir, "packages/database");
 
-  const copyDir = (fileName: string) =>
-    fs.copySync(
-      path.join(databaseTemplateRoot, fileName),
-      databaseDestination,
-      { filter: removeArtifacts },
-    );
+  const getTemplateTypeDirectory = () => {
+    let templateTypeDirectory = "";
 
-  if (databaseProvider === "planetscale")
-    authentication
-      ? copyDir("database-planetscale-auth")
-      : copyDir("database-planetscale");
+    if (databaseProvider === "planetscale")
+      authentication
+        ? (templateTypeDirectory = "database-planetscale-auth")
+        : (templateTypeDirectory = "database-planetscale");
+
+    return templateTypeDirectory;
+  };
+
+  fs.copySync(
+    path.join(databaseTemplateRoot, getTemplateTypeDirectory()),
+    path.join(databaseDestination),
+  );
 
   /* Write `tsconfig.json` */
   const templateDatabaseTsConfig = fs.readJsonSync(
