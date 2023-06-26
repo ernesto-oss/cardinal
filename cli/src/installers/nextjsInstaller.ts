@@ -16,7 +16,6 @@ import {
   createPackageScripts,
   nextScriptsMap,
 } from "@/helpers/createPackageScripts.js";
-import { removeArtifacts } from "@/helpers/removeArtifacts.js";
 import { type ProjectOptions } from "@/index.js";
 import { type PackageManager } from "@/utils/getUserPackageManager.js";
 
@@ -44,7 +43,7 @@ export const nextjsInstaller = ({
 
   fs.copySync(
     path.join(nextTemplateRoot, getTemplateTypeDirectory()),
-    path.join(nextDestination), { filter: removeArtifacts }
+    path.join(nextDestination),
   );
 
   /* Write `tsconfig.json` */
