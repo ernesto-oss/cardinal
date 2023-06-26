@@ -45,15 +45,15 @@ jobs:
       - name: Build
         run: pnpm turbo --filter=create-cardinal-app build
 
-      - name: Create Version PR or Publish Canary to NPM
-        id: changeset
-        uses: changesets/action@v1
-        with:
-          commit: "chore(release-canary): version packages"
-          title: "chore(release-canary): version packages"
-          version: "npx changeset version --snapshot canary"
-          publish: "npx changeset publish --no-git-tag --tag canary"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_ENV: "production"
+      ## The change made to package.json here is ephemeral, as it will only run in CI
+      - name: Bump version to canary
+        run: node .github/canary-release.js
+
+      - name: Install NPM
+        run: npm i -g npm@9.6.7 # need latest version for provenance 
+
+      - name: Authenticate to npm and publish
+        run: |
+          pnpm build
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          npm publish cli --access public --ignore-scripts --tag canary
