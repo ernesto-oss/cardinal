@@ -1,3 +1,10 @@
+
+## 0.2.2
+
+### Patch Changes
+
+- [#32](https://github.com/ernesto-oss/cardinal/pull/32) [`70c2e8a`](https://github.com/ernesto-oss/cardinal/commit/70c2e8adbcb4be1c09a8ef89ba38aafeab6967e6) Thanks [@ernestoresende](https://github.com/ernestoresende)! - (cli): rewrite scaffolding logic for broken installers
+
 ## 0.2.1
 
 ### Patch Changes
