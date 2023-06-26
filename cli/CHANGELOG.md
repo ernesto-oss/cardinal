@@ -1,5 +1,11 @@
 ## 0.2.1
 
+## 0.2.2
+
+### Patch Changes
+
+- [#32](https://github.com/ernesto-oss/cardinal/pull/32) [`70c2e8a`](https://github.com/ernesto-oss/cardinal/commit/70c2e8adbcb4be1c09a8ef89ba38aafeab6967e6) Thanks [@ernestoresende](https://github.com/ernestoresende)! - (cli): rewrite scaffolding logic for broken installers
+
 ### Patch Changes
 
 - [#15](https://github.com/ernesto-oss/cardinal/pull/15) [`1ee9b31`](https://github.com/ernesto-oss/cardinal/commit/1ee9b311f16bba0b86cc4cc2d08a6ad2c4d61f67) Thanks [@ernestoresende](https://github.com/ernestoresende)! - (cli) removed default styling injected by `@clack/prompts`
