@@ -1,13 +1,12 @@
 ---
-import { SITE } from "@/consts";
-
-import Navbar from "@/components/navigation/navbar.astro";
 import Footer from "@/components/footer/Footer.astro";
+import Navbar from "@/components/navigation/navbar.astro";
 import HeadCommon from "@/components/seo/headCommon.astro";
 import HeadSEO from "@/components/seo/headSeo.astro";
+import { SITE } from "@/consts";
+
 import "@/styles/global.css";
 
-// type Props = CollectionEntry<"docs">["data"];
 const { ...data } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -23,7 +22,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
       dir="ltr"
     />
   </head>
-  <body class="bg-slate-950 font-body">
+  <body class="bg-gray-950 font-body">
     <Navbar />
     <slot />
     <Footer />

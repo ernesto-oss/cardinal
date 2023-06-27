@@ -55,7 +55,7 @@ async function main() {
 
   process.stdout.write(
     `${color.dim(
-      "Need help choosing your stack? Head to https://cardinal.ernestoresende.com/docs/en/recommendations",
+      "Need help choosing your stack? Head to https://cardinal.ernestoresende.com/docs/recommendations",
     )}\n \n`,
   );
 

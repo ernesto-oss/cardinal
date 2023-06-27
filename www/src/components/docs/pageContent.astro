@@ -1,6 +1,7 @@
 ---
 import type { MarkdownHeading } from "astro";
-import OnThisPage from "@/components/docs/onThisPage";;
+
+import OnThisPage from "@/components/docs/onThisPage";
 import Pagination from "@/components/docs/pagination.astro";
 import TableOfContents from "@/components/docs/tableOfContents";
 
@@ -14,22 +15,37 @@ type Props = {
 const { title, description, githubEditUrl, headings } = Astro.props;
 ---
 
-<div class="px-0 md:px-8 leading-relaxed">
-  <div class="flex justify-center px-8 pt-8">
-    <aside class="relative order-2 hidden w-full max-w-[256px] pl-8 xl:block">
-      <div class="aside-container fixed top-0 h-screen w-[224px] overflow-y-auto overflow-x-hidden pt-24">
+<div class="px-0 leading-relaxed md:px-8">
+  <div class="grid grid-cols-4 px-8 pt-8">
+    <aside class="relative order-2 hidden w-full pl-8 xl:block">
+      <div
+        class="aside-container fixed top-0 h-screen max-w-[224px] overflow-y-auto overflow-x-hidden pt-24"
+      >
         <TableOfContents client:visible headings={headings} />
       </div>
     </aside>
-    <article data-algolia-page-scope="true" class="px-0 sm:px-8 py-20">
+    <article
+      data-algolia-page-scope="true"
+      class="col-span-4 px-0 py-20 md:px-8 xl:col-span-3"
+    >
       <OnThisPage headings={headings} client:visible />
-      <h1 data-algolia-lvl0="true" class="pb-4 text-4xl font-bold text-slate-900 dark:text-slate-100">{title}</h1>
-      <p class="pb-8 text-xl text-slate-700 dark:text-slate-300">{description}</p>
+      <h1
+        data-algolia-lvl0="true"
+        class="pb-8 text-4xl font-bold text-slate-900 dark:text-slate-100"
+      >
+        {title}
+      </h1>
+      <p class="pb-12 text-xl text-slate-700 dark:text-slate-300">
+        {description}
+      </p>
       <div class="content-wrapper">
         <slot />
       </div>
       <div class="pt-14">
-        <a class="text-slate-700 dark:text-slate-300" href={githubEditUrl}>Edit this page on GitHub.</a>
+        <a
+          class="text-slate-700 underline dark:text-slate-300"
+          href={githubEditUrl}>Edit this page on GitHub.</a
+        >
       </div>
       <Pagination />
     </article>

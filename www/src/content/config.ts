@@ -1,4 +1,5 @@
 import { defineCollection, z } from "astro:content";
+
 import { SITE } from "../consts";
 
 const docs = defineCollection({

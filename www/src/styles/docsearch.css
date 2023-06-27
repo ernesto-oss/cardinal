@@ -3,7 +3,7 @@
 }
 
 .DocSearch-Container {
-  @apply fixed left-0 top-0 z-[200] flex h-screen w-screen cursor-auto flex-col bg-black/20 p-4 backdrop-blur-sm dark:bg-slate-900/80 sm:p-6 md:p-[10vh] lg:p-[12vh];
+  @apply fixed left-0 top-0 z-[200] flex h-screen w-screen cursor-auto flex-col bg-black/20 p-4 backdrop-blur-sm dark:bg-black/90 sm:p-6 md:p-[10vh] lg:p-[12vh];
 }
 
 .DocSearch-LoadingIndicator svg {
@@ -211,7 +211,6 @@
   @apply ml-3.5 flex-none;
 }
 
-
 .DocSearch-Hit-action-button {
   @apply flex;
 }
@@ -409,7 +408,8 @@
   @apply pointer-events-none absolute inset-0 bg-sky-50 content-[''] dark:bg-slate-700/30;
 }
 
-.DocSearch-Hit[aria-selected="true"] [title="Remove this search from favorites"]::before {
+.DocSearch-Hit[aria-selected="true"]
+  [title="Remove this search from favorites"]::before {
   @apply bg-sky-100 dark:bg-slate-700/40;
 }
 

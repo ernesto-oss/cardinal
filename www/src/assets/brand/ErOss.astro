@@ -9,7 +9,12 @@ type Props = {
 const { homepage, class: className } = Astro.props;
 ---
 
-<svg class={className} viewBox="0 0 28 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg
+  class={className}
+  viewBox="0 0 28 17"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
   <path
     class={clsx({
       "stroke-slate-50": homepage,

@@ -1,0 +1,118 @@
+---
+title: "Recommendations"
+description: "Some steps you can take in order to decide how you want to setup your stack."
+---
+
+import Components from "@/components/docs/mdx/components.tsx";
+import DeepDive from "@/components/docs/mdx/deep-dive.tsx";
+import Detail from "@/components/docs/mdx/detail.tsx";
+
+export const components = Components;
+
+Cardinal gives you many choices for how to setup your stack. Choosing between frontend frameworks, backend types and deployment providers can be daunting, but we can help you by giving you some tips on how to get the best out of Cardinal.
+
+## Package manager
+
+Whenever possible, we recommed using `pnpm` as your main package manager in contrast to `npm` or `yarn`, for two main reasons:
+
+- **Better monorepo story**: `pnpm` has a better support for monorepos between the three package manager options (all of them support workspaces, but the way they are handled is slightly different)
+- **Content adressable storage**: `pnpm` creates a store of dependencies and adresses them in `node_modules` via symlinking. This massively reduces duplication of dependencies between your various project workspaces.
+
+Cardinal supports being scaffolded by all three package managers, with the exception of Yarn 2 (Yarn Classic is supported).
+
+## Deployment provider
+
+Whenever possible, stick to a single deployment provider for both your frontend and backend services, specially when using fullstack frameworks like Next.js, which already gives you access to the backend layer right within the framework with features like **[Route Handlers](https://nextjs.org/docs/app/building-your-application/routing/router-handlers)** and **[Middlewares](https://nextjs.org/docs/app/building-your-application/routing/middleware)**. Dividing your stack parts between several deployment providers will have you dealing with more complexity on both the application and the infrastructure layer.
+
+Cardinal encourages this behavior by configuring your entire application stack to work with the deployment provider choosen during the interactive CLI prompt.
+
+When evalutating where to deploy your application, these are some starting points for your consideration:
+
+### Simplest possible deployment
+
+If you want the simplest deployment possible, you can't really beat **[Vercel](https://vercel.com/)**. They supply you with a good array of bleeding-edge deployment management features, **[automatic preview builds](https://vercel.com/features/previews)**, **[analytics](https://vercel.com/analytics)**, and more. Their **[pricing model](https://vercel.com/pricing)** is more restrictive, requiring you to pay for both excess resources and team seats.
+
+### Good performance and fair amount of control
+
+If you want good performance with fair amount of control over infrastructure, **[Cloudflare](https://developers.cloudflare.com/)** is a really good option. Similar to Vercel, Cloudflare Pages has a managed dashboard where you can control your deployment configurations from a web interface, and a CLI tool for more fine-grained control. Server portions of your application will always run on Cloudflare Workers, which uses an isolated V8 runtime. This means you can get incredibly performant function handlers, but it comes with some limitations compared to Node.js runtimes.
+
+### Control over infrastructure, or deploy alongside existing AWS resources
+
+If you want absolute control over your infrastructure layer, or need to deploy alongside existing AWS resources, you can choose AWS as your stack's deployment provider.
+
+With AWS, your server actions will be running on **[Lambda](https://aws.amazon.com/lambda/)** and/or **[Lambda@Edge](https://aws.amazon.com/lambda/edge/)** functions. The structure of your deployment will be dictaded by **[SST Constructs](https://docs.sst.dev/constructs)**, which is built on top of AWS's CDK.
+
+<Detail type="note">
+  Currently, there is some ambiguation regarding the term **Edge**, because of how different cloud providers have chosen to treat the term.
+
+For Vercel the preposition of _"runs in the edge"_ refers to both the **[Edge Runtime](https://vercel.com/docs/concepts/functions/edge-functions/edge-runtime)**, the lightweight runtime based on the V8 engine used by their underlying cloud solution, Cloudflare Workers, and by some extension, the **[Edge Network](https://vercel.com/docs/concepts/edge-network/overview)**, a combination of CDN and globally distributed compute at the **geographical** edge.
+
+For AWS on the other hand, on Lamda@Edge function, **the term refers strictly to geographical location where a Lambda function is going to be run**. The runtime is still the same regular Node.js runtime used by regular Lambda functions.
+
+It's important to be clear of the ambiguity of the term in order to make informed technical decisions about where you want to run your application.
+
+</Detail>
+
+## Backend types
+
+Cardinal gives you three options for setting up your API service: **REST**, **GraphQL**, and **tRPC**.
+
+{/* Write an h3 with details about handling REST endpoints */}
+
+### GraphQL
+
+GraphQL is a well stabilished, altough slightly complex way of building API's. It really shines when you're dealing with complex data relationships within a graph, and the client applications needs to be aware of those connections.
+
+With GraphQL, both client and server share knowledge about the schema, and that schema defines the shape of how data is queried and returned from your server.
+
+**Pros:**
+
+- Graph based data modeling allows for easier representation of complex data relations.
+- Query language allows fine grained control of what is requested from the server.
+- Has robust and well-maintained client implementations for other languages outside of TypeScript.
+
+**Cons:**
+
+- Server has more moving pieces and overall added complexity.
+- Client type generation is still dependent on codegen (there are projects like **[garph-gqty](https://github.com/stepci/garph-gqty)** working on trying to make this better for TypeScript).
+
+<DeepDive client:load title="How does type generation differ between GraphQL and tRPC?">
+    On GraphQL, client types are generated by analysing the server schema, and transforming that schema into types that TypeScript can understand. For that to happen, a Node process needs to run, and new type definitions need to be written on a file before they can be used on the client.
+
+    With tRPC, the client implementation infers the types directly from code written in server context, which means they are reflected in the entire app in real time.
+
+</DeepDive>
+
+### tRPC
+
+tRPC is a RPC (Remote Procedure Call) framework. Semantically speaking, this means **a client requesting functionality from somewhere remote**. The idea behind this concept is that you think in terms of commands, as oposed to REST, where you usually think in terms of resources.
+
+tRPC has become an increasingly popular way of building API's with TypeScript because of it's unmatched capacity of achieving end-to-end typesafety between server and client when both are written in TypeScript.
+
+Much like with GraphQL, the client will provide you with a typesafe way of querying resources from the server, with the main key difference here being that the types are infered directly from the server code, which makes the feedback loop instant.
+
+**Pros:**
+
+- Really good option for use cases where you have functionality on your app that can be declared as commands.
+- End-to-end typesafety between client and server without relying on codegen.
+
+**Cons:**
+
+- Quickly looses value once it's used outside of TypeScript (you just lost client type-safety, and you're left with a REST API).
+
+<Detail type="note">
+  While technically tRPC requests are going via HTTP to a REST endpoint, that is
+  not the part about the tRPC implementation that matters. You're not going to
+  interact with that endpoint directly, the tRPC client will do that for you,
+  and that is where most of it's value resides.
+</Detail>
+
+## Databases
+
+{/* Write an initial paragraph about how Drizzle ORM handles your database connection */}
+
+If you want something simple and self-managed, **[PlanetScale](https://planetscale.com/)** is a no-brainer. You don't think about manually handling scaling, connection distribution or backups, it just does it. For most projects, it is a very good option with a very generous free-tier.
+
+If you're building your project on top of AWS, you can **[use your existing SST configuration to deploy self-managed Amazon RDS instances]()**.
+
+Outside of that, you can feel free to use whatever **[Prisma supports connecting to]()**. Compare different database types and their features, and figure out what makes more sense for your application.

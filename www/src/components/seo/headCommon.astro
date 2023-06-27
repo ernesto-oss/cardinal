@@ -11,13 +11,57 @@
 <!-- Google Fonts prefetch -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+
+<style is:global>
+  @font-face {
+    font-family: "Circular";
+    src: url("/fonts/CircularBook.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Circular";
+    src: url("/fonts/CircularMedium.woff2") format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Circular";
+    src: url("/fonts/CircularBold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Circular";
+    src: url("/fonts/CircularBlack.woff2") format("woff2");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Office Code";
+    src: url("/fonts/OfficeCode.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
 
 <!-- This is intentionally inlined to avoid FOUC -->
 <script is:inline>
   const root = document.documentElement;
   const theme = localStorage.getItem("theme");
-  if (theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+  if (
+    theme === "dark" ||
+    (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
     root.classList.add("dark");
   } else {
     root.classList.remove("dark");

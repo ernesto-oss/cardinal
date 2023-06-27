@@ -1,0 +1,72 @@
+---
+title: "Why Cardinal?"
+description: "Why should you use Cardinal when there are so many other starter solutions out there."
+---
+
+import Components from "@/components/docs/mdx/components.tsx";
+import DeepDive from "@/components/docs/mdx/deep-dive.tsx";
+import Detail from "@/components/docs/mdx/detail.tsx";
+
+export const components = Components;
+
+With the recent shift to serverless focused technologies and end-to-end typesafety between client and server becoming a larger priority on developers minds, there has been more and more tools at the disposal of JavaScript and Node.js developers.
+
+The main problem is that putting different pieces of the stack together often requires some time and effort:
+
+- Frameworks are more server-centric and server-side features often go underutilized.
+- Node.js ecossystem doesn't have many opinions on how to deal with authentication, databases and API authoring, which brings flexibility, but also indecision and technical barriers.
+
+We wanted to give you that time back so you can start building applications faster.
+
+In order to make this happen, Cardinal takes some stances in which libraries it uses, and what underlying tech it supports. **This is a relatively opinionated project. It has to be in order to do what it was built to do**. It is possible that it doesn't fit your project needs, and that's fine.
+
+If what you see here seems to fit your project needs, give it a try, and If it doesn't, you can move on to something else. We won't be mad.
+
+## Is this a template?
+
+By definition, we could define it as a multi-template scaffolding CLI tool, but that's just a matter of semantics. The choices you make during the CLI prompts ultimately define how your project will be scaffolded in the end.
+
+## What is the included tech?
+
+The decision behind what libraries/frameworks goes into each part of the scaffolded project is not taken lightly. In order to be included as part of Cardinal scaffolded apps, it has to meet a few criterias:
+
+- It needs to be TypeScript friendly and have well-typed API's and primitives;
+- It has to be mature enough to handle production workloads without breaking;
+- It should interact well with serverless architectures and their runtimes;
+
+### TypeScript
+
+If we really think about it. TypeScript is the glue that holds everything together. It's because of it that we can ensure end-to-end typesafety between server and client. It helps you have a better time developing JavaScript applications, and, at this point, it is an industry standard to developing safe web applications.
+
+Templates scaffolded by Cardinal will always be configured with TypeScript by default, and there is no option to scaffold projects with just JavaScript.
+
+### Authentication modules
+
+Modern and secure authentication is hard. Try implementing it by yourself, and suddenly you will have to deal with several implementation choices, manual integration with third-party providers, and proper implementation of security protocols. It's a lot.
+
+While we understand that rolling your own auth introduces more surface area for unexperienced developers to introduce security issues in the application, having tools that streamline the implementation process and guards you against common pitfalls while still having the flexibility to shape the authentication layer to your application needs is good middle-point.
+
+This is way for all user and session handling, Cardinal projects will be setup with **[Lucia](https://lucia-auth.com/)**, a user and session management library meant to provide a clean abstraction layer between the server and database.
+
+<DeepDive client:load title="A note about password/credentials based authentication">
+  In the last few years, we've seen more and more web security advisor warnings about credentials/passwords being an unreliable method of securing user sessions, both from a security, and from a UX standpoint. While **we do agree** with that statement, we also like to live in reality. And in the real world, business requirements will sometimes have you implementing password based auth, wheter you like it or not.
+
+The auth layer provided by Lucia let's you handle both. Cardinal scaffolds your app with a password and one OAuth provider example. Keep the parts that makes sense for your project.
+
+</DeepDive>
+
+### Database ORM
+
+To handle database operations, Cardinal chose to go with **[Drizzle ORM](https://orm.drizzle.team/)**. Their focus on size, performance, and the fact that they support TypeScript almost exclusively makes them a perfect candidate for Cardinal stacks. Pairing `drizzle-orm` and `drizzle-kit` you get:
+
+- Automatically infered types from your database schema
+- Managed migrations tool for database prototyping.
+- Compatibility with several database types and deployment runtimes
+
+### Backend tools
+
+Depending on what you choose as your frontend framework and deployment path, we will setup different tooling that will compose your `api` module.
+
+In cases were you opt to choose for full-stack frameworks like Next.js to build your frontend, your API modules will be served directly from the framework. Otherwise, decision about where your API module will be served from will be based on choosen deployment providers.
+
+Any backend type you choose will also be automatically integrated with the database and authentication modules when applicable.

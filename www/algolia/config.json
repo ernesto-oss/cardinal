@@ -1,6 +1,6 @@
 {
   "index_name": "cardinal-docs",
-  "start_urls": ["https://cardinal.ernestoresende.com/docs/en/introduction"],
+  "start_urls": ["https://cardinal.ernestoresende.com/docs/introduction"],
   "stop_urls": [],
   "selectors": {
     "lvl0": { "selector": "[data-algolia-lvl0]", "global": true },

@@ -2,13 +2,14 @@
 import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
 
-import { GITHUB_EDIT_URL } from "@/consts";
+import PageContent from "@/components/docs/pageContent.astro";
+import Sidebar from "@/components/docs/sidebar.astro";
+import Footer from "@/components/footer/Footer.astro";
+import Navbar from "@/components/navigation/navbar.astro";
 import HeadCommon from "@/components/seo/headCommon.astro";
 import HeadSEO from "@/components/seo/headSeo.astro";
-import Navbar from "@/components/navigation/navbar.astro";
-import PageContent from "@/components/docs/pageContent.astro";
-import LeftSidebar from "@/components/docs/leftSidebar.astro";
-import Footer from "@/components/footer/Footer.astro";
+import { GITHUB_EDIT_URL } from "@/consts";
+
 import "@/styles/global.css";
 
 type Props = CollectionEntry<"docs">["data"] & {
@@ -28,13 +29,15 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
     <HeadCommon />
     <HeadSEO {...data} canonicalUrl={canonicalURL} />
   </head>
-  <body class="bg-slate-50 font-body text-chinese-black dark:bg-docs-dark dark:text-slate-50">
+  <body
+    class="bg-slate-50 font-body text-chinese-black dark:bg-docs-dark dark:text-slate-50"
+  >
     <Navbar isDocsPage={true} />
     <div class="relative">
       <aside
-        class="sidebar-nav fixed top-0 left-0 bottom-0 overflow-y-auto overflow-x-hidden px-8 pt-8 bg-slate-200 dark:bg-docs-dark-alt"
+        class="sidebar-nav fixed bottom-0 left-0 top-0 z-20 bg-slate-200 dark:bg-docs-dark-alt"
       >
-        <LeftSidebar currentPage={currentPage} />
+        <Sidebar currentPage={currentPage} />
       </aside>
       <main class="docs-content">
         <PageContent
@@ -48,61 +51,56 @@ const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
       </main>
     </div>
     <Footer />
+    <style is:global>
+      /* Default state for the sidebar navigation */
+      .sidebar-nav {
+        width: var(--sidebar-width);
+        transition: opacity 0.5s, transform 0.25s ease;
+        transform: translate(-100%);
+        opacity: 0;
+      }
+
+      @media (min-width: 768px) {
+        /* When the viewport reaches 960px, transform back to original position */
+        .sidebar-nav {
+          opacity: 1;
+          transform: translate(0);
+        }
+        .docs-content {
+          padding-left: var(--sidebar-width);
+        }
+      }
+      @media (min-width: 1440px) {
+        .sidebar-nav {
+          width: calc(
+            (100% - (var(--layout-max-width) - 64px)) / 2 + var(--sidebar-width) -
+              32px
+          );
+          padding-left: max(
+            32px,
+            calc((100% - (var(--layout-max-width) - 64px)) / 2)
+          );
+        }
+        .docs-content {
+          padding-right: calc((100vw - var(--layout-max-width)) / 2);
+          padding-left: calc(
+            (100vw - var(--layout-max-width)) / 2 + var(--sidebar-width)
+          );
+        }
+      }
+
+      .header-link {
+        @apply pb-4 text-base text-slate-700 transition duration-100 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100 lg:pb-2 lg:text-sm;
+      }
+      .current-header-link {
+        @apply text-pink-600 dark:text-pink-500;
+      }
+      .depth-3 {
+        @apply pl-4;
+      }
+      .depth-4 {
+        @apply pl-8;
+      }
+    </style>
   </body>
 </html>
-
-<style is:global>
-  /** Custom scrollbar styling targeting Chrome based browsers for the navigation sidebar */
-  .sidebar-nav::-webkit-scrollbar {
-    width: 8px;
-  }
-  .sidebar-nav::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  .sidebar-nav::-webkit-scrollbar-thumb {
-    background-color: #5f5c6d;
-    border-radius: 10px;
-  }
-
-  /* Default state for the sidebar navigation */
-  .sidebar-nav {
-    width: var(--sidebar-width);
-    transition: opacity 0.5s, transform 0.25s ease;
-    transform: translate(-100%);
-    opacity: 0;
-  }
-
-  @media (min-width: 960px) {
-    /* When the viewport reaches 960px, transform back to original position */
-    .sidebar-nav {
-      opacity: 1;
-      transform: translate(0);
-    }
-    .docs-content {
-      padding-left: var(--sidebar-width);
-    }
-  }
-  @media (min-width: 1440px) {
-    .sidebar-nav {
-      width: calc((100% - (var(--layout-max-width) - 64px)) / 2 + var(--sidebar-width) - 32px);
-      padding-left: max(32px, calc((100% - (var(--layout-max-width) - 64px)) / 2));
-    }
-    .docs-content {
-      padding-right: calc((100vw - var(--layout-max-width)) / 2);
-      padding-left: calc((100vw - var(--layout-max-width)) / 2 + var(--sidebar-width));
-    }
-  }
-
-  .header-link {
-    @apply pb-4 text-base text-slate-700 transition duration-100 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100 lg:pb-2 lg:text-sm;
-  }
-  .current-header-link {
-    @apply text-pink-600 dark:text-pink-500;
-  }
-  .depth-3 {
-    @apply pl-4;
-  }
-  .depth-4 {
-    @apply pl-8;
-  }
-</style>
