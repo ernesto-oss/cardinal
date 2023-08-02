@@ -78,8 +78,8 @@ async function main() {
 
   outro(`
     ${color.bold(color.green("✅Success!"))} Project created in ${color.magenta(
-    appPath,
-  )}
+      appPath,
+    )}
     Next steps:
     ${color.dim(`
     cd ${appPath}
