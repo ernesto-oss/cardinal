@@ -4,5 +4,5 @@
   "zod": "^3.21.4",
   "lucia-auth": "1.8.0",
   "@lucia-auth/adapter-mysql": "^1.1.1",
-  "next": "13.4.4"
+  "next": "13.4.12"
 }
