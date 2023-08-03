@@ -1,12 +1,12 @@
-import Link from 'next/link';
-import { createClient, getBaseUrl, registerClient } from '@/utils/graphql';
+import Link from "next/link";
 
-import { DocsCard } from '@/components/docs-card';
-import { Hero } from '@/components/hero';
-import { QueryBox } from '@/components/query-box';
+import { client } from "@/utils/graphql";
+import { DocsCard } from "@/components/docs-card";
+import { Hero } from "@/components/hero";
+import { QueryBox } from "@/components/query-box";
 
-export const dynamic = 'force-dynamic';
-export const runtime = 'edge';
+export const dynamic = "force-dynamic";
+export const runtime = "edge";
 
 /**
  * When fetching from the GraphQL endpoint, remember that Next.js will try
@@ -22,23 +22,10 @@ export const runtime = 'edge';
  * @see https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#using-dynamic-data-fetches
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
  */
-
-const makeClient = () => {
-  const client = createClient({
-    url: `${getBaseUrl()}/api/graphql`,
-    fetch: fetch,
-    cache: 'no-store',
-  });
-
-  return client;
-};
-
-const { getClient } = registerClient(makeClient);
-
 export default async function IndexPage() {
-  const data = await getClient().query({
-    greeting: true,
-  });
+  const data = await client.resolve(({ query: { greetings } }) => ({
+    greetingMessage: greetings,
+  }));
 
   return (
     <>
@@ -67,17 +54,17 @@ export default async function IndexPage() {
           </div>
           <div className="grid grid-cols-3 gap-6">
             <DocsCard
-              href=""
+              href="https://cardinal.ernestoresende.com/docs/first-steps"
               title="First Steps"
               description="The bare minimum you will need to setup database, authentication and deployment for your application."
             />
             <DocsCard
-              href=""
+              href="https://cardinal.ernestoresende.com/docs/introduction"
               title="Documentation"
               description="Find in-depth information about the tech stack and recommended setups for the libraries in use."
             />
             <DocsCard
-              href=""
+              href="https://cardinal.ernestoresende.com/docs/introduction"
               title="Deployment"
               description="Learn how use the provided deployment paths based on your stack."
             />

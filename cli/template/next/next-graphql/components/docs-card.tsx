@@ -1,4 +1,4 @@
-import { IoArrowForward } from 'react-icons/io5';
+import { IoArrowForward } from "react-icons/io5";
 
 type DocsCardProps = {
   title: string;

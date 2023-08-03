@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import CardinalIcon from '@/assets/brand/cardinal-icon.svg';
-import CardinalLogoGradient from '@/assets/brand/cardinal-logo-gradient.svg';
-import { clsx } from 'clsx';
+import Image from "next/image";
+import { clsx } from "clsx";
 
-import styles from '@/components/hero/hero.module.css';
+import styles from "@/components/hero/hero.module.css";
+import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
+import CardinalLogoGradient from "@/assets/brand/cardinal-logo-gradient.svg";
 
 export const Hero: React.FC<{ protectedRoute?: boolean }> = ({
   protectedRoute,
@@ -14,10 +14,10 @@ export const Hero: React.FC<{ protectedRoute?: boolean }> = ({
         <div
           className={clsx(
             styles.center,
-            'center relative flex flex-col items-center justify-center gap-8 pb-8',
+            "center relative flex flex-col items-center justify-center gap-8 pb-8",
           )}
         >
-          <div className={clsx(styles.cardinal, 'p-6')}>
+          <div className={clsx(styles.cardinal, "p-6")}>
             <Image className="w-16" alt="" src={CardinalIcon} />
           </div>
           <Image className="z-10 w-44" alt="" src={CardinalLogoGradient} />
@@ -25,7 +25,7 @@ export const Hero: React.FC<{ protectedRoute?: boolean }> = ({
         <p className="max-w-[600px] text-center text-base leading-relaxed text-slate-300">
           {protectedRoute && (
             <>
-              If you&apos;re seeing this page, it means you&apos;re{' '}
+              If you&apos;re seeing this page, it means you&apos;re{" "}
               <b>authenticated</b>. Logging out will redirect you back to the
               login page.
             </>
