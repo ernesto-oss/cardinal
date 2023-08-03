@@ -20,15 +20,13 @@ import { type PackageManager } from "@/utils/getUserPackageManager.js";
 export const rootInstaller = ({
   projectDir,
   projectName,
-  pkgManager,
-  projectOptions,
+  pkgManager, // projectOptions,
 }: {
   projectDir: string;
   projectName: string;
   pkgManager: PackageManager;
   projectOptions: ProjectOptions;
 }) => {
-  const { frontendFramework } = projectOptions;
   const templateRoot = path.join(TEMPLATE_DIR);
   const projectDestination = projectDir;
 
@@ -41,10 +39,6 @@ export const rootInstaller = ({
   copyAndRename("_tsconfig.json", "tsconfig.json");
   copyAndRename("_.gitignore", ".gitignore");
   copyAndRename("_turbo-next.json", "turbo.json");
-  copyAndRename("prettier.config.cjs", "prettier.config.cjs");
-
-  if (frontendFramework === "next")
-    copyAndRename("_.eslintrc-next.js", ".eslintrc.js");
 
   const rootPackageJson = fs.readJsonSync(
     path.join(templateRoot, "package.json"),

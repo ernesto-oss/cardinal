@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { GrGraphQl } from 'react-icons/gr';
+import { GrGraphQl } from "react-icons/gr";
 
 export const QueryBox = ({ children }: { children: React.ReactNode }) => {
   return (

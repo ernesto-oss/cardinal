@@ -1,9 +1,13 @@
-import React from 'react';
-import { cookies } from 'next/headers';
-import { type Client } from '@acme/api/genql';
-import { type GraphqlOperation } from '@acme/api/genql/runtime';
+import { cookies } from "next/headers";
 
-export { generateQueryOp, createClient } from '@acme/api/genql';
+import {
+  createClient,
+  createGeneratedSchema,
+  createScalarsEnumsHash,
+  schema,
+  type QueryFetcher,
+} from "@acme/api";
+import { SESSION_COOKIE_NAME } from "@acme/auth";
 
 export const getBaseUrl = () => {
   if (process.env.VERCEL_URL) {
@@ -13,57 +17,35 @@ export const getBaseUrl = () => {
   return `http://127.0.0.1:${process.env.PORT ?? 3000}`;
 };
 
-export function registerClient(makeClient: () => Client) {
-  const getClient = React.cache(makeClient);
-  return {
-    getClient,
+function createQueryFetcher(fetchOptions?: RequestInit): QueryFetcher {
+  const authorizedRequestSession = cookies().get(SESSION_COOKIE_NAME)?.value;
+
+  return async function ({ query, variables, operationName }) {
+    const response = await fetch(`${getBaseUrl()}/api/graphql`, {
+      method: "POST",
+      headers: {
+        Authorization: authorizedRequestSession
+          ? `Bearer ${authorizedRequestSession}`
+          : "",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query,
+        variables,
+        operationName,
+      }),
+      mode: "cors",
+      ...fetchOptions,
+    });
+
+    const result = await response.json();
+    return result;
   };
 }
 
-export function getDefaultGraphqlHeaders(
-  operation: GraphqlOperation | GraphqlOperation[],
-) {
-  const options = {
-    method: 'POST',
-    body: JSON.stringify(operation),
-    headers: {
-      Accept: 'application/json',
-      'content-type': 'application/json',
-      'content-length': Buffer.byteLength(JSON.stringify(operation)).toString(),
-    },
-  } as RequestInit;
-  return options;
-}
-
-export async function defaultFetcher({
-  operation,
-  fetchOptions,
-}: {
-  operation: GraphqlOperation | GraphqlOperation[];
-  fetchOptions?: RequestInit;
-}) {
-  const response = await fetch(`${getBaseUrl()}/api/graphql`, {
-    ...getDefaultGraphqlHeaders(operation),
-    ...fetchOptions,
-  });
-
-  return await response.json();
-}
-
-export async function protectedFetcher({
-  operation,
-  fetchOptions,
-}: {
-  operation: GraphqlOperation | GraphqlOperation[];
-  fetchOptions?: RequestInit;
-}) {
-  const response = await fetch(`${getBaseUrl()}/api/graphql`, {
-    ...getDefaultGraphqlHeaders(operation),
-    ...fetchOptions,
-    headers: {
-      Authorization: `Bearer ${cookies().get('auth_session')?.value}`,
-    },
-  });
-
-  return await response.json();
-}
+export const client = createClient({
+  fetcher: createQueryFetcher(),
+  generatedSchema: createGeneratedSchema(schema),
+  scalarsEnumsHash: createScalarsEnumsHash(schema),
+});

@@ -1,38 +1,35 @@
-import React from 'react';
-import { cookies } from 'next/headers';
-import { createClient, getBaseUrl, registerClient } from '@/utils/graphql';
-import { SESSION_COOKIE_NAME } from '@acme/auth';
+import React from "react";
 
-import { Hero } from '@/components/hero';
-import { LogoutButton } from '@/components/logout';
-import { QueryBox } from '@/components/query-box';
+import { client } from "@/utils/graphql";
+import { Hero } from "@/components/hero";
+import { LogoutButton } from "@/components/logout";
+import { QueryBox } from "@/components/query-box";
 
-export const dynamic = 'force-dynamic';
-export const runtime = 'edge';
+export const dynamic = "force-dynamic";
+export const runtime = "edge";
 
 export const metadata = {
-  title: 'Protected',
+  title: "Protected",
 };
 
-const makeClient = () => {
-  const client = createClient({
-    url: `${getBaseUrl()}/api/graphql`,
-    fetch: fetch,
-    cache: 'no-store',
-    headers: {
-      Authorization: `Bearer ${cookies().get(SESSION_COOKIE_NAME)?.value}`,
-    },
-  });
-
-  return client;
-};
-
-const { getClient } = registerClient(makeClient);
-
-export default async function IndexPage() {
-  const data = await getClient().query({
-    authorizedOnly: true,
-  });
+/**
+ * When fetching from the GraphQL endpoint, remember that Next.js will try
+ * to make the request on the server to generate the cache and prerender the
+ * page at build time. Make sure that, when building the application, it is
+ * pointing to an endpoint that will send back a response, otherwise, it will
+ * fail on the pre-render stage with a `fetch` error.
+ *
+ * You can also change the page rendering behavior to by changing
+ * the `fetch` caching behavior, or the route segment config:
+ *
+ * @see https://nextjs.org/docs/app/building-your-application/data-fetching/caching
+ * @see https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#using-dynamic-data-fetches
+ * @see https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
+ */
+export default async function ProtectedPage() {
+  const data = await client.resolve(({ query: { authorizedOnly } }) => ({
+    greetingMessage: authorizedOnly,
+  }));
 
   return (
     <>

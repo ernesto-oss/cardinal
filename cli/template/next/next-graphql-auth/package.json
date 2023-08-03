@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "with-env": "dotenv -e ../../.env",
-    "dev": "pnpm with-env next dev",
     "build": "pnpm with-env next build",
-    "start": "pnpm with-env next start",
+    "dev": "pnpm with-env next dev",
+    "format": "pnpm prettier --check \"**/*.{ts,tsx}\" --ignore-unknown",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "start": "pnpm with-env next start",
+    "typecheck": "tsc --noEmit",
+    "with-env": "dotenv -e ../../.env"
   },
   "dependencies": {
     "@acme/api": "file:../../graphql/graphql-next-planetscale-auth",
@@ -17,25 +18,23 @@
     "@hookform/resolvers": "^3.1.1",
     "@radix-ui/react-label": "^2.0.2",
     "autoprefixer": "^10.4.14",
-    "clsx": "^1.2.1",
-    "graphql": "^16.6.0",
-    "next": "13.4.5",
-    "postcss": "^8.4.24",
+    "clsx": "^2.0.0",
+    "next": "13.4.12",
+    "postcss": "^8.4.27",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.44.3",
-    "react-icons": "^4.9.0",
-    "tailwindcss": "^3.3.2",
+    "react-hook-form": "^7.45.2",
+    "react-icons": "^4.10.1",
+    "tailwindcss": "^3.3.3",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
-    "@types/node": "^20.3.1",
-    "@types/react": "^18.2.12",
-    "@types/react-dom": "^18.2.5",
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.0",
+    "@types/react": "^18.2.18",
+    "@types/react-dom": "^18.2.7",
     "dotenv-cli": "^7.2.1",
-    "eslint": "8.42.0",
-    "eslint-config-next": "13.4.5",
-    "prettier-plugin-tailwindcss": "^0.3.0"
+    "eslint": "8.46.0",
+    "eslint-config-next": "13.4.12",
+    "prettier-plugin-tailwindcss": "^0.4.1"
   }
 }

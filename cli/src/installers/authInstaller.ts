@@ -57,10 +57,13 @@ export const authInstaller = ({
   const authDependencies = [
     "@acme/config",
     "@acme/database",
-    "lucia-auth",
+    "lucia",
     "zod",
   ] as AvailableAuthDependenciesKeys[];
-  const authDevDependencies = [] as AvailableAuthDependenciesKeys[];
+  const authDevDependencies = [
+    "prettier",
+    "@ianvs/prettier-plugin-sort-imports",
+  ] as AvailableAuthDependenciesKeys[];
 
   if (databaseProvider === "planetscale")
     authDependencies.push("@lucia-auth/adapter-mysql");

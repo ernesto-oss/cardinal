@@ -6,6 +6,8 @@ export const coreScriptsMap = {
   /* Scripts used by nearly all packages */
   "with-env": "dotenv -e ../../.env",
   typecheck: "tsc --noEmit",
+  format: "pnpm prettier . --check --ignore-unknown",
+  "format:write": "pnpm format --writer",
 };
 
 export const rootScripts = {
@@ -14,14 +16,7 @@ export const rootScripts = {
   dev: "turbo dev --parallel --color",
 };
 
-export const graphQLScriptsMap = {
-  /* Core scripts used by graphql-codegen */
-  "codegen:schema": "graphql-codegen --config codegen.ts",
-  "codegen:client":
-    "npx @genql/cli --output ./genql --schema ./schema.graphql --esm",
-  codegen: "<pkgCommand> codegen:schema && <pkgCommand> codegen:client",
-  dev: 'chokidar "**/*.ts" --silent --initial -i "node_modules" -i "genql" -c "<pkgCommand> codegen"',
-};
+export const graphQLScriptsMap = {};
 
 export const databaseScriptsMap = {
   /* Core scripts used by `drizzle-kit` operations */

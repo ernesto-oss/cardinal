@@ -1,13 +1,13 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import CardinalIcon from '@/assets/brand/cardinal-icon.svg';
-import { IoChevronBack as Back } from 'react-icons/io5';
+import Image from "next/image";
+import Link from "next/link";
+import { IoChevronBack as Back } from "react-icons/io5";
 
-import { UserAuthForm } from '@/components/user-auth-form';
+import { UserAuthForm } from "@/components/user-auth-form";
+import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
 
 export const metadata = {
-  title: 'Create an account',
-  description: 'Create an account to get started.',
+  title: "Create an account",
+  description: "Create an account to get started.",
 };
 
 export default async function RegisterPage() {
@@ -36,13 +36,13 @@ export default async function RegisterPage() {
         </div>
         <UserAuthForm signupForm loginForm={false} />
         <p className="px-8 text-center text-sm text-slate-400">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <Link
             href="/login"
             className="hover:text-brand underline underline-offset-4"
           >
             Sign in
-          </Link>{' '}
+          </Link>{" "}
         </p>
       </div>
     </div>

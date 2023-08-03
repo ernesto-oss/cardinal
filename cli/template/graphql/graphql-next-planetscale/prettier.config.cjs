@@ -1,25 +1,17 @@
 /** @typedef  {import("@ianvs/prettier-plugin-sort-imports").PluginConfig} SortImportsConfig*/
 /** @typedef  {import("prettier").Config} PrettierConfig*/
+const baseConfig = require("@acme/config/prettier.config");
 
-/** @type { PrettierConfig | SortImportsConfig } */
+/** @type { PrettierConfig | SortImportsConfig | TailwindConfig } */
 const config = {
-  arrowParens: "always",
-  printWidth: 80,
-  singleQuote: false,
-  semi: true,
-  trailingComma: "all",
-  tabWidth: 2,
-  plugins: [require("@ianvs/prettier-plugin-sort-imports")],
+  ...baseConfig,
+  plugins: [require.resolve("@ianvs/prettier-plugin-sort-imports")],
   importOrder: [
     "<THIRD_PARTY_MODULES>",
     "",
-    "^types$",
-    "", 
-    "^@/(.*)$",
-    "^@/helpers(.*)$",
-    "^@/installers/(.*)$",
-    "^@/utils/(.*)$",
+    "^@acme/(.*)$",
     "",
+    "^@/(.*)$",
     "^[./]",
   ],
   importOrderParserPlugins: ["typescript", "decorators-legacy"],

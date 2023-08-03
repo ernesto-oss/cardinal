@@ -27,7 +27,7 @@
     "dependencyMap:update": "esrun ./src/helpers/updateDependencyMap.ts",
     "dp:update": "esrun ./src/helpers/updateDependencyMap.ts",
     "dev": "tsup --watch --env.PACKAGE_MANAGER_OVERRIDE=pnpm --env.NODE_ENV=development",
-    "format": "pnpm prettier --parser=babel-ts --check \"src/**/*.{ts,tsx,js,jsx}\" --ignore-unknown",
+    "format": "pnpm prettier --check \"src/**/*.{ts,tsx,js,jsx}\" --ignore-unknown",
     "format:write": "pnpm format -w",
     "lint": "pnpm eslint . -c .eslintrc.cjs",
     "lint:fix": "pnpm lint --fix",

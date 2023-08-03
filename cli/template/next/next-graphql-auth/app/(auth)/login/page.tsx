@@ -1,13 +1,13 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import CardinalIcon from '@/assets/brand/cardinal-icon.svg';
-import { IoChevronBack as Back } from 'react-icons/io5';
+import Image from "next/image";
+import Link from "next/link";
+import { IoChevronBack as Back } from "react-icons/io5";
 
-import { UserAuthForm } from '@/components/user-auth-form';
+import { UserAuthForm } from "@/components/user-auth-form";
+import CardinalIcon from "@/assets/brand/cardinal-icon.svg";
 
 export const metadata = {
-  title: 'Log into your account',
-  description: 'Log into your account to get started.',
+  title: "Log into your account",
+  description: "Log into your account to get started.",
 };
 
 export default async function LoginPage() {
@@ -36,13 +36,13 @@ export default async function LoginPage() {
         </div>
         <UserAuthForm signupForm={false} loginForm />
         <p className="px-8 text-center text-sm text-slate-400">
-          Dont&apos;t have an account?{' '}
+          Dont&apos;t have an account?{" "}
           <Link
             href="/register"
             className="hover:text-brand underline underline-offset-4"
           >
             Sign up
-          </Link>{' '}
+          </Link>{" "}
         </p>
       </div>
     </div>

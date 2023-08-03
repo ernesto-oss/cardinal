@@ -1,5 +1,6 @@
-import Image from 'next/image';
-import ErLogo from '@/assets/brand/er-logo.svg';
+import Image from "next/image";
+
+import ErLogo from "@/assets/brand/er-logo.svg";
 
 interface HomeLayoutProps {
   children: React.ReactNode;

@@ -1,15 +1,12 @@
 {
   "@acme/auth": "workspace:*",
+  "@acme/config": "workspace:*",
   "@acme/database": "workspace:*",
-  "@pothos/core": "^3.32.1",
-  "@pothos/plugin-scope-auth": "^3.20.0",
-  "graphql": "^16.7.1",
-  "graphql-yoga": "^4.0.3",
-  "@genql/cli": "3.0.5",
-  "@graphql-codegen/cli": "^5.0.0",
-  "@graphql-codegen/schema-ast": "^4.0.0",
-  "react": "^18.2.0",
-  "chokidar-cli": "^3.0.0",
-  "@types/react": "^18.2.18",
-  "next": "13.4.12"
+  "garph": "^0.5.7",
+  "gqty": "3.0.0-alpha-577a9298.0",
+  "graphql": "^16.7.0",
+  "graphql-yoga": "4.0.0",
+  "next": "13.4.12",
+  "prettier": "^3.0.0",
+  "@ianvs/prettier-plugin-sort-imports": "^4.1.0"
 }
