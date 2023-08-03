@@ -72,7 +72,7 @@ export const graphQLInstaller = ({
   const templateGraphQLPackageJson = fs.readJsonSync(
     path.join(graphqlTemplateRoot, "package.json"),
   ) as PackageJson;
-  
+
   const graphqlDependencies = [
     "garph",
     "gqty",
@@ -82,7 +82,7 @@ export const graphQLInstaller = ({
   const graphqlDevDependencies = [
     "@acme/config",
     "prettier",
-    "@ianvs/prettier-plugin-sort-imports"
+    "@ianvs/prettier-plugin-sort-imports",
   ] as AvailableGraphqlDependenciesKeys[];
 
   if (frontendFramework === "next") {
@@ -90,8 +90,7 @@ export const graphQLInstaller = ({
     graphqlDependencies.push("graphql-yoga");
   }
 
-  if (authentication)
-    graphqlDependencies.push("@acme/auth");
+  if (authentication) graphqlDependencies.push("@acme/auth");
 
   if (databaseProvider !== "none") graphqlDependencies.push("@acme/database");
 
@@ -123,10 +122,7 @@ export const graphQLInstaller = ({
     packageJson: withAddedDevDependencies,
     scriptsMap: scriptsMap,
     packageManager: pkgManager,
-    scripts: [
-      "with-env",
-      "typecheck",
-    ],
+    scripts: ["with-env", "typecheck"],
   });
 
   const sortedPackageJson = sortPackageJson(withAddedScripts);

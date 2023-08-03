@@ -60,7 +60,10 @@ export const configInstaller = ({
     "zod",
   ] as AvailableConfigDependenciesKeys[];
 
-  const configDevDependencies = ["eslint", "prettier"] as AvailableConfigDependenciesKeys[];
+  const configDevDependencies = [
+    "eslint",
+    "prettier",
+  ] as AvailableConfigDependenciesKeys[];
 
   if (frontendFramework === "next")
     configDependencies.push("eslint-config-next", "eslint-plugin-react");

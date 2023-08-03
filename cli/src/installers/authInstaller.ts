@@ -62,7 +62,7 @@ export const authInstaller = ({
   ] as AvailableAuthDependenciesKeys[];
   const authDevDependencies = [
     "prettier",
-    "@ianvs/prettier-plugin-sort-imports"
+    "@ianvs/prettier-plugin-sort-imports",
   ] as AvailableAuthDependenciesKeys[];
 
   if (databaseProvider === "planetscale")

@@ -6,8 +6,8 @@ export const coreScriptsMap = {
   /* Scripts used by nearly all packages */
   "with-env": "dotenv -e ../../.env",
   typecheck: "tsc --noEmit",
-  "format": "pnpm prettier . --check --ignore-unknown",
-  "format:write": "pnpm format --writer"
+  format: "pnpm prettier . --check --ignore-unknown",
+  "format:write": "pnpm format --writer",
 };
 
 export const rootScripts = {
