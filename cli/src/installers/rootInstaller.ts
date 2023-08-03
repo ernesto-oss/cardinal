@@ -20,8 +20,7 @@ import { type PackageManager } from "@/utils/getUserPackageManager.js";
 export const rootInstaller = ({
   projectDir,
   projectName,
-  pkgManager,
-  // projectOptions,
+  pkgManager, // projectOptions,
 }: {
   projectDir: string;
   projectName: string;
