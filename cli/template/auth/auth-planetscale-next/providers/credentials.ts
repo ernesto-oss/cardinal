@@ -1,10 +1,10 @@
-import { cookies } from 'next/headers';
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
+import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
-import { auth, LuciaError } from '../index';
+import { auth, LuciaError } from "../index";
 
-type CredentialsOperations = ['login' | 'logout' | 'signup'];
+type CredentialsOperations = ["login" | "logout" | "signup"];
 
 export const credentialsAuthSchema = z.object({
   email: z.string().email(),
@@ -17,7 +17,7 @@ export const credentialsAuthSchema = z.object({
  * as you see fit. Refer to Lucia documentation if needed:
  * @see https://lucia-auth.com/
  *
- * Remember, Lucia is not a plug-and-play library like Next-Auth, but it
+ * Remember, Lucia is not a plug-and-play library like Auth.js, but it
  * provides you with the building tools to handle users and validate sessions.
  * While this handler was built to be compatible specifically with Next.js
  * on web environments (cookie based session handling), the primitives used
@@ -31,7 +31,7 @@ export async function credentialsHandler(
   const operation = params.luciaAuth;
 
   /* Signup endpoint handler */
-  if (operation.includes('signup'))
+  if (operation.includes("signup"))
     try {
       const requestBody = await request.json();
       const creds = credentialsAuthSchema.safeParse(requestBody);
@@ -39,19 +39,18 @@ export async function credentialsHandler(
       if (!creds.success)
         return new Response(null, {
           status: 400,
-          statusText: 'BAD_PAYLOAD',
+          statusText: "BAD_PAYLOAD",
         });
 
       if (creds.success) {
         const { email, password } = creds.data;
-
         /**
          * Attempt to create the new user with provided credentials
          * @see https://lucia-auth.com/basics/users#create-users
          */
         const user = await auth.createUser({
-          primaryKey: {
-            providerId: 'email',
+          key: {
+            providerId: "email",
             providerUserId: email,
             password: password,
           },
@@ -65,8 +64,11 @@ export async function credentialsHandler(
          * will be stored on a client cookie
          * @see https://lucia-auth.com/basics/sessions#create-new-session
          */
-        const session = await auth.createSession(user.userId);
-        const authRequest = auth.handleRequest({ request, cookies });
+        const session = await auth.createSession({
+          userId: user.userId,
+          attributes: {},
+        });
+        const authRequest = auth.handleRequest({ cookies, request });
         authRequest.setSession(session);
 
         return new Response(null, {
@@ -77,12 +79,13 @@ export async function credentialsHandler(
       if (error instanceof LuciaError)
         return NextResponse.json({ error: error.message }, { status: 403 });
       else {
-        return NextResponse.json({ error: 'UNKNOWN_ERROR' }, { status: 500 });
+        console.error(error);
+        return NextResponse.json({ error: "UNKNOWN_ERROR" }, { status: 500 });
       }
     }
 
   /* Login endpoint handler */
-  if (operation.includes('login'))
+  if (operation.includes("login"))
     try {
       const requestBody = await request.json();
       const creds = credentialsAuthSchema.safeParse(requestBody);
@@ -91,7 +94,7 @@ export async function credentialsHandler(
       if (!creds.success)
         return new Response(null, {
           status: 400,
-          statusText: 'BAD_PAYLOAD',
+          statusText: "BAD_PAYLOAD",
         });
 
       if (creds.success) {
@@ -99,10 +102,13 @@ export async function credentialsHandler(
          * Attempt to login the user with provided credentials
          * @see https://lucia-auth.com/basics/keys#use-keys
          */
-        const { email, password } = creds.data;
-        const key = await auth.useKey('email', email, password);
-        const session = await auth.createSession(key.userId);
         const authRequest = auth.handleRequest({ request, cookies });
+        const { email, password } = creds.data;
+        const key = await auth.useKey("email", email, password);
+        const session = await auth.createSession({
+          userId: key.userId,
+          attributes: {},
+        });
         authRequest.setSession(session);
 
         return new Response(null, {
@@ -113,17 +119,17 @@ export async function credentialsHandler(
       if (error instanceof LuciaError)
         return NextResponse.json({ error: error.message }, { status: 403 });
       else {
-        return NextResponse.json({ error: 'UNKNOWN_ERROR' }, { status: 500 });
+        return NextResponse.json({ error: "UNKNOWN_ERROR" }, { status: 500 });
       }
     }
 
   /* Logout endpoint handler */
-  if (operation.includes('logout'))
+  if (operation.includes("logout"))
     try {
       const authRequest = auth.handleRequest({ request, cookies });
       const session = await authRequest.validate();
 
-      if (!session) return new Response(null, { status: 401 });
+      if (!session) return NextResponse.json(null, { status: 401 });
 
       /**
        * If the session is valid, invalidate the session on the server and remove
@@ -135,13 +141,13 @@ export async function credentialsHandler(
       return new Response(null, {
         status: 302,
         headers: {
-          location: '/login',
+          location: "/login",
         },
       });
     } catch (error) {
       if (error instanceof LuciaError)
         return NextResponse.json({ error: error.message }, { status: 403 });
       else
-        return NextResponse.json({ error: 'UNKNOWN_ERROR' }, { status: 500 });
+        return NextResponse.json({ error: "UNKNOWN_ERROR" }, { status: 500 });
     }
 }

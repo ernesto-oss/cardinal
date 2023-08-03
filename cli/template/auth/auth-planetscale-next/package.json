@@ -6,11 +6,13 @@
   "dependencies": {
     "@acme/config": "file:../../config",
     "@acme/database": "file:../../database/database-planetscale-auth",
-    "@lucia-auth/adapter-mysql": "^1.1.1",
-    "lucia-auth": "1.8.0",
-    "zod": "^3.21.4"
+    "@lucia-auth/adapter-mysql": "2.0.0",
+    "lucia": "2.0.0",
+    "zod": "^3.21.4" 
   },
   "devDependencies": {
-    "next": "13.4.5"
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.0",
+    "next": "13.4.12",
+    "prettier": "^3.0.0"
   }
 }
