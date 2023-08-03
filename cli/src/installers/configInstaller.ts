@@ -35,6 +35,7 @@ export const configInstaller = ({
     );
 
   copyFile("tsconfig.json");
+  copyFile("prettier.config.js");
 
   if (frontendFramework === "next") {
     copyAndRenameFile("env-with-next.ts", "env.ts");
@@ -59,7 +60,7 @@ export const configInstaller = ({
     "zod",
   ] as AvailableConfigDependenciesKeys[];
 
-  const configDevDependencies = ["eslint"] as AvailableConfigDependenciesKeys[];
+  const configDevDependencies = ["eslint", "prettier"] as AvailableConfigDependenciesKeys[];
 
   if (frontendFramework === "next")
     configDependencies.push("eslint-config-next", "eslint-plugin-react");

@@ -29,7 +29,7 @@ export const graphQLInstaller = ({
   const {
     frontendFramework,
     databaseProvider,
-    deployProvider,
+    // deployProvider,
     authentication,
   } = projectOptions;
   const graphqlTemplateRoot = path.join(TEMPLATE_DIR, "graphql");
@@ -72,11 +72,18 @@ export const graphQLInstaller = ({
   const templateGraphQLPackageJson = fs.readJsonSync(
     path.join(graphqlTemplateRoot, "package.json"),
   ) as PackageJson;
+  
   const graphqlDependencies = [
-    "@pothos/core",
+    "garph",
+    "gqty",
     "graphql",
   ] as AvailableGraphqlDependenciesKeys[];
-  const graphqlDevDependencies = [] as AvailableGraphqlDependenciesKeys[];
+
+  const graphqlDevDependencies = [
+    "@acme/config",
+    "prettier",
+    "@ianvs/prettier-plugin-sort-imports"
+  ] as AvailableGraphqlDependenciesKeys[];
 
   if (frontendFramework === "next") {
     graphqlDevDependencies.push("next");
@@ -84,20 +91,9 @@ export const graphQLInstaller = ({
   }
 
   if (authentication)
-    graphqlDependencies.push("@acme/auth", "@pothos/plugin-scope-auth");
+    graphqlDependencies.push("@acme/auth");
 
   if (databaseProvider !== "none") graphqlDependencies.push("@acme/database");
-
-  if (deployProvider !== "aws") {
-    graphqlDependencies.push("react");
-    graphqlDevDependencies.push(
-      "@types/react",
-      "@genql/cli",
-      "@graphql-codegen/cli",
-      "@graphql-codegen/schema-ast",
-      "chokidar-cli",
-    );
-  }
 
   /* Wipe "dependencies" field from `package.json` in order to replace with the
   correct dependency map */
@@ -129,11 +125,7 @@ export const graphQLInstaller = ({
     packageManager: pkgManager,
     scripts: [
       "with-env",
-      "dev",
       "typecheck",
-      "codegen:client",
-      "codegen:schema",
-      "codegen",
     ],
   });
 

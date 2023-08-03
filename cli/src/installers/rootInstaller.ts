@@ -41,10 +41,9 @@ export const rootInstaller = ({
   copyAndRename("_tsconfig.json", "tsconfig.json");
   copyAndRename("_.gitignore", ".gitignore");
   copyAndRename("_turbo-next.json", "turbo.json");
-  copyAndRename("prettier.config.cjs", "prettier.config.cjs");
 
-  if (frontendFramework === "next")
-    copyAndRename("_.eslintrc-next.js", ".eslintrc.js");
+  // if (frontendFramework === "next")
+  //   copyAndRename("_.eslintrc-next.js", ".eslintrc.js");
 
   const rootPackageJson = fs.readJsonSync(
     path.join(templateRoot, "package.json"),
